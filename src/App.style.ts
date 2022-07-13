@@ -128,6 +128,9 @@ const resetCSS = css`
     border-collapse: collapse;
     border-spacing: 0;
   }
+  a {
+    text-decoration: none;
+  }
 `;
 
 export const GlobalStyle = createGlobalStyle`
@@ -139,6 +142,12 @@ export const GlobalStyle = createGlobalStyle`
   input, button {
     font-family: inherit;
     color: inherit;
+  }
+  a:visited {
+    color: black;
+  }
+  a:link {
+      color: black;
   }
   * {
     box-sizing: border-box;
