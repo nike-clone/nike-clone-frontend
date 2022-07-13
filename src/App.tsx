@@ -1,4 +1,5 @@
 import { GlobalStyle } from 'App.style';
+import MainHeader from 'components/Header/MainHeader';
 import SubHeader from 'components/Header/Sub/SubHeader';
 import Home from 'pages/Home';
 import React from 'react';
@@ -9,6 +10,7 @@ const App = (): JSX.Element => {
     <div className="App">
       <GlobalStyle />
       <SubHeader />
+      <MainHeader />
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
