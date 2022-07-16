@@ -1,4 +1,4 @@
-import { GlobalStyle } from 'App.style';
+import { BaseLayout, GlobalStyle } from 'App.style';
 import SlidingTextBanner from 'components/Header/Bottom/SlidingTextBanner';
 import MainHeader from 'components/Header/MainHeader';
 import SubHeader from 'components/Header/Sub/SubHeader';
@@ -13,9 +13,11 @@ const App = (): JSX.Element => {
       <SubHeader />
       <MainHeader />
       <SlidingTextBanner />
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
+      <BaseLayout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </BaseLayout>
     </div>
   );
 };
