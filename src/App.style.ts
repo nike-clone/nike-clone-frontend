@@ -155,6 +155,6 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 export const BaseLayout = styled.div`
-  padding: 0px 50px;
+  padding: 0px 50px 50px 50px;
   margin: 0 auto;
 `;

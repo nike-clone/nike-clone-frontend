@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Parser from 'html-react-parser';
+import StyledLink from 'components/common/Link/StyledLink';
 const MainBnrContainer = styled.div`
   width: 100%;
 
@@ -11,10 +12,14 @@ const MainBnrContainer = styled.div`
   }
 `;
 const MainBnrTextWrapper = styled.div`
-  padding: 30px 5px;
+  padding: 30px 5px 10px 5px;
   text-align: center;
 `;
-
+const LinkContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+`;
 export interface Props {
   bnrText: string;
 }
@@ -29,6 +34,14 @@ const MainBanner = ({ bnrText }: Props) => {
         />
       </MainBnrContainer>
       <MainBnrTextWrapper>{Parser(bnrText)}</MainBnrTextWrapper>
+      <LinkContainer>
+        <StyledLink target={'/goods'} size="md">
+          자세히 보기
+        </StyledLink>
+        <StyledLink target={'/buy'} size="md">
+          구매하기
+        </StyledLink>
+      </LinkContainer>
     </>
   );
 };

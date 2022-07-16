@@ -1,3 +1,4 @@
+import GoodsBanner from 'components/Banner/goods/GoodsBanner';
 import MainBanner from 'components/Banner/main/MainBanner';
 import React from 'react';
 const HtmlText =
@@ -6,6 +7,8 @@ const Home = (): JSX.Element => {
   return (
     <>
       <MainBanner bnrText={HtmlText} />
+      <MainBanner bnrText={HtmlText} />
+      <GoodsBanner />
     </>
   );
 };
