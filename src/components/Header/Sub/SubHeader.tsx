@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import jorden from 'assets/icons/jorden.png';
 import { Link } from 'react-router-dom';
 import * as Styled from './SubHeader.style';
-import Login from 'components/Login/Login';
+import Login from 'components/form/Login/Login';
 import Modal from 'components/common/modal/Modal';
 import useModal from 'hooks/useModal';
 const SubHeader = (): JSX.Element => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const modalOpenHandler = (e: React.MouseEvent<any>) => {
+  const modalOpenHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     setIsModalOpen(!isModalOpen);
   };
@@ -25,7 +25,7 @@ const SubHeader = (): JSX.Element => {
           </Link>
         </Styled.UserNav>
       </Styled.Container>
-      {isModalOpen && <Modal showModal={modalOpenHandler}>{<div>ss</div>}</Modal>}
+      {isModalOpen && <Modal showModal={modalOpenHandler}>{<Login />}</Modal>}
     </>
   );
 };

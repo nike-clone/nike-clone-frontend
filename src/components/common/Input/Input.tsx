@@ -1,7 +1,7 @@
 import React, { InputHTMLAttributes, ReactNode } from 'react';
 import { Container } from 'react-dom';
 import styled from 'styled-components';
-
+import PALETTE from 'constants/palette';
 const Input = styled.input`
   border-radius: 67px;
   border: none;
@@ -23,23 +23,57 @@ const IconContainer = styled.div`
   display: flex;
   align-items: center;
 `;
+
+const FormInputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+const FormInput = styled.input`
+  width: 100%;
+  height: 40px;
+  padding: 5px 10px;
+  gap: 10px;
+  border: 1px solid ${PALETTE.GRAY[1]};
+  ::placeholder {
+    color: ${PALETTE.GRAY[2]};
+  }
+`;
 const IconImg = styled.img`
   height: 25px;
   width: 25px;
   margin-left: 0px;
 `;
-export interface Props extends InputHTMLAttributes<HTMLInputElement> {
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
   placeholder: string;
-  icon: string;
+  icon?: string;
+}
+
+interface FormProps extends InputHTMLAttributes<HTMLInputElement> {
+  placeholder: string;
+  name: string;
+  type: string;
+  value?: string;
+  onChange?: () => void;
 }
 
 export const StyledInput = ({ placeholder, icon }: Props) => {
   return (
     <>
-      <IconContainer>
-        <IconImg src={icon} />
-      </IconContainer>
+      <IconContainer>{icon && <IconImg src={icon} />}</IconContainer>
       <Input placeholder={placeholder} />
     </>
+  );
+};
+
+export const StyledFormInput = ({ placeholder, name, type, value, onChange }: FormProps) => {
+  return (
+    <FormInput
+      placeholder={placeholder}
+      name={name}
+      type={type}
+      value={value}
+      onChange={onChange}
+    />
   );
 };
