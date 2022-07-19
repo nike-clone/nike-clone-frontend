@@ -15,31 +15,52 @@ const StyledForm = styled.form`
 const ButtonWrapper = styled.div`
   display: flex;
   gap: 5px;
-  .gender {
-    border: 1px solid ${PALETTE.GRAY[1]};
+  .form_radio_btn {
     flex: 1;
-    padding: 10px 5px;
+    height: 45px;
+    border: 1px solid ${PALETTE.GRAY[1]};
+  }
+  .form_radio_btn input[type='radio'] {
+    display: none;
+  }
+  .form_radio_btn label {
     font-size: 14px;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    height: -webkit-fill-available;
+    line-height: 45px;
     &:hover {
       cursor: pointer;
     }
   }
-  .men {
+
+  .form_radio_btn input[type='radio']:checked + label {
     border: 1px solid black;
   }
-  .women {
-    border: 1px solid black;
+
+  .form_radio_btn label:hover {
+    color: #666;
   }
 `;
-const GenderSelect = styled.div``;
+
 const JoinForm = () => {
-  const [{ email, password, passwordConfirm, name, phone, birthDate }, onChange] = useInput({
-    email: '',
-  });
-  const [gender, setGender] = useState('');
-  const selectGender = (gen) => {
-    setGender(gen === 'm' ? 'm' : 'w');
-  };
+  const [{ email, password, passwordConfirm, name, phone, birthDate, gender }, onChange] = useInput(
+    {
+      email: '',
+      password: '',
+      passwordConfirm: '',
+      name: '',
+      phone: '',
+      birthDate: '',
+      gender: '',
+    }
+  );
+  console.log(gender);
+  // const [gender, setGender] = useState('');
+  // const handleSelectGeneder = (e) => {
+
+  // };
   const onSubmit = (e) => {
     e.preventDefault();
   };
@@ -88,17 +109,14 @@ const JoinForm = () => {
         onChange={onChange}
       />
       <ButtonWrapper>
-        <div
-          className={['gender', gender === 'm' ? 'men' : ''].join(' ')}
-          onClick={() => selectGender('m')}
-        >
-          {gender === 'm' && <img src={checkIcon} alt="check" />} 남성
+        <div className="form_radio_btn">
+          <input id="male" type="radio" name="gender" value="male" onChange={onChange} />
+          <label htmlFor="male">남자</label>
         </div>
-        <div
-          className={['gender', gender === 'w' ? 'women' : ''].join(' ')}
-          onClick={() => selectGender('w')}
-        >
-          {gender === 'w' && <img src={checkIcon} alt="check" />} 여성
+
+        <div className="form_radio_btn">
+          <input id="female" type="radio" name="gender" value="female" onChange={onChange} />
+          <label htmlFor="female">여자</label>
         </div>
       </ButtonWrapper>
       <SubmitButton size="lg" backcolor="black" color="white">
