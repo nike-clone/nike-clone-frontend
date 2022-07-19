@@ -25,7 +25,9 @@ const SubHeader = (): JSX.Element => {
           </Link>
         </Styled.UserNav>
       </Styled.Container>
-      {isModalOpen && <Modal showModal={modalOpenHandler}>{<Login />}</Modal>}
+      {isModalOpen && (
+        <Modal showModal={modalOpenHandler}>{<Login modalClose={modalOpenHandler} />}</Modal>
+      )}
     </>
   );
 };
