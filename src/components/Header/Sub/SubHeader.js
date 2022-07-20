@@ -6,11 +6,13 @@ import * as Styled from './SubHeader.style';
 import Login from 'components/form/Login/Login';
 import Modal from 'components/common/modal/Modal';
 import useModal from 'hooks/useModal';
-const SubHeader = (): JSX.Element => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const modalOpenHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    setIsModalOpen(!isModalOpen);
+import { useSelector, useDispatch } from 'react-redux';
+import { modalStateChange } from 'features/modal/modalSlice';
+const SubHeader = () => {
+  const dispatch = useDispatch();
+  const { isModalOpen } = useSelector((state) => state.modal);
+  const modalOpenHandler = () => {
+    dispatch(modalStateChange());
   };
   return (
     <>
@@ -19,7 +21,7 @@ const SubHeader = (): JSX.Element => {
           <img src={jorden} alt="jordan" />
         </Styled.Brand>
         <Styled.UserNav>
-          <Link to="/">고객센터</Link>|<Link to="/">멤버 가입</Link>|
+          <Link to="/">고객센터</Link>|<Link to="/join">멤버 가입</Link>|
           <Link to="/" onClick={modalOpenHandler}>
             로그인
           </Link>

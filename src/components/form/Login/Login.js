@@ -1,11 +1,14 @@
 import { StyledFormInput, StyledInput } from 'components/common/Input/Input';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from 'assets/images/logo.png';
 import { SubmitButton } from 'components/common/button/Button';
 import PALETTE from 'constants/palette';
 import closeIcon from 'assets/icons/closeX.svg';
+import { useDispatch } from 'react-redux';
+import { modalStateChange } from 'features/modal/modalSlice';
+
 const LoginContainer = styled.div`
   position: relative;
   width: 100%;
@@ -65,6 +68,11 @@ const FindLink = styled(Link)`
 `;
 
 const Login = ({ modalClose }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const linkToJoin = () => {
+    dispatch(modalStateChange());
+  };
   return (
     <LoginContainer>
       <div className="closeIcon" onClick={modalClose}>
@@ -91,7 +99,10 @@ const Login = ({ modalClose }) => {
         </SubmitButton>
       </LoginForm>
       <NotAMember>
-        회원이 아니신가요? <JoinLink to="/join">회원가입</JoinLink>
+        회원이 아니신가요?{' '}
+        <JoinLink to="/join" onClick={linkToJoin}>
+          회원가입
+        </JoinLink>
       </NotAMember>
       <JoinLink to="/">비회원 주문 조회</JoinLink>
     </LoginContainer>

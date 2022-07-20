@@ -6,6 +6,10 @@ import heartIcon from 'assets/icons/heart.svg';
 import bagIcon from 'assets/icons/cart.svg';
 import { Link } from 'react-router-dom';
 import { StyledInput } from 'components/common/Input/Input';
+import axios from 'axios';
+import request from 'api/requestMethods';
+import { getCategories } from 'api/header';
+import { useQuery, useQueryClient } from 'react-query';
 const Container = styled.header`
   position: static;
   height: 60px;
@@ -63,16 +67,21 @@ const IconWrapper = styled.div`
 `;
 
 const MainHeader = () => {
-  const menuList = ['New Release', 'Men', 'Women', 'Kids', 'Sale'];
+  const { data: categoryList } = useQuery('categories', getCategories, {
+    enabled: true,
+    refetchOnWindowFocus: false,
+  });
+
   return (
     <Container>
       <img className="main-logo" src={logo} alt="logo" />
       <MenuWrapper>
-        {menuList.map((menu) => (
-          <Menu>
-            <Link to="/">{menu}</Link>
-          </Menu>
-        ))}
+        {categoryList &&
+          categoryList.map((category) => (
+            <Menu key={category.id}>
+              <Link to="/">{category.name}</Link>
+            </Menu>
+          ))}
       </MenuWrapper>
       <GatherWrapper>
         <StyledInput icon={searchIcon} placeholder="검색" />
