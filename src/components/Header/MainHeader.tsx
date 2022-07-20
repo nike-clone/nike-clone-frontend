@@ -6,6 +6,8 @@ import heartIcon from 'assets/icons/heart.svg';
 import bagIcon from 'assets/icons/cart.svg';
 import { Link } from 'react-router-dom';
 import { StyledInput } from 'components/common/Input/Input';
+import axios from 'axios';
+import request from 'api/requestMethods';
 const Container = styled.header`
   position: static;
   height: 60px;
@@ -64,6 +66,8 @@ const IconWrapper = styled.div`
 
 const MainHeader = () => {
   const menuList = ['New Release', 'Men', 'Women', 'Kids', 'Sale'];
+  const menuListt = request.get('/admin/category');
+  console.log(menuListt);
   return (
     <Container>
       <img className="main-logo" src={logo} alt="logo" />

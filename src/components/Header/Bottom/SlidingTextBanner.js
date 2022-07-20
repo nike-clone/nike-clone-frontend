@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import closeIcon from 'assets/icons/closeX.svg';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import useModal from 'hooks/useModal';
 const BannerContainer = styled.div`
   width: 100%;
   height: 64px;
@@ -10,21 +14,28 @@ const BannerContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 10px;
 `;
 const IconBox = styled.div`
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 5px;
+  top: 5px;
 `;
+
 const SlidingTextBanner = () => {
+  const [isModalOpen, modalOpenHandler] = useModal(true);
   const exTxt = '슬라이딩 배너 텍스트 입니다.';
   return (
-    <BannerContainer>
-      <IconBox>
-        <img src={closeIcon} alt="close" />
-      </IconBox>
-      {exTxt}
-    </BannerContainer>
+    <>
+      {isModalOpen && (
+        <BannerContainer>
+          <IconBox onClick={modalOpenHandler}>
+            <img src={closeIcon} alt="close" />
+          </IconBox>
+          {exTxt}
+        </BannerContainer>
+      )}
+    </>
   );
 };
 
