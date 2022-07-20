@@ -1,10 +1,11 @@
 import { StyledFormInput } from 'components/common/Input/Input';
 import PALETTE from 'constants/palette';
 import useInput from 'hooks/useInput';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import checkIcon from 'assets/icons/check.svg';
 import { SubmitButton } from 'components/common/button/Button';
+import { validateEmail } from 'util/validation';
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -43,7 +44,12 @@ const ButtonWrapper = styled.div`
     color: #666;
   }
 `;
-
+const ErrMsg = styled.div`
+  font-size: 12px;
+  color: red;
+  display: flex;
+  justify-content: flex-start;
+`;
 const JoinForm = () => {
   const [{ email, password, passwordConfirm, name, phone, birthDate, gender }, onChange] = useInput(
     {
@@ -56,11 +62,15 @@ const JoinForm = () => {
       gender: '',
     }
   );
-  console.log(gender);
-  // const [gender, setGender] = useState('');
-  // const handleSelectGeneder = (e) => {
-
-  // };
+  const [emailErrMsg, setEmailErrMsg] = useState('');
+  useEffect(() => {
+    const msg = validateEmail(email);
+    if (msg) {
+      setEmailErrMsg(msg);
+    } else {
+      setEmailErrMsg('');
+    }
+  }, [email]);
   const onSubmit = (e) => {
     e.preventDefault();
   };
@@ -73,6 +83,7 @@ const JoinForm = () => {
         value={email}
         onChange={onChange}
       />
+      {<ErrMsg>{emailErrMsg}</ErrMsg>}
       <StyledFormInput
         placeholder="영문 대 소문+숫자+특수문자 8~16자리(괄호(),<> 사용 불가)"
         name="password"

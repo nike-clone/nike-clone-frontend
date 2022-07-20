@@ -21,7 +21,7 @@ const SubHeader = () => {
           <img src={jorden} alt="jordan" />
         </Styled.Brand>
         <Styled.UserNav>
-          <Link to="/">고객센터</Link>|<Link to="/">멤버 가입</Link>|
+          <Link to="/">고객센터</Link>|<Link to="/join">멤버 가입</Link>|
           <Link to="/" onClick={modalOpenHandler}>
             로그인
           </Link>

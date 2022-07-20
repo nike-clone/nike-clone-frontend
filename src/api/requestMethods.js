@@ -11,18 +11,21 @@ const request = axios.create({
 
 request.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem({ key: 'token', defaultValue: '' });
-    if (token) {
-      config.headers = {
-        'Content-type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      };
-    } else {
-      return config;
-    }
+    const token = localStorage.getItem({
+      key: 'access',
+      defaultValue: '',
+    });
+
+    if (typeof token !== 'string' || !token) return config;
+
+    config.headers = {
+      'Content-type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    };
 
     return config;
   },
+
   (error) => {
     return Promise.reject(error);
   }
@@ -32,9 +35,13 @@ request.interceptors.response.use(
   (response) => {
     return response;
   },
+
   (error) => {
-    console.log('err', error);
-    return Promise.reject();
+    if (error) {
+      console.log(error);
+    }
+
+    return Promise.reject(error);
   }
 );
 

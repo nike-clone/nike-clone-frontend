@@ -5,26 +5,46 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import useModal from 'hooks/useModal';
+import BannerSlider from './content/BannerSlider';
+import PALETTE from 'constants/palette';
 const BannerContainer = styled.div`
   width: 100%;
   height: 64px;
-  background-color: rgb(245, 245, 245);
+  background-color: ${PALETTE.GRAY[3]};
   text-align: center;
+  padding: 24px 0;
+  font-size: 16px;
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
 `;
 const IconBox = styled.div`
   position: absolute;
   right: 5px;
   top: 5px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
-
+const Carousel = styled(Slider)`
+  .slick-prev {
+    left: 50px;
+    z-index: 10;
+  }
+  .slick-next {
+    right: 50px;
+  }
+`;
 const SlidingTextBanner = () => {
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrow: true,
+  };
+
   const [isModalOpen, modalOpenHandler] = useModal(true);
-  const exTxt = '슬라이딩 배너 텍스트 입니다.';
+  const exTxt = ['슬라이딩 배너 텍스트 입니다.', 'adasd', 'dfdfd', 's'];
   return (
     <>
       {isModalOpen && (
@@ -32,7 +52,11 @@ const SlidingTextBanner = () => {
           <IconBox onClick={modalOpenHandler}>
             <img src={closeIcon} alt="close" />
           </IconBox>
-          {exTxt}
+          <Carousel {...settings}>
+            {exTxt.map((text) => (
+              <BannerSlider text={text} />
+            ))}
+          </Carousel>
         </BannerContainer>
       )}
     </>
