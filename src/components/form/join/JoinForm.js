@@ -3,9 +3,15 @@ import PALETTE from 'constants/palette';
 import useInput from 'hooks/useInput';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import checkIcon from 'assets/icons/check.svg';
 import { SubmitButton } from 'components/common/button/Button';
-import { validateEmail } from 'util/validation';
+import {
+  validateBithDate,
+  validateEmail,
+  validateName,
+  validatePassword,
+  validatePasswordCheck,
+  validatePhoneNumber,
+} from 'util/validation';
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -50,29 +56,48 @@ const ErrMsg = styled.div`
   display: flex;
   justify-content: flex-start;
 `;
-const JoinForm = () => {
-  const [{ email, password, passwordConfirm, name, phone, birthDate, gender }, onChange] = useInput(
+const JoinForm = ({ data }) => {
+  const [{ email, password, passwordCheck, name, phone, birthOfDate, gender }, onChange] = useInput(
     {
       email: '',
       password: '',
-      passwordConfirm: '',
+      passwordCheck: '',
       name: '',
       phone: '',
-      birthDate: '',
+      birthOfDate: '',
       gender: '',
     }
   );
   const [emailErrMsg, setEmailErrMsg] = useState('');
+  const [birthErrMsg, setBirthErrMsg] = useState('');
+  const [passwordErrMsg, setPasswordErrMsg] = useState('');
+  const [passwordCheckErrMsg, setPasswordCheckErrMsg] = useState('');
+  const [nameErrMsg, setNameErrMsg] = useState('');
+  const [phoneErrMsg, setPhoneErrMsg] = useState('');
   useEffect(() => {
-    const msg = validateEmail(email);
-    if (msg) {
-      setEmailErrMsg(msg);
+    const emailMsg = validateEmail(email);
+    const birthMsg = validateBithDate(birthOfDate);
+    const passwordMsg = validatePassword(password);
+    const passwordCheckMsg = validatePasswordCheck(password, passwordCheck);
+    const nameMsg = validateName(name);
+    const phoneMsg = validatePhoneNumber(phone);
+    if (emailMsg) {
+      setEmailErrMsg(emailMsg);
     } else {
       setEmailErrMsg('');
     }
-  }, [email]);
+    birthMsg ? setBirthErrMsg(birthMsg) : setBirthErrMsg('');
+    nameMsg ? setNameErrMsg(nameMsg) : setNameErrMsg('');
+    passwordMsg ? setPasswordErrMsg(passwordMsg) : setPasswordErrMsg('');
+    passwordCheckMsg ? setPasswordCheckErrMsg(passwordCheckMsg) : setPasswordCheckErrMsg();
+    phoneMsg ? setPhoneErrMsg(phoneMsg) : setPhoneErrMsg('');
+  }, [email, birthOfDate, password, passwordCheck, name, phone]);
   const onSubmit = (e) => {
     e.preventDefault();
+    if (password !== passwordCheck) {
+      return;
+    }
+    data.mutate({ email, password, passwordCheck, name, phone, birthOfDate, gender });
   };
   return (
     <StyledForm onSubmit={onSubmit}>
@@ -91,13 +116,15 @@ const JoinForm = () => {
         value={password}
         onChange={onChange}
       />
+      {<ErrMsg>{passwordErrMsg}</ErrMsg>}
       <StyledFormInput
         placeholder="패스워드를 다시 입력해 주세요."
-        name="passwordConfirm"
+        name="passwordCheck"
         type="password"
-        value={passwordConfirm}
+        value={passwordCheck}
         onChange={onChange}
       />
+      {<ErrMsg>{passwordCheckErrMsg}</ErrMsg>}
       <StyledFormInput
         placeholder="이름을 입력해 주세요."
         name="name"
@@ -105,6 +132,7 @@ const JoinForm = () => {
         value={name}
         onChange={onChange}
       />
+      {<ErrMsg>{nameErrMsg}</ErrMsg>}
       <StyledFormInput
         placeholder="휴대폰 번호을 '-'표 없이 입력해 주세요."
         name="phone"
@@ -112,21 +140,23 @@ const JoinForm = () => {
         value={phone}
         onChange={onChange}
       />
+      {<ErrMsg>{phoneErrMsg}</ErrMsg>}
       <StyledFormInput
         placeholder="생년월일 예)2020.03.01"
-        name="birthDate"
+        name="birthOfDate"
         type="text"
-        value={birthDate}
+        value={birthOfDate}
         onChange={onChange}
       />
+      {<ErrMsg>{birthErrMsg}</ErrMsg>}
       <ButtonWrapper>
         <div className="form_radio_btn">
-          <input id="male" type="radio" name="gender" value="male" onChange={onChange} />
+          <input id="male" type="radio" name="gender" value="Male" onChange={onChange} />
           <label htmlFor="male">남자</label>
         </div>
 
         <div className="form_radio_btn">
-          <input id="female" type="radio" name="gender" value="female" onChange={onChange} />
+          <input id="female" type="radio" name="gender" value="Female" onChange={onChange} />
           <label htmlFor="female">여자</label>
         </div>
       </ButtonWrapper>
