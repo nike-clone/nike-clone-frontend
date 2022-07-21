@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import PALETTE from 'constants/palette';
 import JoinForm from 'components/form/join/JoinForm';
+import { useMutation } from 'react-query';
+import { userJoin } from 'api/join';
+import { useJoin } from 'hooks/useJoin';
 const JoinContainer = styled.div`
   margin: 0 auto;
   max-width: 420px;
@@ -23,6 +26,8 @@ const JoinHeader = styled.div`
 `;
 
 const Join = () => {
+  const data = useJoin();
+  console.log('join', data);
   return (
     <JoinContainer>
       <JoinHeader>
@@ -32,7 +37,7 @@ const Join = () => {
           최고의 제품과 혜택을 만나보세요.
         </p>
       </JoinHeader>
-      <JoinForm />
+      <JoinForm data={data} />
     </JoinContainer>
   );
 };
