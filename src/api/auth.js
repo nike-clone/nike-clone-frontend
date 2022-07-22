@@ -19,7 +19,14 @@ export const userJoin = async ({
     birthOfDate,
     gender,
   });
-  console.log('a', res);
-  console.log('b', res.data);
+
   return res;
 };
+
+
+export const userLogin = async ({
+  email,password
+}) => {
+  const res = await request.post('/users/login',{email,password})
+  return res;
+}
