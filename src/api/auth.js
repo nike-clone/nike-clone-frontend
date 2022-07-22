@@ -23,10 +23,7 @@ export const userJoin = async ({
   return res;
 };
 
-
-export const userLogin = async ({
-  email,password
-}) => {
-  const res = await request.post('/users/login',{email,password})
+export const userLogin = async ({ email, password }) => {
+  const res = await request.post('/users/login', { email, password });
   return res;
-}
+};

@@ -9,8 +9,8 @@ import { Route, Routes } from 'react-router-dom';
 import { QueryClientProvider, QueryClient, useQuery } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { getCategories } from 'api/header';
-
-const queryClient = new QueryClient();
+import jwtDecode from 'jwt-decode';
+export const queryClient = new QueryClient();
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
