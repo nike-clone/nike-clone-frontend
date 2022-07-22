@@ -2,8 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import PALETTE from 'constants/palette';
 import JoinForm from 'components/form/join/JoinForm';
-import { useMutation } from 'react-query';
-import { userJoin } from 'api/join';
 import { useJoin } from 'hooks/useJoin';
 const JoinContainer = styled.div`
   margin: 0 auto;
@@ -27,7 +25,6 @@ const JoinHeader = styled.div`
 
 const Join = () => {
   const data = useJoin();
-  console.log('join', data);
   return (
     <JoinContainer>
       <JoinHeader>
