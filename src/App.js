@@ -10,7 +10,7 @@ import { QueryClientProvider, QueryClient, useQuery } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { getCategories } from 'api/header';
 import jwtDecode from 'jwt-decode';
-import Cart from 'pages/cart/Cart';
+import Cart from 'pages/cart/CartPage';
 export const queryClient = new QueryClient();
 const App = () => {
   return (
