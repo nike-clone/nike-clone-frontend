@@ -36,13 +36,12 @@ export const StyledButton = styled.button`
   font-size: 16px;
   cursor: pointer;
   transition: 0.2s all ease-out;
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-  }
+
 `;
 
 export const SubmitButton = styled(StyledButton)`
   //color: #ffffff;
+  text-decoration:underline;
 `;
 export const EditButton = styled(StyledButton)`
   border: 1px solid black;
