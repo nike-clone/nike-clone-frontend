@@ -10,6 +10,7 @@ import { QueryClientProvider, QueryClient, useQuery } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { getCategories } from 'api/header';
 import jwtDecode from 'jwt-decode';
+import Cart from 'pages/cart/Cart';
 export const queryClient = new QueryClient();
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/join" element={<Join />} />
+            <Route path="/cart" element={<Cart />} />
           </Routes>
         </BaseLayout>
       </div>
