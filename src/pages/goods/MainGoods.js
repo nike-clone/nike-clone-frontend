@@ -2,11 +2,13 @@ import GoodsHeader from 'components/goods/header/GoodsHeader';
 import React from 'react';
 import styled from 'styled-components';
 import shoe1 from 'assets/images/shoe1.jpg';
-import { MEN_SIZE } from 'constants/size';
 import useInput from 'hooks/useInput';
 import GoodsFilter from 'components/goods/filter/color/GoodsColorFilter';
 import GoodsColorFilter from 'components/goods/filter/color/GoodsColorFilter';
 import GoodsSizeFilter from 'components/goods/filter/size/GoodsSizeFilter';
+import useModal from 'hooks/useModal';
+import ProductInfo from 'components/product/info/ProductInfo';
+import { Link } from 'react-router-dom';
 
 const Page = styled.section``;
 const Content = styled.div`
@@ -22,9 +24,16 @@ const Filter = styled.div`
   h3 {
     padding: 15px 10px;
   }
+  @media screen and (min-width: 1024px) {
+    display: ${props => props.isModalOpen ? 'block' : 'none'}
+  }
+ 
+  @media screen and (max-width: 1023px) {
+    display: none;
+  }
 `;
 const GoodsContainer = styled.div`
-  margin-left: 318px;
+  margin-left: ${props=>props.isModalOpen ? '381px' : '0px'};
   display: flex;
   flex-wrap: wrap;
   @media screen and (min-width: 480px) and (max-width: 767px) {
@@ -33,6 +42,7 @@ const GoodsContainer = styled.div`
   @media screen and (min-width: 768px) and (max-width: 1023px) {
     margin: 0px;
   }
+  transition: 0.2s all ease;
 `;
 const GoodsItemWrapper = styled.div`
   width: 33%;
@@ -67,28 +77,45 @@ const MainGoods = () => {
     size: '',
     color: '',
   });
-
+  const GoodsInfo = [
+    { name: '나이키 에어맥스 코코', classification: '여성 샌들', price: 107100, imgPath: shoe1 },
+    { name: '나이키 에어맥스 97', classification: '남성 신발', price: 179100, imgPath: shoe1 },
+    {
+      name: '나이키 에어맥스 리프트 브리드',
+      classification: '여성 신발',
+      price: 116100,
+      imgPath: shoe1,
+    },
+    {
+      name: '나이키 에어맥스 리프트 브리드',
+      classification: '여성 신발',
+      price: 116100,
+      imgPath: shoe1,
+    },
+  ];
+const [isModalOpen,modalOpenHandler] = useModal(true);
   return (
     <Page>
-      <GoodsHeader />
+      <GoodsHeader modalOpenHandler={modalOpenHandler}/>
       <Content>
-        <Filter>
+        <Filter isModalOpen={isModalOpen}>
          <GoodsColorFilter onChange={onChange} color={color}/>
           <GoodsSizeFilter onChange={onChange} size={size}/>
         </Filter>
-        <GoodsContainer>
-          <GoodsItemWrapper>
-            <img src={shoe1} alt="shoe" />
-          </GoodsItemWrapper>
-          <GoodsItemWrapper>
-            <img src={shoe1} alt="shoe" />
-          </GoodsItemWrapper>
-          <GoodsItemWrapper>
-            <img src={shoe1} alt="shoe" />
-          </GoodsItemWrapper>
-          <GoodsItemWrapper>
-            <img src={shoe1} alt="shoe" />
-          </GoodsItemWrapper>
+        <GoodsContainer isModalOpen={isModalOpen}>
+          {GoodsInfo.map(product => (
+         
+  <GoodsItemWrapper>
+       <Link to={{
+              pathname: '/goods',
+              search: `?goodsId=${product.name}`
+            }}>
+  <img src={product.imgPath} alt="shoe" />
+  </Link>
+  <ProductInfo info={product}/>
+</GoodsItemWrapper>
+
+          ))}
         </GoodsContainer>
       </Content>
     </Page>
