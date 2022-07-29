@@ -128,6 +128,9 @@ const resetCSS = css`
     border-collapse: collapse;
     border-spacing: 0;
   }
+  a {
+    text-decoration: none;
+  }
 `;
 
 export const GlobalStyle = createGlobalStyle`
@@ -140,12 +143,18 @@ export const GlobalStyle = createGlobalStyle`
     font-family: inherit;
     color: inherit;
   }
+  a:visited {
+    color: black;
+  }
+  a:link {
+      color: black;
+  }
   * {
     box-sizing: border-box;
   }
 `;
 
 export const BaseLayout = styled.div`
-  padding: 0 1rem;
+  padding: 0px 50px 50px 50px;
   margin: 0 auto;
 `;
