@@ -13,6 +13,7 @@ import jwtDecode from 'jwt-decode';
 import Cart from 'pages/cart/CartPage';
 import PrivateRoute from 'components/common/PrivateRoute';
 import MainGoods from 'pages/goods/MainGoods';
+import DetailGoods from 'pages/goods/detail/DetailGoods';
 export const queryClient = new QueryClient();
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
             <Route path="/join" element={<Join />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/goods/:category" element={<MainGoods />} />
+            <Route path='/goods' element={<DetailGoods />} />
           </Routes>
         </BaseLayout>
       </div>
