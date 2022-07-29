@@ -9,6 +9,7 @@ import GoodsSizeFilter from 'components/goods/filter/size/GoodsSizeFilter';
 import useModal from 'hooks/useModal';
 import ProductInfo from 'components/product/info/ProductInfo';
 import { Link } from 'react-router-dom';
+import { useGoodsItems } from 'hooks/query/useGoods';
 
 const Page = styled.section``;
 const Content = styled.div`
@@ -94,6 +95,8 @@ const MainGoods = () => {
     },
   ];
 const [isModalOpen,modalOpenHandler] = useModal(true);
+const {data:goods,isError,isFetching,isLoading,isSuccess} = useGoodsItems();
+
   return (
     <Page>
       <GoodsHeader modalOpenHandler={modalOpenHandler}/>
@@ -103,18 +106,17 @@ const [isModalOpen,modalOpenHandler] = useModal(true);
           <GoodsSizeFilter onChange={onChange} size={size}/>
         </Filter>
         <GoodsContainer isModalOpen={isModalOpen}>
-          {GoodsInfo.map(product => (
+          {goods.data.map(product => (
          
   <GoodsItemWrapper>
        <Link to={{
               pathname: '/goods',
-              search: `?goodsId=${product.name}`
+              search: `?goodsId=${product.id}`
             }}>
-  <img src={product.imgPath} alt="shoe" />
+  <img src={product.imagePath} alt="shoe" />
   </Link>
   <ProductInfo info={product}/>
 </GoodsItemWrapper>
-
           ))}
         </GoodsContainer>
       </Content>
