@@ -11,6 +11,8 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { getCategories } from 'api/header';
 import jwtDecode from 'jwt-decode';
 import Cart from 'pages/cart/CartPage';
+import PrivateRoute from 'components/common/PrivateRoute';
+import MainGoods from 'pages/goods/MainGoods';
 export const queryClient = new QueryClient();
 const App = () => {
   return (
@@ -25,6 +27,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/join" element={<Join />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/goods/:category" element={<MainGoods />} />
           </Routes>
         </BaseLayout>
       </div>

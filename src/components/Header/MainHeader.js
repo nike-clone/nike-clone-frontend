@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useRef, useState } from 'react';
+import styled, { css } from 'styled-components';
 import logo from 'assets/images/logo.png';
 import searchIcon from 'assets/icons/search.png';
 import heartIcon from 'assets/icons/heart.svg';
@@ -10,6 +10,7 @@ import axios from 'axios';
 import request from 'api/requestMethods';
 import { getCategories } from 'api/header';
 import { useQuery, useQueryClient } from 'react-query';
+import { useScroll } from 'hooks/useScroll';
 const Container = styled.header`
   position: static;
   height: 60px;
@@ -21,7 +22,14 @@ const Container = styled.header`
   z-index: 999;
   transform-origin: top;
   transition: 0.05s;
-
+  ${(props) => {
+    if (props.active) {
+      return css`
+        position: sticky;
+        top: 0px;
+      `;
+    }
+  }}
   .main-logo {
     width: 70px;
     margin-left: 34px;
@@ -71,9 +79,9 @@ const MainHeader = () => {
     enabled: true,
     refetchOnWindowFocus: false,
   });
-
+  const active = useScroll();
   return (
-    <Container>
+    <Container active={active}>
       <img className="main-logo" src={logo} alt="logo" />
       <MenuWrapper>
         {categoryList &&
