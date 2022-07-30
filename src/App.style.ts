@@ -157,4 +157,10 @@ export const GlobalStyle = createGlobalStyle`
 export const BaseLayout = styled.div`
   padding: 0px 50px 50px 50px;
   margin: 0 auto;
+  @media screen and (min-width: 480px) and (max-width: 767px) {
+    padding: 0px 10px 10px 10px;
+  }
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    padding: 0px 20px 20px 20px;
+  }
 `;

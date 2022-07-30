@@ -1,10 +1,9 @@
-import ImgSlider from 'components/common/Slider/ImgSlider';
 import React from 'react';
 import styled from 'styled-components';
-import ProductInfo from './info/ProductInfo';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+
 const Carousel = styled(Slider)`
   .slick-slide > div {
     margin-right: 10px;
@@ -15,17 +14,7 @@ const Carousel = styled(Slider)`
     width: 100%;
   }
 `;
-
-interface Props {
-  goodsInfo: {
-    name: string;
-    classification: string;
-    price: string | number;
-    imgPath: string;
-  }[];
-}
-
-const Product = ({ goodsInfo }: Props): JSX.Element => {
+const ImgSlider = ({children}) => {
   const settings = {
     dots: true,
     infinite: false,
@@ -51,15 +40,9 @@ const Product = ({ goodsInfo }: Props): JSX.Element => {
   };
   return (
     <Carousel {...settings}>
-      {goodsInfo.map((info) => (
-        <>
-          <ImgSlider imgPath={info.imgPath} />
-
-          <ProductInfo info={info} />
-        </>
-      ))}
-    </Carousel>
-  );
+      {children}
+         </Carousel>
+  )
 };
 
-export default Product;
+export default ImgSlider;

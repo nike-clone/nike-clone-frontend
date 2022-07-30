@@ -35,7 +35,11 @@ const GoodsBanner = (): JSX.Element => {
   return (
     <GoodsBannerContainer>
       <BannerLabel>Featured Shoes</BannerLabel>
-      <Product goodsInfo={GoodsInfo} />
+      <ImgSlider>
+      {GoodsInfo.map(goods => (
+ <Product goodsInfo={goods} />
+      ))}
+     </ImgSlider>
     </GoodsBannerContainer>
   );
 };
