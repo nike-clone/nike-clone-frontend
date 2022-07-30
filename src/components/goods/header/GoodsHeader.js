@@ -3,7 +3,7 @@ import * as Styled from 'components/goods/header/GoodsHeader.style';
 import filterIcon from 'assets/icons/filter.svg';
 import downIcon from 'assets/icons/down.svg';
 
-const GoodsHeader = () => {
+const GoodsHeader = ({modalOpenHandler}) => {
   return (
     <Styled.SectionHeader>
       <Styled.CategoryInfo>
@@ -11,7 +11,7 @@ const GoodsHeader = () => {
         <h2>Men's 신발 (100)</h2>
       </Styled.CategoryInfo>
       <Styled.FilterWrapper>
-        <Styled.OptionFilter>
+        <Styled.OptionFilter onClick={modalOpenHandler}>
           <span>필터</span>
           <img src={filterIcon} alt="filter" />
         </Styled.OptionFilter>
