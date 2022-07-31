@@ -26,15 +26,15 @@ const Filter = styled.div`
     padding: 15px 10px;
   }
   @media screen and (min-width: 1024px) {
-    display: ${props => props.isModalOpen ? 'block' : 'none'}
+    display: ${(props) => (props.isModalOpen ? 'block' : 'none')};
   }
- 
+
   @media screen and (max-width: 1023px) {
     display: none;
   }
 `;
 const GoodsContainer = styled.div`
-  margin-left: ${props=>props.isModalOpen ? '381px' : '0px'};
+  margin-left: ${(props) => (props.isModalOpen ? '381px' : '0px')};
   display: flex;
   flex-wrap: wrap;
   @media screen and (min-width: 480px) and (max-width: 767px) {
@@ -94,29 +94,30 @@ const MainGoods = () => {
       imgPath: shoe1,
     },
   ];
-const [isModalOpen,modalOpenHandler] = useModal(true);
-const {data:goods,isError,isFetching,isLoading,isSuccess} = useGoodsItems();
+  const [isModalOpen, modalOpenHandler] = useModal(true);
+  const { data: goods, isError, isFetching, isLoading, isSuccess } = useGoodsItems();
 
   return (
     <Page>
-      <GoodsHeader modalOpenHandler={modalOpenHandler}/>
+      <GoodsHeader modalOpenHandler={modalOpenHandler} />
       <Content>
         <Filter isModalOpen={isModalOpen}>
-         <GoodsColorFilter onChange={onChange} color={color}/>
-          <GoodsSizeFilter onChange={onChange} size={size}/>
+          <GoodsColorFilter onChange={onChange} color={color} />
+          <GoodsSizeFilter onChange={onChange} size={size} />
         </Filter>
         <GoodsContainer isModalOpen={isModalOpen}>
-          {goods.data.map(product => (
-         
-  <GoodsItemWrapper>
-       <Link to={{
-              pathname: '/goods',
-              search: `?goodsId=${product.id}`
-            }}>
-  <img src={product.imagePath} alt="shoe" />
-  </Link>
-  <ProductInfo info={product}/>
-</GoodsItemWrapper>
+          {goods.data.map((product) => (
+            <GoodsItemWrapper>
+              <Link
+                to={{
+                  pathname: '/goods',
+                  search: `?goodsId=${product.id}`,
+                }}
+              >
+                <img src={product.imagePath} alt="shoe" />
+              </Link>
+              <ProductInfo info={product} />
+            </GoodsItemWrapper>
           ))}
         </GoodsContainer>
       </Content>

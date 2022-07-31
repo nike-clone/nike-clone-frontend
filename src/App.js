@@ -28,8 +28,8 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/join" element={<Join />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/goods/:category" element={<MainGoods />} />
-            <Route path='/goods' element={<DetailGoods />} />
+            <Route path="/category" element={<MainGoods />} />
+            <Route path="/goods/:goodsId" element={<DetailGoods />} />
           </Routes>
         </BaseLayout>
       </div>
