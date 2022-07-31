@@ -3,6 +3,7 @@ import React from 'react';
 
 const initialState = {
   user: null,
+  isLoggedIn: false,
 };
 
 const userSlice = createSlice({
@@ -11,8 +12,12 @@ const userSlice = createSlice({
   reducers: {
     setAuthenticatedUser: (state, action) => {
       state.user = action.payload;
+      state.isLoggedIn = true;
     },
-    logoutUser: (state) => (state.user = null),
+    logoutUser: (state) => {
+      state.user = null;
+      state.isLoggedIn = false;
+    },
   },
 });
 
