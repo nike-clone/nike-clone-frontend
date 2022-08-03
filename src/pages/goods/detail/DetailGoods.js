@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import GoodsSizeFilter from 'components/goods/filter/size/GoodsSizeFilter';
 import useInput from 'hooks/useInput';
-
+import { useGoodsDetail } from 'hooks/query/useGoods';
 import { NoneStyleButton, SubmitButton } from 'components/common/button/Button';
 import Parser from 'html-react-parser';
+import { useParams } from 'react-router-dom';
 import GoodsDetailImgList from 'components/goods/detail/GoodsDetailImgList';
 import GoodsDetailInfo from 'components/goods/detail/info/GoodsDetailInfo';
 import GoodsDetailQuantity from 'components/goods/detail/quantity/GoodsDetailQuantity';
@@ -54,7 +55,10 @@ const DetailGoods = () => {
   const [{ size }, onChange] = useInput({
     size: '',
   });
+  let { goodsId } = useParams();
 
+  const { data: goodsDetail, isLoading, isSuccess } = useGoodsDetail(4);
+  console.log('d', goodsDetail);
   return (
     <Page>
       <DetailContainer>
