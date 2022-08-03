@@ -1,11 +1,13 @@
 import styled from 'styled-components';
-import shoe1 from 'assets/images/shoe1.jpg';
 import GoodsSizeFilter from 'components/goods/filter/size/GoodsSizeFilter';
 import useInput from 'hooks/useInput';
-import plus from 'assets/icons/plus.svg';
-import minus from 'assets/icons/minus.svg';
+import { useGoodsDetail } from 'hooks/query/useGoods';
 import { NoneStyleButton, SubmitButton } from 'components/common/button/Button';
 import Parser from 'html-react-parser';
+import { useParams } from 'react-router-dom';
+import GoodsDetailImgList from 'components/goods/detail/GoodsDetailImgList';
+import GoodsDetailInfo from 'components/goods/detail/info/GoodsDetailInfo';
+import GoodsDetailQuantity from 'components/goods/detail/quantity/GoodsDetailQuantity';
 const Page = styled.div`
   max-width: 1440px;
   margin: 0 auto;
@@ -15,72 +17,16 @@ const DetailContainer = styled.div`
   width: 100%;
   margin-top: 50px;
 `;
-const GoodsImgListWrapper = styled.div`
-  width: calc(100% - 449px);
-`;
+
 const DetailInfoWrapper = styled.div`
   width: 449px;
   padding-left: 60px;
 `;
-const DetailImgList = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
-  width: 100%;
-  li {
-  }
-  li > img {
-    width: 100%;
-  }
-`;
-const InfoTop = styled.div`
-  display: flex;
-  justify-content: space-between;
-  .original-price {
-    color: #fa5400;
-  }
-`;
-const GoodsName = styled.span`
-  font-size: 30px;
-  padding-top: 5px;
-`;
-const DiscountPercentage = styled.span`
-  color: #fa5400;
-  font-size: 18px;
-  display: block;
-  padding: 15px 0 30px 0;
-`;
+
 const SizeLabel = styled.span`
   display: block;
 `;
-const PriceWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  span {
-    font-size: 16px;
-    font-weight: 600;
-  }
-  del {
-    margin-left: auto;
-    font-size: 14px;
-  }
-`;
-const Quantity = styled.div`
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid gray;
-  margin-bottom: 15px;
-  .quantity {
-    margin-right: 25px;
-  }
-  .quantity-num {
-    padding-right: 5px;
-    margin-right: 10px;
-    font-size: 14px;
-  }
-`;
+
 const ButtonWrapper = styled.div`
   display: flex;
   gap: 5px;
@@ -109,46 +55,18 @@ const DetailGoods = () => {
   const [{ size }, onChange] = useInput({
     size: '',
   });
+  let { goodsId } = useParams();
+
+  const { data: goodsDetail, isLoading, isSuccess } = useGoodsDetail(4);
+  console.log('d', goodsDetail);
   return (
     <Page>
       <DetailContainer>
-        <GoodsImgListWrapper>
-          <DetailImgList>
-            <li>
-              <img src={shoe1} alt="list" />
-            </li>
-            <li>
-              <img src={shoe1} alt="list" />
-            </li>
-            <li>
-              <img src={shoe1} alt="list" />
-            </li>
-            <li>
-              <img src={shoe1} alt="list" />
-            </li>
-          </DetailImgList>
-        </GoodsImgListWrapper>
+        <GoodsDetailImgList />
         <DetailInfoWrapper>
-          <InfoTop>
-            <span className="classification">남성 신발</span>
-            <PriceWrapper>
-              <span className="original-price">219000 원</span>
-              <del>39000 원</del>
-            </PriceWrapper>
-          </InfoTop>
-          <GoodsName>헤럴드 이라니마</GoodsName>
-          <DiscountPercentage>10% off</DiscountPercentage>
+          <GoodsDetailInfo />
           <GoodsSizeFilter size={size} onChange={onChange} detail />
-          <Quantity>
-            <span className="quantity">수량</span>
-            <span className="quantity-num">1</span>
-            <NoneStyleButton size="sm" backcolor="white">
-              <img src={minus} alt="minus" />
-            </NoneStyleButton>
-            <NoneStyleButton size="sm" backcolor="white">
-              <img src={plus} alt="plus" />
-            </NoneStyleButton>
-          </Quantity>
+          <GoodsDetailQuantity />
           <SubmitButton backcolor="black" color="white" size="lg" round>
             바로구매
           </SubmitButton>

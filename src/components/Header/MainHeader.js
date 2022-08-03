@@ -11,6 +11,7 @@ import request from 'api/requestMethods';
 import { getCategories } from 'api/header';
 import { useQuery, useQueryClient } from 'react-query';
 import { useScroll } from 'hooks/useScroll';
+import { getGoodsItems } from 'api/goods';
 const Container = styled.header`
   position: static;
   height: 60px;
@@ -37,8 +38,6 @@ const Container = styled.header`
 `;
 const MenuWrapper = styled.ul`
   display: flex;
-  gap: 18px;
-
   height: 100%;
   padding-right: 30px;
 `;
@@ -46,6 +45,7 @@ const Menu = styled.li`
   display: flex;
   align-items: center;
   height: 100%;
+  padding-right: 18px;
   &:hover {
     border-bottom: 2px solid black;
   }
@@ -79,15 +79,18 @@ const MainHeader = () => {
     enabled: true,
     refetchOnWindowFocus: false,
   });
+
   const active = useScroll();
   return (
     <Container active={active}>
-      <img className="main-logo" src={logo} alt="logo" />
+      <Link to="/">
+        <img className="main-logo" src={logo} alt="logo" />
+      </Link>
       <MenuWrapper>
         {categoryList &&
           categoryList.map((category) => (
             <Menu key={category.id}>
-              <Link to="/">{category.name}</Link>
+              <Link to="/category">{category.name}</Link>
             </Menu>
           ))}
       </MenuWrapper>

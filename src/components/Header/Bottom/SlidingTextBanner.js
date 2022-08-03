@@ -10,7 +10,7 @@ import PALETTE from 'constants/palette';
 const BannerContainer = styled.div`
   width: 100%;
   height: 64px;
-  background-color: ${PALETTE.GRAY[3]};
+  background-color: ${PALETTE.GRAY[1]};
   text-align: center;
   padding: 24px 0;
   font-size: 16px;
@@ -20,9 +20,6 @@ const IconBox = styled.div`
   position: absolute;
   right: 5px;
   top: 5px;
-  &:hover {
-    cursor: pointer;
-  }
 `;
 const Carousel = styled(Slider)`
   .slick-prev {
