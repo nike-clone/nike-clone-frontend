@@ -1,12 +1,18 @@
 import GoodsHeader from 'components/goods/header/GoodsHeader';
 import React from 'react';
 import styled from 'styled-components';
-import shoe1 from 'assets/images/shoe1.jpg';
-import { MEN_SIZE } from 'constants/size';
+
 import useInput from 'hooks/useInput';
 import GoodsFilter from 'components/goods/filter/color/GoodsColorFilter';
 import GoodsColorFilter from 'components/goods/filter/color/GoodsColorFilter';
 import GoodsSizeFilter from 'components/goods/filter/size/GoodsSizeFilter';
+import useModal from 'hooks/useModal';
+import ProductInfo from 'components/product/info/ProductInfo';
+import { Link } from 'react-router-dom';
+import { useGoodsColors, useGoodsItems } from 'hooks/query/useGoods';
+import ProductList from 'components/product/list/ProductList';
+import { useQuery } from 'react-query';
+import { getGoodsItems } from 'api/goods';
 
 const Page = styled.section``;
 const Content = styled.div`
@@ -22,43 +28,12 @@ const Filter = styled.div`
   h3 {
     padding: 15px 10px;
   }
-`;
-const GoodsContainer = styled.div`
-  margin-left: 318px;
-  display: flex;
-  flex-wrap: wrap;
-  @media screen and (min-width: 480px) and (max-width: 767px) {
-    margin: 0;
-  }
-  @media screen and (min-width: 768px) and (max-width: 1023px) {
-    margin: 0px;
-  }
-`;
-const GoodsItemWrapper = styled.div`
-  width: 33%;
-  margin-bottom: 10px;
-  margin-right: 10px;
-
-  img {
-    width: 100%;
-  }
-  @media screen and (min-width: 480px) and (max-width: 767px) {
-    width: calc(50% - 5px);
-    &:nth-child(2n) {
-      margin-right: 0px;
-    }
-  }
-  @media screen and (min-width: 768px) and (max-width: 1023px) {
-    width: calc(50% - 5px);
-    &:nth-child(2n) {
-      margin-right: 0px;
-    }
-  }
   @media screen and (min-width: 1024px) {
-    width: calc(33% - 5px);
-    &:nth-child(3n) {
-      margin-right: 0px;
-    }
+    display: ${(props) => (props.isModalOpen ? 'block' : 'none')};
+  }
+
+  @media screen and (max-width: 1023px) {
+    display: none;
   }
 `;
 
@@ -67,29 +42,21 @@ const MainGoods = () => {
     size: '',
     color: '',
   });
-
+  console.log(color, size);
+  const [isModalOpen, modalOpenHandler] = useModal(true);
+  const { data } = useQuery('goods', getGoodsItems, {
+    refetchOnWindowFocus: false,
+  });
+  const { data: colors } = useGoodsColors();
   return (
     <Page>
-      <GoodsHeader />
+      <GoodsHeader modalOpenHandler={modalOpenHandler} />
       <Content>
-        <Filter>
-         <GoodsColorFilter onChange={onChange} color={color}/>
-          <GoodsSizeFilter onChange={onChange} size={size}/>
+        <Filter isModalOpen={isModalOpen}>
+          <GoodsColorFilter onChange={onChange} color={color} colors={colors} />
+          <GoodsSizeFilter onChange={onChange} size={size} />
         </Filter>
-        <GoodsContainer>
-          <GoodsItemWrapper>
-            <img src={shoe1} alt="shoe" />
-          </GoodsItemWrapper>
-          <GoodsItemWrapper>
-            <img src={shoe1} alt="shoe" />
-          </GoodsItemWrapper>
-          <GoodsItemWrapper>
-            <img src={shoe1} alt="shoe" />
-          </GoodsItemWrapper>
-          <GoodsItemWrapper>
-            <img src={shoe1} alt="shoe" />
-          </GoodsItemWrapper>
-        </GoodsContainer>
+        <ProductList isModalOpen={isModalOpen} data={data} />
       </Content>
     </Page>
   );

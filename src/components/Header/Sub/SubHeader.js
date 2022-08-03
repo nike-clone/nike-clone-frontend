@@ -15,14 +15,20 @@ const SubHeader = () => {
 
   console.log(user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { isModalOpen } = useSelector((state) => state.modal);
+  const { isSucess } = useSelector((state) => state.user);
   const modalOpenHandler = () => {
     dispatch(modalStateChange());
   };
-  const logout = () => {
+  const logout = (e) => {
+    e.preventDefault();
     localStorage.removeItem('user');
     localStorage.removeItem('tokenId');
     dispatch(logoutUser());
+    if (!isSucess) {
+      navigate('/');
+    }
   };
   return (
     <>
