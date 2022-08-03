@@ -10,3 +10,9 @@ export const getGoodsColors = async () => {
   const res = await request('/goods/colors');
   return res.data;
 };
+
+//상품 상세
+export const getGoodsDetail = async (goodsId) => {
+  const res = await request(`/goods/${goodsId}`);
+  return res.data;
+};
