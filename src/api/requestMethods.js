@@ -1,11 +1,15 @@
 import axios from 'axios';
-
+import qs from 'qs';
 const BASE_URL = 'https://nike-clone-ryan.herokuapp.com/api';
 
 const request = axios.create({
   baseURL: BASE_URL,
   headers: {
     'Content-type': 'application/json',
+  },
+  params: {},
+  paramsSerializer: (params) => {
+    return qs.stringify(params, { arrayFormat: 'repeat' });
   },
 });
 

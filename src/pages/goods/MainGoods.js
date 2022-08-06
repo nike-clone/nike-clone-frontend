@@ -1,7 +1,6 @@
 import GoodsHeader from 'components/goods/header/GoodsHeader';
 import React from 'react';
 import styled from 'styled-components';
-
 import useInput from 'hooks/useInput';
 import GoodsFilter from 'components/goods/filter/color/GoodsColorFilter';
 import GoodsColorFilter from 'components/goods/filter/color/GoodsColorFilter';
@@ -11,8 +10,10 @@ import ProductInfo from 'components/product/info/ProductInfo';
 import { Link } from 'react-router-dom';
 import { useGoodsColors, useGoodsItems } from 'hooks/query/useGoods';
 import ProductList from 'components/product/list/ProductList';
-import { useQuery } from 'react-query';
-import { getGoodsItems } from 'api/goods';
+import useQueryString from 'hooks/useQueryString';
+import { filterGender } from 'util/gender';
+import spinner from 'assets/icons/833.gif';
+import useFilter from 'hooks/useFilter';
 
 const Page = styled.section``;
 const Content = styled.div`
@@ -38,26 +39,34 @@ const Filter = styled.div`
 `;
 
 const MainGoods = () => {
-  const [{ size, color }, onChange] = useInput({
-    size: '',
-    color: '',
+  const queryString = useQueryString('gender');
+  const gender = filterGender(queryString);
+
+  const [{ size, color }, onChange] = useFilter({
+    size: [],
+    color: [],
   });
+
   console.log(color, size);
   const [isModalOpen, modalOpenHandler] = useModal(true);
-  const { data } = useQuery('goods', getGoodsItems, {
-    refetchOnWindowFocus: false,
-  });
+  const { data, isLoading, refetch } = useGoodsItems(gender, color);
+
   const { data: colors } = useGoodsColors();
   return (
     <Page>
       <GoodsHeader modalOpenHandler={modalOpenHandler} />
       <Content>
         <Filter isModalOpen={isModalOpen}>
-          <GoodsColorFilter onChange={onChange} color={color} colors={colors} />
+          <GoodsColorFilter onChange={onChange} color={color} colors={colors} refetch={refetch} />
           <GoodsSizeFilter onChange={onChange} size={size} />
         </Filter>
         <ProductList isModalOpen={isModalOpen} data={data} />
       </Content>
+      {isLoading && (
+        <>
+          <img src={spinner} alt="spinner" />
+        </>
+      )}
     </Page>
   );
 };
