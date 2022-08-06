@@ -28,6 +28,20 @@ const ModalOverlay = styled.div`
   align-items: center;
   transform: translateX(-50%);
 `;
+
+const SideModalOverlay = styled.div`
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  width: 70%;
+  background-color: white;
+  height: 100vh;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 const portalElement = document.getElementById('modal') as HTMLElement;
 
 interface Props {
@@ -40,6 +54,15 @@ const Modal = ({ children, showModal }: Props): JSX.Element => {
     <>
       {createPortal(<Backdrop onClick={showModal} />, portalElement)}
       {createPortal(<ModalOverlay>{children}</ModalOverlay>, portalElement)}
+    </>
+  );
+};
+
+export const SideModal = ({ children, showModal }: Props): JSX.Element => {
+  return (
+    <>
+      {createPortal(<Backdrop onClick={showModal} />, portalElement)}
+      {createPortal(<SideModalOverlay>{children}</SideModalOverlay>, portalElement)}
     </>
   );
 };

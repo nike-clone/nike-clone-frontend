@@ -92,6 +92,7 @@ const JoinForm = ({ data }) => {
     passwordCheckMsg ? setPasswordCheckErrMsg(passwordCheckMsg) : setPasswordCheckErrMsg();
     phoneMsg ? setPhoneErrMsg(phoneMsg) : setPhoneErrMsg('');
   }, [email, birthOfDate, password, passwordCheck, name, phone]);
+
   const onSubmit = (e) => {
     e.preventDefault();
     if (password !== passwordCheck) {
