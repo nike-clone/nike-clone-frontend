@@ -1,3 +1,4 @@
+import React from 'react';
 import * as Styled from 'components/goods/filter/color/GoodsColorFilter.style';
 
 const GoodsColorFilter = ({ onChange, color, colors, refetch }) => {
@@ -26,4 +27,4 @@ const GoodsColorFilter = ({ onChange, color, colors, refetch }) => {
   );
 };
 
-export default GoodsColorFilter;
+export default React.memo(GoodsColorFilter);
