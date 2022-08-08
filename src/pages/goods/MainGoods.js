@@ -1,5 +1,5 @@
 import GoodsHeader from 'components/goods/header/GoodsHeader';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import useInput from 'hooks/useInput';
 import GoodsFilter from 'components/goods/filter/color/GoodsColorFilter';
@@ -41,20 +41,25 @@ const Filter = styled.div`
 const MainGoods = () => {
   const queryString = useQueryString('gender');
   const gender = filterGender(queryString);
-
+  const [optionFilter, setOptionFilter] = useState({ filterName: '신상품순', filterData: '' });
+  console.log(optionFilter);
   const [{ size, color }, onChange] = useFilter({
     size: [],
     color: [],
   });
 
-  console.log(color, size);
   const [isModalOpen, modalOpenHandler] = useModal(true);
-  const { data, isLoading, refetch } = useGoodsItems(gender, color);
+
+  const { data, isLoading, refetch } = useGoodsItems(gender, color, optionFilter.filterData);
 
   const { data: colors } = useGoodsColors();
   return (
     <Page>
-      <GoodsHeader modalOpenHandler={modalOpenHandler} />
+      <GoodsHeader
+        modalOpenHandler={modalOpenHandler}
+        optionFilter={optionFilter}
+        setOptionFilter={setOptionFilter}
+      />
       <Content>
         <Filter isModalOpen={isModalOpen}>
           <GoodsColorFilter onChange={onChange} color={color} colors={colors} refetch={refetch} />
