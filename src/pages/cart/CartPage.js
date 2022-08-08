@@ -45,7 +45,7 @@ const CartPage = () => {
     <Page>
       <CartHeader>장바구니</CartHeader>
       <CartCountWrapper>0개 상품</CartCountWrapper>
-      {GoodsInfo ? <Cart info={GoodsInfo} /> : <EmptyCart />}
+      {GoodsInfo.length > 0 ? <Cart info={GoodsInfo} /> : <EmptyCart />}
     </Page>
   );
 };
