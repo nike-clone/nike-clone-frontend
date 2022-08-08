@@ -1,6 +1,7 @@
+import React from 'react';
 import * as Styled from 'components/goods/filter/color/GoodsColorFilter.style';
 
-const GoodsColorFilter = ({ onChange, color, colors }) => {
+const GoodsColorFilter = ({ onChange, color, colors, refetch }) => {
   return (
     <Styled.FilterUnit>
       <Styled.FilterLable>
@@ -10,7 +11,13 @@ const GoodsColorFilter = ({ onChange, color, colors }) => {
         {colors?.map((color) => (
           <Styled.ColorChipWrapper>
             <Styled.ColorChip color={color.colorCode} />
-            <input type="checkbox" name="color" value={color.colorCode} onChange={onChange} />
+            <input
+              type="checkbox"
+              name="color"
+              value={color.colorCode}
+              onChange={onChange}
+              onClick={refetch}
+            />
             <span className="colorChecked"></span>
             <span>{color.name}</span>
           </Styled.ColorChipWrapper>
@@ -20,4 +27,4 @@ const GoodsColorFilter = ({ onChange, color, colors }) => {
   );
 };
 
-export default GoodsColorFilter;
+export default React.memo(GoodsColorFilter);

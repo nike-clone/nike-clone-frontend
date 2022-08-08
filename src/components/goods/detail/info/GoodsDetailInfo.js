@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 const InfoTop = styled.div`
   display: flex;
@@ -30,18 +30,19 @@ const PriceWrapper = styled.div`
     font-size: 14px;
   }
 `;
-const GoodsDetailInfo = () => {
+const GoodsDetailInfo = ({goodsDetail}) => {
+
   return (
     <>
       <InfoTop>
-        <span className="classification">남성 신발</span>
+        <span className="classification">{goodsDetail?.classification?.type}</span>
         <PriceWrapper>
-          <span className="original-price">219000 원</span>
-          <del>39000 원</del>
+          <span className="original-price">{goodsDetail?.price}</span>
+          <del>{goodsDetail?.salePrice ? goodsDetail.salePrice+' 원' : ''}</del>
         </PriceWrapper>
       </InfoTop>
-      <GoodsName>헤럴드 이라니마</GoodsName>
-      <DiscountPercentage>10% off</DiscountPercentage>
+      <GoodsName>{goodsDetail?.name}</GoodsName>
+      <DiscountPercentage>{goodsDetail?.salePercentage ? goodsDetail.salePercentage+'%' : ''}</DiscountPercentage>
     </>
   );
 };

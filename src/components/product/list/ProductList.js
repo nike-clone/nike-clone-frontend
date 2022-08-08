@@ -42,22 +42,7 @@ const GoodsItemWrapper = styled.div`
     }
   }
 `;
-const GoodsInfo = [
-  { name: '나이키 에어맥스 코코', classification: '여성 샌들', price: 107100, imgPath: shoe1 },
-  { name: '나이키 에어맥스 97', classification: '남성 신발', price: 179100, imgPath: shoe1 },
-  {
-    name: '나이키 에어맥스 리프트 브리드',
-    classification: '여성 신발',
-    price: 116100,
-    imgPath: shoe1,
-  },
-  {
-    name: '나이키 에어맥스 리프트 브리드',
-    classification: '여성 신발',
-    price: 116100,
-    imgPath: shoe1,
-  },
-];
+
 const ProductList = ({ isModalOpen, data }) => {
   return (
     <GoodsContainer isModalOpen={isModalOpen}>
@@ -73,4 +58,4 @@ const ProductList = ({ isModalOpen, data }) => {
   );
 };
 
-export default ProductList;
+export default React.memo(ProductList);

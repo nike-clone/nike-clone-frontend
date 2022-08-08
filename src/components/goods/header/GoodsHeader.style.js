@@ -38,8 +38,48 @@ export const SlidingFilter = styled.div`
     cursor: pointer;
   }
 
-  &:hover {
-    color: gray;
+  .select {
+    display: inline-block;
+    border: none;
+    position: relative;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .select .selected {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 5px;
+  }
+
+  .select .selected .selected-value {
+    max-width: 90px;
+    &:hover {
+      color: gray;
+    }
+  }
+
+  .select ul {
+    opacity: ${(props) => (props.isFilterOpen ? 1 : 0)};
+    width: 100px;
+    position: absolute;
+    background: #fff;
+    right: 16px;
+    margin: 1px 0 0 -1px;
+    padding: 0 0px 5px 10px;
+    border-radius: 10px;
     cursor: pointer;
+    z-index: 50;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .select ul li {
+    padding: 8px 5px;
+    overflow: hidden;
+    text-align: right;
+  }
+  .select ul li:hover {
+    color: gray;
   }
 `;
