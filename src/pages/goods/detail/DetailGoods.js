@@ -8,6 +8,8 @@ import { useParams } from 'react-router-dom';
 import GoodsDetailImgList from 'components/goods/detail/GoodsDetailImgList';
 import GoodsDetailInfo from 'components/goods/detail/info/GoodsDetailInfo';
 import GoodsDetailQuantity from 'components/goods/detail/quantity/GoodsDetailQuantity';
+import { useState } from 'react';
+import ColorChip from 'components/common/color/ColorChip';
 const Page = styled.div`
   max-width: 1440px;
   margin: 0 auto;
@@ -57,15 +59,18 @@ const DetailGoods = () => {
   });
   let { goodsId } = useParams();
 
-  const { data: goodsDetail, isLoading, isSuccess } = useGoodsDetail(4);
+  const { data: goodsDetail, isLoading, isSuccess } = useGoodsDetail(goodsId);
   console.log('d', goodsDetail);
+  const [selectedOption,setSelectedOption] = useState({selectedSize:'',selectedColor:''})
+  console.log('a',selectedOption)
   return (
     <Page>
       <DetailContainer>
         <GoodsDetailImgList />
         <DetailInfoWrapper>
-          <GoodsDetailInfo />
-          <GoodsSizeFilter size={size} onChange={onChange} detail />
+          <GoodsDetailInfo goodsDetail={goodsDetail}/>
+          <ColorChip />
+          <GoodsSizeFilter size={size} onChange={onChange} detail setSelectedOption={setSelectedOption} selectedOption={selectedOption}/>
           <GoodsDetailQuantity />
           <SubmitButton backcolor="black" color="white" size="lg" round>
             바로구매
