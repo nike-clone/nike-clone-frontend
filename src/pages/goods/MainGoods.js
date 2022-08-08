@@ -49,7 +49,7 @@ const MainGoods = () => {
   });
 
   const [isModalOpen, modalOpenHandler] = useModal(true);
-  const [isFilterOpen, filterOpenHandler] = useModal(false);
+
   const { data, isLoading, refetch } = useGoodsItems(gender, color, optionFilter.filterData);
 
   const { data: colors } = useGoodsColors();
@@ -59,8 +59,7 @@ const MainGoods = () => {
         modalOpenHandler={modalOpenHandler}
         optionFilter={optionFilter}
         setOptionFilter={setOptionFilter}
-        isFilterOpen={isFilterOpen}
-        filterOpenHandler={filterOpenHandler}
+        refetch={refetch}
       />
       <Content>
         <Filter isModalOpen={isModalOpen}>
