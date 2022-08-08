@@ -4,8 +4,13 @@ import filterIcon from 'assets/icons/filter.svg';
 import downIcon from 'assets/icons/down.svg';
 import useModal from 'hooks/useModal';
 
-const GoodsHeader = ({ modalOpenHandler, setOptionFilter, optionFilter }) => {
-  const [isFilterOpen, filterOpenHandler] = useModal(false);
+const GoodsHeader = ({
+  modalOpenHandler,
+  setOptionFilter,
+  optionFilter,
+  isFilterOpen,
+  filterOpenHandler,
+}) => {
   const onClickfilter = (e) => {
     setOptionFilter({
       ...GoodsHeader,
