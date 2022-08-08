@@ -4,21 +4,16 @@ import filterIcon from 'assets/icons/filter.svg';
 import downIcon from 'assets/icons/down.svg';
 import useModal from 'hooks/useModal';
 
-const GoodsHeader = ({
-  modalOpenHandler,
-  setOptionFilter,
-  optionFilter,
-  isFilterOpen,
-  filterOpenHandler,
-}) => {
+const GoodsHeader = ({ modalOpenHandler, setOptionFilter, optionFilter, refetch }) => {
   const onClickfilter = (e) => {
     setOptionFilter({
       ...GoodsHeader,
       filterName: e.target.textContent,
       filterData: e.target.dataset.sort,
     });
+    refetch();
   };
-
+  const [isFilterOpen, filterOpenHandler] = useModal(false);
   return (
     <Styled.SectionHeader>
       <Styled.CategoryInfo>
