@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import ProductInfo from '../info/ProductInfo';
 import shoe1 from 'assets/images/shoe1.jpg';
 const GoodsContainer = styled.div`
-  margin-left: ${(props) => (props.isModalOpen ? '381px' : '0px')};
+  margin-left: ${(props) => (props.isModalOpen ? '318px' : '0px')};
   display: flex;
   flex-wrap: wrap;
   @media screen and (min-width: 480px) and (max-width: 767px) {
@@ -58,4 +58,4 @@ const ProductList = ({ isModalOpen, data }) => {
   );
 };
 
-export default React.memo(ProductList);
+export default ProductList;

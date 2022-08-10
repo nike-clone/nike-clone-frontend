@@ -16,7 +16,7 @@ export const useGoodsItems = (gender, color, filterData) => {
         } else if (filterData === 'low') {
           return a.price - b.price;
         } else {
-          return a.salePercentage - b.salePercentage;
+          return b.salePercentage - a.salePercentage;
         }
       });
       console.log(data);
