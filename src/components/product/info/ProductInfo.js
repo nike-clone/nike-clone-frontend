@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PALETTE from 'constants/palette';
+import { formatPrice } from 'util/format';
 const GoodsInfoWrapper = styled.div`
   display: flex;
   padding: 15px 5px;
@@ -54,8 +55,8 @@ const ProductInfo = ({ info }) => {
       <PriceInfo>
         <SalePercentage>{info.salePercentage > 0 ? `${info.salePercentage} %` : ''}</SalePercentage>
         <PriceWrapper>
-          <Price>{info.price} 원</Price>
-          <SalePrice>{info.salePrice ? `${info.salePrice} 원` : ''}</SalePrice>
+          <Price>{formatPrice(info.price)}</Price>
+          <SalePrice>{info.salePrice ? formatPrice(info.salePrice) : ''}</SalePrice>
         </PriceWrapper>
       </PriceInfo>
     </GoodsInfoWrapper>

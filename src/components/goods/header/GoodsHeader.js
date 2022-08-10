@@ -4,7 +4,7 @@ import filterIcon from 'assets/icons/filter.svg';
 import downIcon from 'assets/icons/down.svg';
 import useModal from 'hooks/useModal';
 
-const GoodsHeader = ({ modalOpenHandler, setOptionFilter, optionFilter, refetch }) => {
+const GoodsHeader = ({ modalOpenHandler, setOptionFilter, optionFilter, gender, refetch }) => {
   const onClickfilter = (e) => {
     setOptionFilter({
       ...optionFilter,
@@ -17,8 +17,8 @@ const GoodsHeader = ({ modalOpenHandler, setOptionFilter, optionFilter, refetch 
   return (
     <Styled.SectionHeader>
       <Styled.CategoryInfo>
-        <span>Men</span>
-        <h2>Men's 신발 (100)</h2>
+        <span>{gender}</span>
+        <h2>{gender}'s 신발 </h2>
       </Styled.CategoryInfo>
       <Styled.FilterWrapper>
         <Styled.OptionFilter onClick={modalOpenHandler}>

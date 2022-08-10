@@ -14,6 +14,7 @@ import useQueryString from 'hooks/useQueryString';
 import { filterGender } from 'util/gender';
 import spinner from 'assets/icons/833.gif';
 import useFilter from 'hooks/useFilter';
+import Loading from 'components/Loading/Loading';
 
 const Page = styled.section``;
 const Content = styled.div`
@@ -59,6 +60,7 @@ const MainGoods = () => {
         modalOpenHandler={modalOpenHandler}
         optionFilter={optionFilter}
         setOptionFilter={setOptionFilter}
+        gender={gender}
         refetch={refetch}
       />
       <Content>
@@ -70,7 +72,7 @@ const MainGoods = () => {
       </Content>
       {isLoading && (
         <>
-          <img src={spinner} alt="spinner" />
+          <Loading />
         </>
       )}
     </Page>
