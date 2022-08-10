@@ -7,7 +7,7 @@ import useModal from 'hooks/useModal';
 const GoodsHeader = ({ modalOpenHandler, setOptionFilter, optionFilter, refetch }) => {
   const onClickfilter = (e) => {
     setOptionFilter({
-      ...GoodsHeader,
+      ...optionFilter,
       filterName: e.target.textContent,
       filterData: e.target.dataset.sort,
     });
