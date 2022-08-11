@@ -33,19 +33,21 @@ const ColorChipUnit = styled.div`
   height: 30px;
   border-radius: 50%;
   border: 1px solid #ccc;
-  background-color: red;
+  background-color: ${(props) => props.color};
   margin-bottom: 5px;
 `;
-const ColorChip = () => {
+const ColorChip = ({ colors }) => {
   return (
     <>
       <ColorChipContainer>
-        <ColorChipWrapper>
-          <ColorChipUnit>
-            <input type="radio" name="color" />
-            <span className="colorChecked"></span>
-          </ColorChipUnit>
-        </ColorChipWrapper>
+        {colors.map((detail) => (
+          <ColorChipWrapper>
+            <ColorChipUnit color={detail.color.colorCode}>
+              <input type="radio" name="color" />
+              <span className="colorChecked"></span>
+            </ColorChipUnit>
+          </ColorChipWrapper>
+        ))}
       </ColorChipContainer>
     </>
   );

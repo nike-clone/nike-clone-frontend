@@ -7,8 +7,8 @@ export const useGoodsItems = (gender, color, filterData) => {
     refetchOnWindowFocus: false,
     retry: false,
     select: (data) => {
-      console.log(filterData);
-      data.sort((a, b) => {
+      console.log(data);
+      data.data.sort((a, b) => {
         if (filterData === 'new') {
           return b.createdAt - a.createdAt;
         } else if (filterData === 'high') {
@@ -20,7 +20,7 @@ export const useGoodsItems = (gender, color, filterData) => {
         }
       });
       console.log(data);
-      return data;
+      return data.data;
     },
   });
 };

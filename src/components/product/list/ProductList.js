@@ -49,7 +49,7 @@ const ProductList = ({ isModalOpen, data }) => {
       {data?.map((product) => (
         <GoodsItemWrapper key={product.id}>
           <Link to={`/goods/${product.id}`}>
-            <img src={product.imagePath} alt="shoe" />
+            <img src={product.productImagePrimary} alt="shoe" />
           </Link>
           <ProductInfo info={product} />
         </GoodsItemWrapper>

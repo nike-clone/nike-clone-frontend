@@ -106,8 +106,11 @@ const resetCSS = css`
   section {
     display: block;
   }
+  html,
   body {
     line-height: 1;
+    width: 100%;
+    overflow-x: hidden;
   }
   ol,
   ul {
@@ -157,6 +160,9 @@ export const GlobalStyle = createGlobalStyle`
 export const BaseLayout = styled.div`
   padding: 0px 50px 50px 50px;
   margin: 0 auto;
+  @media screen and (max-width: 479px) {
+    padding: 0px 10px 10px 10px;
+  }
   @media screen and (min-width: 480px) and (max-width: 767px) {
     padding: 0px 10px 10px 10px;
   }
