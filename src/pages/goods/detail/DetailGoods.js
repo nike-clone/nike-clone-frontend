@@ -61,7 +61,7 @@ const DetailGoods = () => {
   let { goodsId } = useParams();
 
   const { data: goodsDetail, isLoading, isSuccess } = useGoodsDetail(goodsId);
-
+  console.log('detail', goodsDetail);
   const [selectedOption, setSelectedOption] = useState({ selectedSize: '', selectedColor: '' });
   console.log('a', selectedOption);
   return (
@@ -70,7 +70,7 @@ const DetailGoods = () => {
         <GoodsDetailImgList />
         <DetailInfoWrapper>
           <GoodsDetailInfo goodsDetail={goodsDetail} />
-          <ColorChip />
+          <ColorChip colors={goodsDetail.goodsItems} />
           <GoodsSizeFilter
             size={size}
             onChange={onChange}

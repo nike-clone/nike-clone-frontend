@@ -5,16 +5,16 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 const Carousel = styled(Slider)`
-  .slick-slide > div {
+  /* .slick-slide > div {
     margin-right: 10px;
-  }
+  } */
   .slick-list {
   }
   .slick-slide > div > img {
     width: 100%;
   }
 `;
-const ImgSlider = ({children}) => {
+const ImgSlider = ({ children }) => {
   const settings = {
     dots: true,
     infinite: false,
@@ -38,11 +38,7 @@ const ImgSlider = ({children}) => {
       },
     ],
   };
-  return (
-    <Carousel {...settings}>
-      {children}
-         </Carousel>
-  )
+  return <Carousel {...settings}>{children}</Carousel>;
 };
 
 export default ImgSlider;

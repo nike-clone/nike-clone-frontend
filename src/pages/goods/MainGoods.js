@@ -42,6 +42,7 @@ const Filter = styled.div`
 const MainGoods = () => {
   const queryString = useQueryString('gender');
   const gender = filterGender(queryString);
+  console.log('gender', gender);
   const [optionFilter, setOptionFilter] = useState({ filterName: '신상품순', filterData: '' });
 
   const [{ size, color }, onChange] = useFilter({
@@ -52,7 +53,7 @@ const MainGoods = () => {
   const [isModalOpen, modalOpenHandler] = useModal(true);
 
   const { data, isLoading, refetch } = useGoodsItems(gender, color, optionFilter.filterData);
-
+  console.log('d', data);
   const { data: colors } = useGoodsColors();
   return (
     <Page>
