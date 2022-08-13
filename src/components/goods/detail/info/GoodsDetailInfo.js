@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { formatPrice } from 'util/format';
 const InfoTop = styled.div`
   display: flex;
   justify-content: space-between;
@@ -30,19 +31,20 @@ const PriceWrapper = styled.div`
     font-size: 14px;
   }
 `;
-const GoodsDetailInfo = ({goodsDetail}) => {
-
+const GoodsDetailInfo = ({ goodsDetail }) => {
   return (
     <>
       <InfoTop>
         <span className="classification">{goodsDetail?.classification?.type}</span>
         <PriceWrapper>
-          <span className="original-price">{goodsDetail?.price}</span>
-          <del>{goodsDetail?.salePrice ? goodsDetail.salePrice+' 원' : ''}</del>
+          <span className="original-price">{formatPrice(goodsDetail?.price)}</span>
+          <del>{goodsDetail?.salePrice ? formatPrice(goodsDetail?.salePrice) : ''}</del>
         </PriceWrapper>
       </InfoTop>
       <GoodsName>{goodsDetail?.name}</GoodsName>
-      <DiscountPercentage>{goodsDetail?.salePercentage ? goodsDetail.salePercentage+'%' : ''}</DiscountPercentage>
+      <DiscountPercentage>
+        {goodsDetail?.salePercentage ? goodsDetail.salePercentage + ' %' : ''}
+      </DiscountPercentage>
     </>
   );
 };

@@ -3,8 +3,8 @@ import shoe1 from 'assets/images/shoe1.jpg';
 import shoe2 from 'assets/images/shoe2.jpg';
 import shoe3 from 'assets/images/shoe3.jpg';
 import shoe4 from 'assets/images/shoe4.jpg';
-import Cart from 'components/Cart/Cart';
-import EmptyCart from 'components/Cart/EmptyCart';
+import Cart from 'components/cart/Cart';
+import EmptyCart from 'components/cart/EmptyCart';
 const CartHeader = styled.h2`
   font-weight: 600;
   font-size: 30px;

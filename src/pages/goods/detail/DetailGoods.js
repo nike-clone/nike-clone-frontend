@@ -10,6 +10,7 @@ import GoodsDetailInfo from 'components/goods/detail/info/GoodsDetailInfo';
 import GoodsDetailQuantity from 'components/goods/detail/quantity/GoodsDetailQuantity';
 import { useState } from 'react';
 import ColorChip from 'components/common/color/ColorChip';
+import Loading from 'components/Loading/Loading';
 const Page = styled.div`
   max-width: 1440px;
   margin: 0 auto;
@@ -60,17 +61,23 @@ const DetailGoods = () => {
   let { goodsId } = useParams();
 
   const { data: goodsDetail, isLoading, isSuccess } = useGoodsDetail(goodsId);
-  console.log('d', goodsDetail);
-  const [selectedOption,setSelectedOption] = useState({selectedSize:'',selectedColor:''})
-  console.log('a',selectedOption)
+  console.log('detail', goodsDetail);
+  const [selectedOption, setSelectedOption] = useState({ selectedSize: '', selectedColor: '' });
+  console.log('a', selectedOption);
   return (
     <Page>
       <DetailContainer>
         <GoodsDetailImgList />
         <DetailInfoWrapper>
-          <GoodsDetailInfo goodsDetail={goodsDetail}/>
-          <ColorChip />
-          <GoodsSizeFilter size={size} onChange={onChange} detail setSelectedOption={setSelectedOption} selectedOption={selectedOption}/>
+          <GoodsDetailInfo goodsDetail={goodsDetail} />
+          <ColorChip colors={goodsDetail.goodsItems} />
+          <GoodsSizeFilter
+            size={size}
+            onChange={onChange}
+            detail
+            setSelectedOption={setSelectedOption}
+            selectedOption={selectedOption}
+          />
           <GoodsDetailQuantity />
           <SubmitButton backcolor="black" color="white" size="lg" round>
             바로구매
@@ -88,6 +95,11 @@ const DetailGoods = () => {
           <RefundTxt>환불</RefundTxt>
         </DetailInfoWrapper>
       </DetailContainer>
+      {isLoading && (
+        <>
+          <Loading />
+        </>
+      )}
     </Page>
   );
 };

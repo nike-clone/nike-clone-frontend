@@ -14,6 +14,7 @@ import useQueryString from 'hooks/useQueryString';
 import { filterGender } from 'util/gender';
 import spinner from 'assets/icons/833.gif';
 import useFilter from 'hooks/useFilter';
+import Loading from 'components/Loading/Loading';
 
 const Page = styled.section``;
 const Content = styled.div`
@@ -41,6 +42,7 @@ const Filter = styled.div`
 const MainGoods = () => {
   const queryString = useQueryString('gender');
   const gender = filterGender(queryString);
+  console.log('gender', gender);
   const [optionFilter, setOptionFilter] = useState({ filterName: '신상품순', filterData: '' });
 
   const [{ size, color }, onChange] = useFilter({
@@ -49,9 +51,9 @@ const MainGoods = () => {
   });
 
   const [isModalOpen, modalOpenHandler] = useModal(true);
-  const [isFilterOpen, filterOpenHandler] = useModal(false);
-  const { data, isLoading, refetch } = useGoodsItems(gender, color, optionFilter.filterData);
 
+  const { data, isLoading, refetch } = useGoodsItems(gender, color, optionFilter.filterData);
+  console.log('d', data);
   const { data: colors } = useGoodsColors();
   return (
     <Page>
@@ -59,8 +61,8 @@ const MainGoods = () => {
         modalOpenHandler={modalOpenHandler}
         optionFilter={optionFilter}
         setOptionFilter={setOptionFilter}
-        isFilterOpen={isFilterOpen}
-        filterOpenHandler={filterOpenHandler}
+        gender={gender}
+        refetch={refetch}
       />
       <Content>
         <Filter isModalOpen={isModalOpen}>
@@ -71,7 +73,7 @@ const MainGoods = () => {
       </Content>
       {isLoading && (
         <>
-          <img src={spinner} alt="spinner" />
+          <Loading />
         </>
       )}
     </Page>

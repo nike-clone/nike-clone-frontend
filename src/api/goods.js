@@ -16,7 +16,6 @@ export const getGoodsItems = async (gender, colorCode) => {
   const res = await request.get(`/goods`, {
     params: params,
   });
-
   return res.data;
 };
 
