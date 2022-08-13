@@ -5,9 +5,12 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 const Carousel = styled(Slider)`
-  /* .slick-slide > div {
+  .slick-list {
+    margin-right: -10px;
+  }
+  .slick-slide > div {
     margin-right: 10px;
-  } */
+  }
   .slick-list {
   }
   .slick-slide > div > img {

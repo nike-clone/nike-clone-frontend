@@ -11,6 +11,8 @@ import GoodsDetailQuantity from 'components/goods/detail/quantity/GoodsDetailQua
 import { useState } from 'react';
 import ColorChip from 'components/common/color/ColorChip';
 import Loading from 'components/Loading/Loading';
+import { useDispatch, useSelector } from 'react-redux';
+import { setGoodsOption } from 'features/goods/optionSlice';
 const Page = styled.div`
   max-width: 1440px;
   margin: 0 auto;
@@ -55,30 +57,32 @@ const RefundTxt = styled.div`
 const exampleTxt =
   '<p><b>편안함의 전설이 재탄생하다.</b></p><br><p>나이키 빅토리 원은 해변에서 경기장 관람석까지 장소를 불문한 머스트해브 클래식 아이템입니다. 가볍고 편안하여 착용하기 쉬우며 더 부드럽고 반응성이 좋은 폼으로 업그레이드되었습니다. 입체적인 그립 패턴은 발을 감싸고 고정해주며 새롭게 패딩 처리된 스트랩은 멋진 룩과 착화감을 선사합니다.</p>';
 const DetailGoods = () => {
-  const [{ size }, onChange] = useInput({
-    size: '',
-  });
+  const option = useSelector((state) => state.option);
+  const dispatch = useDispatch();
+  // const [{ size }, onChange] = useInput({
+  //   size: '',
+  // });
   let { goodsId } = useParams();
 
   const { data: goodsDetail, isLoading, isSuccess } = useGoodsDetail(goodsId);
-  console.log('detail', goodsDetail);
-  const [selectedOption, setSelectedOption] = useState({ selectedSize: '', selectedColor: '' });
-  console.log('a', selectedOption);
+
+  //const [selectedOption, setSelectedOption] = useState({ selectedSize: '', selectedColor: '' });
+
+  const handleGoodsOption = (e) => {
+    dispatch(setGoodsOption({ ...option, [e.target.name]: e.target.value }));
+  };
+  const handleQuantity = (e) => {
+    dispatch(setGoodsOption({ ...option, type: e.target.dataset.option }));
+  };
   return (
     <Page>
       <DetailContainer>
         <GoodsDetailImgList />
         <DetailInfoWrapper>
           <GoodsDetailInfo goodsDetail={goodsDetail} />
-          <ColorChip colors={goodsDetail.goodsItems} />
-          <GoodsSizeFilter
-            size={size}
-            onChange={onChange}
-            detail
-            setSelectedOption={setSelectedOption}
-            selectedOption={selectedOption}
-          />
-          <GoodsDetailQuantity />
+          <ColorChip colors={goodsDetail?.colors} handleGoodsOption={handleGoodsOption} />
+          <GoodsSizeFilter detail handleGoodsOption={handleGoodsOption} />
+          <GoodsDetailQuantity handleQuantity={handleQuantity} quantity={option.quantity} />
           <SubmitButton backcolor="black" color="white" size="lg" round>
             바로구매
           </SubmitButton>

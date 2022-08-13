@@ -1,9 +1,7 @@
 import * as Styled from 'components/goods/filter/size/GoodsSizeFilter.style';
 import { MEN_SIZE } from 'constants/size';
-const GoodsSizeFilter = ({ onChange, size, detail, setSelectedOption, selectedOption }) => {
-const handleGoodsOption = (e) => {
-  setSelectedOption({...selectedOption,selectedSize:e.target.value})
-}
+import { setGoodsOption } from 'features/goods/optionSlice';
+const GoodsSizeFilter = ({ detail, handleGoodsOption }) => {
   return (
     <Styled.FilterUnit detail={detail}>
       {!detail && (
@@ -17,9 +15,9 @@ const handleGoodsOption = (e) => {
           <>
             <Styled.SizeContainer detail={detail}>
               {detail ? (
-                <input type="radio" name="size" value={size} onChange={onChange} onClick={handleGoodsOption}/>
+                <input type="radio" name="size" value={size} onClick={handleGoodsOption} />
               ) : (
-                <input type="checkbox" name="size" value={size} onChange={onChange} />
+                <input type="checkbox" name="size" value={size} />
               )}
 
               <span className="sizeChecked"></span>
