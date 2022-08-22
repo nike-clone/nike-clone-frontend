@@ -26,7 +26,7 @@ const Container = styled.header`
   ${(props) => {
     if (props.active) {
       return css`
-        position: sticky;
+        position: fixed;
         top: 0px;
       `;
     }
@@ -125,7 +125,11 @@ const MainHeader = () => {
           </IconWrapper>
         </GatherWrapper>
       </Container>
-      {isModalOpen && <SideModal showModal={modalOpenHandler}>{<SideMenu />}</SideModal>}
+      {isModalOpen && (
+        <SideModal showModal={modalOpenHandler}>
+          {<SideMenu showModal={modalOpenHandler} />}
+        </SideModal>
+      )}
     </>
   );
 };

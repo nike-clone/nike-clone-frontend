@@ -14,9 +14,9 @@ const optionSlice = createSlice({
       state.size = action.payload.size;
       state.color = action.payload.color;
       if (action.payload.type === 'minus') {
-        state.quantity = state.quantity > 1 ? state.quantity-- : state.quantity;
-      } else {
-        state.quantity++;
+        state.quantity = state.quantity > 1 ? (state.quantity -= 1) : state.quantity;
+      } else if (action.payload.type === 'plus') {
+        state.quantity = state.quantity + 1;
       }
     },
   },

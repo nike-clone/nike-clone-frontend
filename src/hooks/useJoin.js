@@ -32,7 +32,7 @@ export const useLogin = () => {
       localStorage.setItem('user', JSON.stringify(decodedData));
     },
     onError: (error) => {
-      console.log('eer', error);
+      alert(error.response.data.message);
     },
   });
 };

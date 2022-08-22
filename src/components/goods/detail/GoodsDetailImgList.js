@@ -16,22 +16,15 @@ const DetailImgList = styled.ul`
     width: 100%;
   }
 `;
-const GoodsDetailImgList = () => {
+const GoodsDetailImgList = ({ detailImgList }) => {
   return (
     <GoodsImgListWrapper>
       <DetailImgList>
-        <li>
-          <img src={shoe1} alt="list" />
-        </li>
-        <li>
-          <img src={shoe1} alt="list" />
-        </li>
-        <li>
-          <img src={shoe1} alt="list" />
-        </li>
-        <li>
-          <img src={shoe1} alt="list" />
-        </li>
+        {detailImgList?.goodsItemImages.map((img) => (
+          <li>
+            <img src={img} alt="list" />
+          </li>
+        ))}
       </DetailImgList>
     </GoodsImgListWrapper>
   );

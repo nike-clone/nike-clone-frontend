@@ -1,5 +1,6 @@
 import useFilter from 'hooks/useFilter';
 import useInput from 'hooks/useInput';
+import { createRef, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 const ColorChipContainer = styled.div`
   display: flex;
@@ -46,17 +47,23 @@ const ColorChipUnit = styled.div`
   margin-right: 5px;
 `;
 const ColorChip = ({ colors, handleGoodsOption }) => {
+  const colorInput = useRef([]);
+
+  useEffect(() => {
+    colorInput?.current[0]?.click();
+  }, []);
   return (
     <>
       <ColorChipContainer>
-        {colors?.map((color) => (
+        {colors?.map((color, index) => (
           <ColorChipWrapper key={color.id}>
             <ColorChipUnit color={color.colorCode}>
               <input
                 type="radio"
                 name="color"
-                value={color.colorCode}
-                onClick={handleGoodsOption}
+                value={color.id}
+                onClick={(e) => handleGoodsOption(e, color.id)}
+                ref={(el) => (colorInput.current[index] = el)}
               />
               <span className="colorChecked"></span>
             </ColorChipUnit>

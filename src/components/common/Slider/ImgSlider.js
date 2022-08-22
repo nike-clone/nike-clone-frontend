@@ -13,7 +13,10 @@ const Carousel = styled(Slider)`
   }
   .slick-list {
   }
-  .slick-slide > div > img {
+  .slick-slide > div > a {
+    width: 100%;
+  }
+  .slick-slide > div > a > img {
     width: 100%;
   }
 `;
