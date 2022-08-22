@@ -32,6 +32,13 @@ export const SizeContainer = styled.label`
   font-size: 12px;
   position: relative;
   ${(props) => {
+    if (props.stock < 1) {
+      return css`
+        background-color: gray;
+      `;
+    }
+  }}
+  ${(props) => {
     if (props.detail) {
       return css`
         padding: 14px 0px;

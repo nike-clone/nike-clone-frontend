@@ -16,7 +16,9 @@ import spinner from 'assets/icons/833.gif';
 import useFilter from 'hooks/useFilter';
 import Loading from 'components/Loading/Loading';
 
-const Page = styled.section``;
+const Page = styled.section`
+  height: 100vh;
+`;
 const Content = styled.div`
   display: flex;
   position: relative;
@@ -42,7 +44,7 @@ const Filter = styled.div`
 const MainGoods = () => {
   const queryString = useQueryString('gender');
   const gender = filterGender(queryString);
-  console.log('gender', gender);
+
   const [optionFilter, setOptionFilter] = useState({ filterName: '신상품순', filterData: '' });
 
   const [{ size, color }, onChange] = useFilter({
@@ -55,6 +57,7 @@ const MainGoods = () => {
   const { data, isLoading, refetch } = useGoodsItems(gender, color, optionFilter.filterData);
   console.log('d', data);
   const { data: colors } = useGoodsColors();
+
   return (
     <Page>
       <GoodsHeader

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef, useCallback, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import ProductInfo from '../info/ProductInfo';
@@ -46,11 +46,8 @@ const GoodsItemWrapper = styled.div`
 const ProductList = ({ isModalOpen, data }) => {
   return (
     <GoodsContainer isModalOpen={isModalOpen}>
-      {data?.map((product) => (
+      {data?.map((product, index) => (
         <GoodsItemWrapper key={product.id}>
-          <Link to={`/goods/${product.id}`}>
-            <img src={product.productImagePrimary} alt="shoe" />
-          </Link>
           <ProductInfo info={product} />
         </GoodsItemWrapper>
       ))}

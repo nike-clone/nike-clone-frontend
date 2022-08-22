@@ -15,17 +15,11 @@ const request = axios.create({
 
 request.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem({
-      key: 'tokenId',
-      defaultValue: '',
-    });
+    const token = localStorage.getItem('tokenId');
 
     if (typeof token !== 'string' || !token) return config;
 
-    config.headers = {
-      'Content-type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    };
+    config.headers.Authorization = `Bearer ${token}`;
 
     return config;
   },

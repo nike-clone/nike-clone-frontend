@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import PALETTE from 'constants/palette';
 import { formatPrice } from 'util/format';
+import { Link } from 'react-router-dom';
 const GoodsInfoWrapper = styled.div`
   display: flex;
   padding: 15px 5px;
@@ -44,22 +45,60 @@ const SalePercentage = styled.span`
 const ColorQuantity = styled.span`
   color: ${PALETTE.GRAY[0]};
 `;
+const MiniImageWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+`;
+const MiniImageLists = styled.div`
+  width: 30px;
+  height: 40px;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+`;
 const ProductInfo = ({ info }) => {
+  const [isShowColorExtra, setIsShowColorExtra] = useState(false);
+  const showExtra = useCallback(() => {
+    setIsShowColorExtra((prev) => !prev);
+  }, []);
   return (
-    <GoodsInfoWrapper>
-      <DetailInfo>
-        <ProductName>{info.name}</ProductName>
-        <Classification>{info.classification?.type}</Classification>
-        <ColorQuantity>3 컬러</ColorQuantity>
-      </DetailInfo>
-      <PriceInfo>
-        <SalePercentage>{info.salePercentage > 0 ? `${info.salePercentage} %` : ''}</SalePercentage>
-        <PriceWrapper>
-          <Price>{formatPrice(info.price)}</Price>
-          <SalePrice>{info.salePrice ? formatPrice(info.salePrice) : ''}</SalePrice>
-        </PriceWrapper>
-      </PriceInfo>
-    </GoodsInfoWrapper>
+    <>
+      <Link to={`/goods/${info.id}`} onMouseEnter={showExtra} onMouseLeave={showExtra}>
+        <img src={info.productImagePrimary} alt="shoe" />
+      </Link>
+      <GoodsInfoWrapper onMouseEnter={showExtra} onMouseLeave={showExtra}>
+        <DetailInfo>
+          <ProductName>{info.name}</ProductName>
+          <Classification>{info.classification?.type}</Classification>
+          {isShowColorExtra ? (
+            <MiniImageWrapper>
+              {info.productImageExtra?.map((extra) => (
+                <MiniImageLists>
+                  <img src={extra} alt="product-mini" />
+                </MiniImageLists>
+              ))}
+            </MiniImageWrapper>
+          ) : (
+            <ColorQuantity>
+              {info.productImageExtra?.length > 0
+                ? `${info.productImageExtra.length} 컬러`
+                : '0 컬러'}
+            </ColorQuantity>
+          )}
+        </DetailInfo>
+        <PriceInfo>
+          <SalePercentage>
+            {info.salePercentage > 0 ? `${info.salePercentage} %` : ''}
+          </SalePercentage>
+          <PriceWrapper>
+            <Price>{formatPrice(info.price)}</Price>
+            <SalePrice>{info.salePrice ? formatPrice(info.salePrice) : ''}</SalePrice>
+          </PriceWrapper>
+        </PriceInfo>
+      </GoodsInfoWrapper>
+    </>
   );
 };
 

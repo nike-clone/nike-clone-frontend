@@ -17,16 +17,16 @@ const Quantity = styled.div`
     font-size: 14px;
   }
 `;
-const GoodsDetailQuantity = () => {
+const GoodsDetailQuantity = ({ handleQuantity, quantity }) => {
   return (
     <Quantity>
       <span className="quantity">수량</span>
-      <span className="quantity-num">1</span>
-      <NoneStyleButton size="sm" backcolor="white">
-        <img src={minus} alt="minus" />
+      <span className="quantity-num">{quantity}</span>
+      <NoneStyleButton size="sm" backcolor="white" onClick={handleQuantity}>
+        <img src={minus} alt="minus" data-option="minus" />
       </NoneStyleButton>
-      <NoneStyleButton size="sm" backcolor="white">
-        <img src={plus} alt="plus" />
+      <NoneStyleButton size="sm" backcolor="white" onClick={handleQuantity}>
+        <img src={plus} alt="plus" data-option="plus" />
       </NoneStyleButton>
     </Quantity>
   );
