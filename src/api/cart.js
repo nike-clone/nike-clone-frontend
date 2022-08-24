@@ -13,3 +13,9 @@ export const addCart = async ({ quantity, goodsId, size, colorId }) => {
   console.log('r', res);
   return res;
 };
+
+export const getCart = async () => {
+  const res = await request.get('/cart-items');
+
+  return res.data;
+};

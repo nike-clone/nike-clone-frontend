@@ -2,6 +2,7 @@ import PALETTE from 'constants/palette';
 import React from 'react';
 import styled from 'styled-components';
 import closeIcon from 'assets/icons/closeX.svg';
+import { formatPrice } from 'util/format';
 const ItemWrapper = styled.div`
   border-top: 2px solid ${PALETTE.GRAY[1]};
   padding: 25px 0;
@@ -51,6 +52,12 @@ const ItemPriceDetail = styled.div`
   flex: 1;
   padding: 0px 30px;
   color: ${PALETTE.ORANGE[0]};
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  del {
+    color: #000;
+  }
 `;
 const CloseIcon = styled.div`
   position: absolute;
@@ -61,23 +68,25 @@ const CloseIcon = styled.div`
     cursor: pointer;
   }
 `;
-const CartItem = ({ imgPath, name, classification }) => {
+const CartItem = ({ color, goods, size, quantity }) => {
   return (
     <ItemWrapper>
       <ItemDetail>
         <ItemImg>
-          <img src={imgPath} alt="sd" />
+          <img src={goods?.productImagePrimary} alt="sd" />
           <ItemInfo>
-            <h2>{name}</h2>
-            <span>{classification}</span>
-            <span>사이즈: FREE</span>
-            <span className="quantity">수량: 1</span>
+            <h2>{goods?.name}</h2>
+            <span>사이즈: {size}</span>
+            <span className="quantity">수량: {quantity}</span>
           </ItemInfo>
         </ItemImg>
         <ItemOptionChange>
           <GrayTextBtn>옵션 변경</GrayTextBtn>
         </ItemOptionChange>
-        <ItemPriceDetail>29,000원</ItemPriceDetail>
+        <ItemPriceDetail>
+          <del>{formatPrice(goods?.price)}</del>
+          <span>{formatPrice(goods?.salePrice)}</span>
+        </ItemPriceDetail>
       </ItemDetail>
       <ButtonWrapper>
         <GrayTextBtn>위시리스트에 추가</GrayTextBtn>
