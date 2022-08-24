@@ -5,6 +5,9 @@ import shoe3 from 'assets/images/shoe3.jpg';
 import shoe4 from 'assets/images/shoe4.jpg';
 import Cart from 'components/cart/Cart';
 import EmptyCart from 'components/cart/EmptyCart';
+import useCart from 'hooks/query/useCart';
+import Loading from 'components/Loading/Loading';
+import { useMemo } from 'react';
 const CartHeader = styled.h2`
   font-weight: 600;
   font-size: 30px;
@@ -22,29 +25,21 @@ const Page = styled.div`
   align-items: center;
 `;
 
-const GoodsInfo = [
-  { name: '나이키 에어맥스 코코', classification: '여성 샌들', price: 107100, imgPath: shoe1 },
-  { name: '나이키 에어맥스 97', classification: '남성 신발', price: 179100, imgPath: shoe2 },
-  {
-    name: '나이키 에어맥스 리프트 브리드',
-    classification: '여성 신발',
-    price: 116100,
-    imgPath: shoe3,
-  },
-  {
-    name: '나이키 에어맥스 리프트 브리드',
-    classification: '여성 신발',
-    price: 116100,
-    imgPath: shoe4,
-  },
-];
-
 const CartPage = () => {
+  const { data: cartInfo, isLoading, refetch } = useCart();
+
+  const totalPrice = useMemo(() => {
+    return cartInfo?.reduce((acc, cur) => {
+      return (acc += cur.goodsItem.goods.salePrice);
+    }, 0);
+  }, [cartInfo]);
+
   return (
     <Page>
       <CartHeader>장바구니</CartHeader>
-      <CartCountWrapper>0개 상품</CartCountWrapper>
-      {GoodsInfo.length > 0 ? <Cart info={GoodsInfo} /> : <EmptyCart />}
+      <CartCountWrapper>{cartInfo?.length}개 상품</CartCountWrapper>
+      {cartInfo?.length > 0 ? <Cart info={cartInfo} totalPrice={totalPrice} /> : <EmptyCart />}
+      {isLoading && <Loading />}
     </Page>
   );
 };

@@ -26,18 +26,17 @@ const CheckoutHeader = styled.div`
   font-size: 18px;
 `;
 
-const Cart = ({ info }) => {
-  console.log('i', info);
+const Cart = ({ info, totalPrice }) => {
   return (
     <CartContainer>
       <CartItemContainer>
         {info?.map((x) => (
-          <CartItem {...x} key={x.id} />
+          <CartItem {...x.goodsItem} quantity={x.quantity} key={x.id} />
         ))}
       </CartItemContainer>
       <CheckoutWrapper>
         <CheckoutHeader>주문예정금액</CheckoutHeader>
-        <CartCheckout />
+        <CartCheckout totalPrice={totalPrice} />
       </CheckoutWrapper>
     </CartContainer>
   );

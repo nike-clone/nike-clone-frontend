@@ -15,6 +15,7 @@ import { setGoodsOption } from 'features/goods/optionSlice';
 import DetailGoodsSizeFilter from 'components/goods/detail/size/DetailGoodsSizeFilter';
 import { useMutation } from 'react-query';
 import { addCart } from 'api/cart';
+import useCart from 'hooks/query/useCart';
 const Page = styled.div`
   max-width: 1440px;
   margin: 0 auto;
@@ -68,7 +69,7 @@ const DetailGoods = () => {
   const { goodsId } = useParams();
   const { data: goodsDetail, isLoading, isSuccess } = useGoodsDetail(goodsId);
   const option = useSelector((state) => state.option);
-
+  const { data: cartItems, refetch } = useCart();
   const dispatch = useDispatch();
   // const [{ size }, onChange] = useInput({
   //   size: '',
@@ -91,14 +92,16 @@ const DetailGoods = () => {
   const addToCart = useMutation(addCart, {
     onSuccess: () => {
       alert('성공');
+      refetch();
     },
-    onError: () => {
-      alert('실패');
+    onError: (e) => {
+      if (e.response.status === 406) {
+        alert('이미 장바구니에 존재하는 상품입니다.');
+      }
     },
   });
 
   const handleAddCart = (quantity, colorId, size, goodsId) => {
-    console.log(quantity, colorId, size, goodsId);
     if (!colorId) {
       alert('색상을 선택해 주세요!');
       return;
@@ -107,6 +110,7 @@ const DetailGoods = () => {
       alert('사이즈를 선택해 주세요!');
       return;
     }
+
     addToCart.mutate({ quantity, goodsId, size, colorId });
   };
   return (

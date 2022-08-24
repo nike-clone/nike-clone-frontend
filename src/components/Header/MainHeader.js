@@ -6,12 +6,12 @@ import hamburgerIcon from 'assets/icons/hamburger.svg';
 import bagIcon from 'assets/icons/cart.svg';
 import { Link } from 'react-router-dom';
 import { StyledInput } from 'components/common/Input/Input';
-import { getCategories } from 'api/header';
-import { useQuery } from 'react-query';
 import { useScroll } from 'hooks/useScroll';
 import Modal, { SideModal } from 'components/common/modal/Modal';
 import SideMenu from './Side/SideMenu';
 import useModal from 'hooks/useModal';
+import PALETTE from 'constants/palette';
+import useCart from 'hooks/query/useCart';
 const Container = styled.header`
   position: static;
   height: 60px;
@@ -88,12 +88,31 @@ const IconWrapper = styled.div`
     }
   }
 `;
-
+const CartBag = styled.div`
+  position: relative;
+`;
+const CartCounter = styled.div`
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  background-color: ${PALETTE.ORANGE[0]};
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+`;
 const MainHeader = () => {
   // const { data: categoryList } = useQuery('categories', getCategories, {
   //   enabled: true,
   //   refetchOnWindowFocus: false,
   // });
+  // const { data, refetch } = useQuery(['cart-counts'], getCart, {
+  //   enabled: true,
+  //   refetchOnWindowFocus: false,
+  // });
+  const { data: cartCount } = useCart();
 
   const active = useScroll();
 
@@ -120,7 +139,12 @@ const MainHeader = () => {
           <StyledInput icon={searchIcon} placeholder="검색" />
           <IconWrapper>
             <img className="heart" src={heartIcon} alt="heart" />
-            <img src={bagIcon} alt="bag" />
+            <CartBag>
+              <Link to="/cart">
+                <img src={bagIcon} alt="bag" />
+                <CartCounter>{cartCount?.length}</CartCounter>
+              </Link>
+            </CartBag>
             <img className="menu" src={hamburgerIcon} alt="menu" onClick={modalOpenHandler} />
           </IconWrapper>
         </GatherWrapper>
