@@ -134,6 +134,13 @@ const resetCSS = css`
   a {
     text-decoration: none;
   }
+  .App {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch; /* 추가 */
+  }
 `;
 
 export const GlobalStyle = createGlobalStyle`
@@ -157,7 +164,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export const BaseLayout = styled.div`
+export const BaseLayout = styled.main`
   padding: 0px 50px 50px 50px;
   margin: 0 auto;
   @media screen and (max-width: 479px) {
