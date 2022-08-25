@@ -3,6 +3,8 @@ import React from 'react';
 import styled from 'styled-components';
 import closeIcon from 'assets/icons/closeX.svg';
 import { formatPrice } from 'util/format';
+import { useMutation, useQueryClient } from 'react-query';
+import { deleteCart } from 'api/cart';
 const ItemWrapper = styled.div`
   border-top: 2px solid ${PALETTE.GRAY[1]};
   padding: 25px 0;
@@ -68,7 +70,19 @@ const CloseIcon = styled.div`
     cursor: pointer;
   }
 `;
-const CartItem = ({ color, goods, size, quantity }) => {
+const CartItem = ({ color, goods, size, quantity, id }) => {
+  const queryClient = useQueryClient();
+  const deleteCartItem = useMutation(() => deleteCart(id), {
+    onSuccess: (data) => {
+      console.log('data', data);
+      queryClient.invalidateQueries('cart'); //refetch cart
+    },
+  });
+  const onClickDeleteItem = () => {
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      deleteCartItem.mutate();
+    }
+  };
   return (
     <ItemWrapper>
       <ItemDetail>
@@ -91,7 +105,7 @@ const CartItem = ({ color, goods, size, quantity }) => {
       <ButtonWrapper>
         <GrayTextBtn>위시리스트에 추가</GrayTextBtn>
       </ButtonWrapper>
-      <CloseIcon>
+      <CloseIcon onClick={() => onClickDeleteItem()}>
         <img src={closeIcon} alt="close" />
       </CloseIcon>
     </ItemWrapper>
