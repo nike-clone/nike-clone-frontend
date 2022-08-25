@@ -31,7 +31,7 @@ const Cart = ({ info, totalPrice }) => {
     <CartContainer>
       <CartItemContainer>
         {info?.map((x) => (
-          <CartItem {...x.goodsItem} quantity={x.quantity} key={x.id} />
+          <CartItem {...x.goodsItem} id={x.id} quantity={x.quantity} key={x.id} />
         ))}
       </CartItemContainer>
       <CheckoutWrapper>

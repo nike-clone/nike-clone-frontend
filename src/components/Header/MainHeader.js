@@ -142,7 +142,7 @@ const MainHeader = () => {
             <CartBag>
               <Link to="/cart">
                 <img src={bagIcon} alt="bag" />
-                <CartCounter>{cartCount?.length}</CartCounter>
+                {cartCount?.length > 0 && <CartCounter>{cartCount?.length}</CartCounter>}
               </Link>
             </CartBag>
             <img className="menu" src={hamburgerIcon} alt="menu" onClick={modalOpenHandler} />

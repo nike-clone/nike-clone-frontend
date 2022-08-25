@@ -138,7 +138,7 @@ const resetCSS = css`
     position: fixed;
     width: 100%;
     height: 100%;
-    overflow: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch; /* 추가 */
   }
 `;
