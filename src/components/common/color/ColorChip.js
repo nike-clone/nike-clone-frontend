@@ -46,12 +46,15 @@ const ColorChipUnit = styled.div`
   margin-bottom: 5px;
   margin-right: 5px;
 `;
-const ColorChip = ({ colors, handleGoodsOption }) => {
+const ColorChip = ({ colors, handleGoodsOption, selectedColor }) => {
   const colorInput = useRef([]);
-
+  console.log(selectedColor, colors);
   useEffect(() => {
-    colorInput?.current[0]?.click();
-  }, []);
+    //초기 옵션 세팅
+    colorInput?.current.forEach((x, i) => {
+      if (x.checked) colorInput?.current[i].click();
+    });
+  }, [colors]);
   return (
     <>
       <ColorChipContainer>
@@ -64,6 +67,7 @@ const ColorChip = ({ colors, handleGoodsOption }) => {
                 value={color.id}
                 onClick={(e) => handleGoodsOption(e, color.id)}
                 ref={(el) => (colorInput.current[index] = el)}
+                defaultChecked={color.id === selectedColor}
               />
               <span className="colorChecked"></span>
             </ColorChipUnit>

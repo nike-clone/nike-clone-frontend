@@ -1,19 +1,14 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
 import jorden from 'assets/icons/jorden.png';
 import { Link, useNavigate } from 'react-router-dom';
 import * as Styled from './SubHeader.style';
 import Login from 'components/form/Login/Login';
 import Modal from 'components/common/modal/Modal';
-import useModal from 'hooks/useModal';
 import { useSelector, useDispatch } from 'react-redux';
 import { modalStateChange } from 'features/modal/modalSlice';
-import { queryClient } from 'App';
 import { logoutUser } from 'features/user/userSlice';
 const SubHeader = () => {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(sessionStorage.getItem('user'));
 
-  console.log(user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isModalOpen } = useSelector((state) => state.modal);
@@ -23,7 +18,7 @@ const SubHeader = () => {
   };
   const logout = (e) => {
     e.preventDefault();
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
     localStorage.removeItem('tokenId');
     dispatch(logoutUser());
     if (!isSucess) {

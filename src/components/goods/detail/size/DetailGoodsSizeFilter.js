@@ -59,14 +59,20 @@ const SizeContainer = styled.label`
   }
 `;
 
-const DetailGoodsSizeFilter = ({ handleGoodsOption, sizeInfo }) => {
+const DetailGoodsSizeFilter = ({ handleGoodsOption, sizeInfo, selectedSize }) => {
   return (
     <FilterUnit>
       <FilterLable></FilterLable>
       <SizeFilterWrapper>
         {sizeInfo.map((size) => (
           <SizeContainer stock={size.stock} key={size.id}>
-            <input type="radio" name="size" value={size.size} onClick={handleGoodsOption} />
+            <input
+              type="radio"
+              name="size"
+              value={size.size}
+              onClick={handleGoodsOption}
+              defaultChecked={selectedSize === size.size}
+            />
             <span className="sizeChecked"></span>
             {size.size}
           </SizeContainer>
