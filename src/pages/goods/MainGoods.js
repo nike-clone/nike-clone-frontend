@@ -59,27 +59,29 @@ const MainGoods = () => {
   const { data: colors } = useGoodsColors();
 
   return (
-    <Page>
-      <GoodsHeader
-        modalOpenHandler={modalOpenHandler}
-        optionFilter={optionFilter}
-        setOptionFilter={setOptionFilter}
-        gender={gender}
-        refetch={refetch}
-      />
-      <Content>
-        <Filter isModalOpen={isModalOpen}>
-          <GoodsColorFilter onChange={onChange} color={color} colors={colors} refetch={refetch} />
-          <GoodsSizeFilter onChange={onChange} size={size} />
-        </Filter>
-        <ProductList isModalOpen={isModalOpen} data={data} />
-      </Content>
+    <>
+      <Page>
+        <GoodsHeader
+          modalOpenHandler={modalOpenHandler}
+          optionFilter={optionFilter}
+          setOptionFilter={setOptionFilter}
+          gender={gender}
+          refetch={refetch}
+        />
+        <Content>
+          <Filter isModalOpen={isModalOpen}>
+            <GoodsColorFilter onChange={onChange} color={color} colors={colors} refetch={refetch} />
+            <GoodsSizeFilter onChange={onChange} size={size} />
+          </Filter>
+          <ProductList isModalOpen={isModalOpen} data={data} />
+        </Content>
+      </Page>
       {isLoading && (
         <>
           <Loading />
         </>
       )}
-    </Page>
+    </>
   );
 };
 

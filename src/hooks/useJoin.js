@@ -29,7 +29,7 @@ export const useLogin = () => {
       localStorage.setItem('tokenId', data.data);
       const decodedData = jwtDecode(data.data);
       dispatch(setAuthenticatedUser(decodedData));
-      localStorage.setItem('user', JSON.stringify(decodedData));
+      sessionStorage.setItem('user', JSON.stringify(decodedData));
     },
     onError: (error) => {
       alert(error.response.data.message);

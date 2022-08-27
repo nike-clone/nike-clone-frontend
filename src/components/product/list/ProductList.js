@@ -7,6 +7,7 @@ const GoodsContainer = styled.div`
   margin-left: ${(props) => (props.isModalOpen ? '318px' : '0px')};
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
   @media screen and (min-width: 480px) and (max-width: 767px) {
     margin: 0;
   }

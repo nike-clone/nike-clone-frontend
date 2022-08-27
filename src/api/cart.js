@@ -25,3 +25,10 @@ export const deleteCart = async (id) => {
 
   return res.data;
 };
+
+export const changeItemOption = async ({ itemId, quantity }) => {
+  console.log(quantity);
+  const res = await request.patch(`/cart-items/${itemId}`, { quantity: quantity });
+
+  return res.data;
+};
