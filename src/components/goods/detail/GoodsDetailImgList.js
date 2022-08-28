@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import shoe1 from 'assets/images/shoe1.jpg';
 const GoodsImgListWrapper = styled.div`
   width: calc(100% - 449px);
+  @media screen and (min-width: 480px) and (max-width: 767px) {
+    width: 100%;
+  }
 `;
 const DetailImgList = styled.ul`
   display: grid;

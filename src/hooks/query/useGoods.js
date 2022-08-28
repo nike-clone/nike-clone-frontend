@@ -1,8 +1,8 @@
 import { getGoodsColors, getGoodsDetail, getGoodsItems } from 'api/goods';
 import { useQueries, useQuery } from 'react-query';
 
-export const useGoodsItems = (gender, color, filterData) => {
-  return useQuery(['goodsItems', gender, color], () => getGoodsItems(gender, color), {
+export const useGoodsItems = (gender, color, size, filterData) => {
+  return useQuery(['goodsItems', gender, color, size], () => getGoodsItems(gender, color, size), {
     enabled: true,
     refetchOnWindowFocus: false,
     retry: false,
@@ -19,7 +19,7 @@ export const useGoodsItems = (gender, color, filterData) => {
           return b.salePercentage - a.salePercentage;
         }
       });
-      console.log(data);
+
       return data.data;
     },
   });
