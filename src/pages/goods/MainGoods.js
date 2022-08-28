@@ -51,10 +51,10 @@ const MainGoods = () => {
     size: [],
     color: [],
   });
-
+  console.log(size, color);
   const [isModalOpen, modalOpenHandler] = useModal(true);
 
-  const { data, isLoading, refetch } = useGoodsItems(gender, color, optionFilter.filterData);
+  const { data, isLoading, refetch } = useGoodsItems(gender, color, size, optionFilter.filterData);
   console.log('d', data);
   const { data: colors } = useGoodsColors();
 
@@ -71,7 +71,7 @@ const MainGoods = () => {
         <Content>
           <Filter isModalOpen={isModalOpen}>
             <GoodsColorFilter onChange={onChange} color={color} colors={colors} refetch={refetch} />
-            <GoodsSizeFilter onChange={onChange} size={size} />
+            <GoodsSizeFilter onChange={onChange} size={size} refetch={refetch} />
           </Filter>
           <ProductList isModalOpen={isModalOpen} data={data} />
         </Content>

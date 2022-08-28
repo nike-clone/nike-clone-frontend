@@ -32,6 +32,11 @@ const DetailContainer = styled.div`
 const DetailInfoWrapper = styled.div`
   width: 449px;
   padding-left: 60px;
+  @media screen and (min-width: 480px) and (max-width: 767px) {
+    padding-left: 0px;
+    margin: auto;
+    margin-top: 30px;
+  }
 `;
 
 const SizeLabel = styled.span`

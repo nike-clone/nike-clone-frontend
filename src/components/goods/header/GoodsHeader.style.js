@@ -61,7 +61,7 @@ export const SlidingFilter = styled.div`
   }
 
   .select ul {
-    opacity: ${(props) => (props.isFilterOpen ? 1 : 0)};
+    display: ${(props) => (props.isFilterOpen ? 'block' : 'none')};
     width: 100px;
     position: absolute;
     background: #fff;

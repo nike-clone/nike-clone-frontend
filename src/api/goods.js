@@ -1,11 +1,12 @@
 import axios from 'axios';
 import request from './requestMethods';
 
-export const getGoodsItems = async (gender, colorCode) => {
-  const filterKeyArr = ['gender', 'colorCode']; //constant로 분리
+export const getGoodsItems = async (gender, colorCode, size) => {
+  const filterKeyArr = ['gender', 'colorCode', 'size']; //constant로 분리
   const filterParams = {
     gender,
     colorCode,
+    size,
   };
   let params = {};
   for (let key of filterKeyArr) {

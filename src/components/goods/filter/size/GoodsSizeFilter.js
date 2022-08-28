@@ -1,6 +1,6 @@
 import * as Styled from 'components/goods/filter/size/GoodsSizeFilter.style';
 import { MEN_SIZE } from 'constants/size';
-const GoodsSizeFilter = ({ detail }) => {
+const GoodsSizeFilter = ({ detail, refetch, onChange }) => {
   return (
     <Styled.FilterUnit detail={detail}>
       <Styled.FilterLable>
@@ -11,7 +11,13 @@ const GoodsSizeFilter = ({ detail }) => {
         {MEN_SIZE.map((size) => (
           <>
             <Styled.SizeContainer detail={detail} stock={size.stock}>
-              <input type="checkbox" name="size" value={size} />
+              <input
+                type="checkbox"
+                name="size"
+                value={size}
+                onChange={onChange}
+                onClick={refetch}
+              />
               <span className="sizeChecked"></span>
               {size}
             </Styled.SizeContainer>
