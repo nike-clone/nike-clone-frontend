@@ -4,6 +4,7 @@ const initialState = {
   size: null,
   color: null,
   quantity: 1,
+  type: null,
 };
 
 const optionSlice = createSlice({
@@ -13,12 +14,8 @@ const optionSlice = createSlice({
     setGoodsOption: (state, action) => {
       state.size = action.payload.size;
       state.color = action.payload.color;
-      state.quantity = action.payload.quantity;
-      if (action.payload.type === 'minus') {
-        state.quantity = state.quantity > 1 ? (state.quantity -= 1) : state.quantity;
-      } else if (action.payload.type === 'plus') {
-        state.quantity = state.quantity + 1;
-      }
+      if (action.payload.type === 'm') state.quantity = state.quantity - 1;
+      else if (action.payload.type === 'p') state.quantity = state.quantity + 1;
     },
   },
 });

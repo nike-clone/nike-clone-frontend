@@ -22,10 +22,10 @@ const GoodsDetailQuantity = ({ handleQuantity, quantity }) => {
     <Quantity>
       <span className="quantity">수량</span>
       <span className="quantity-num">{quantity}</span>
-      <NoneStyleButton size="sm" backcolor="white" onClick={handleQuantity}>
+      <NoneStyleButton size="sm" backcolor="white" onClick={() => handleQuantity('m')}>
         <img src={minus} alt="minus" data-option="minus" />
       </NoneStyleButton>
-      <NoneStyleButton size="sm" backcolor="white" onClick={handleQuantity}>
+      <NoneStyleButton size="sm" backcolor="white" onClick={() => handleQuantity('p')}>
         <img src={plus} alt="plus" data-option="plus" />
       </NoneStyleButton>
     </Quantity>

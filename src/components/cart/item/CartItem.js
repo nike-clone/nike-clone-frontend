@@ -102,6 +102,7 @@ const OptionChangeContent = ({ goodsId, quantity, size, color, itemId }) => {
   const { data: goodsDetail } = useGoodsDetail(goodsId);
   const dispatch = useDispatch();
   const option = useSelector((state) => state.option);
+  console.log(option);
   const [detailGoodsItem, setDetailGoodsItem] = useState([]);
   const handleGoodsOption = (e, colorId) => {
     dispatch(setGoodsOption({ ...option, [e.target.name]: e.target.value }));
@@ -111,12 +112,14 @@ const OptionChangeContent = ({ goodsId, quantity, size, color, itemId }) => {
       setDetailGoodsItem(goodsItem);
     }
   };
-  const handleQuantity = useCallback(
-    (e) => {
-      dispatch(setGoodsOption({ ...option, type: e.target.dataset.option }));
-    },
-    [option.quantity, dispatch]
-  );
+  const handleQuantity = (type) => {
+    if (type === 'm') {
+      dispatch(setGoodsOption({ ...option, type: 'm' }));
+    } else {
+      dispatch(setGoodsOption({ ...option, type: 'p' }));
+    }
+  };
+
   console.log('aaaa', option);
   const changeOption = useMutation(changeItemOption, {
     onSuccess: () => {
@@ -130,7 +133,7 @@ const OptionChangeContent = ({ goodsId, quantity, size, color, itemId }) => {
 
   //cart item 옵션 변경
   const handleItemOption = (goodsId, quantity, size, colorId) => {
-    console.log('g', colorId);
+    console.log('g', colorId, size, colorId);
 
     changeOption.mutate({ goodsId, quantity, size, colorId });
   };
@@ -161,7 +164,7 @@ const OptionChangeContent = ({ goodsId, quantity, size, color, itemId }) => {
           round
           border
           onClick={() =>
-            handleItemOption(itemId, option.quantity, option.size, Number(option.color))
+            handleItemOption(itemId, option.quantity, Number(option.size), Number(option.color))
           }
         >
           옵션변경하기
