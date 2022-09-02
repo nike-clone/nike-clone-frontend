@@ -15,7 +15,7 @@ const request = axios.create({
 
 request.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('tokenId');
+    const token = sessionStorage.getItem('tokenId');
 
     if (typeof token !== 'string' || !token) return config;
 

@@ -26,7 +26,7 @@ export const useLogin = () => {
       } else {
         localStorage.removeItem('NIKE_USERNAME');
       }
-      localStorage.setItem('tokenId', data.data);
+      sessionStorage.setItem('tokenId', data.data);
       const decodedData = jwtDecode(data.data);
       dispatch(setAuthenticatedUser(decodedData));
       sessionStorage.setItem('user', JSON.stringify(decodedData));

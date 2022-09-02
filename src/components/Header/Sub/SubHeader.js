@@ -19,7 +19,7 @@ const SubHeader = () => {
   const logout = (e) => {
     e.preventDefault();
     sessionStorage.removeItem('user');
-    localStorage.removeItem('tokenId');
+    sessionStorage.removeItem('tokenId');
     dispatch(logoutUser());
     if (!isSucess) {
       navigate('/');

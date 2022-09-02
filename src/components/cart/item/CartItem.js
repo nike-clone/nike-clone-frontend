@@ -117,7 +117,7 @@ const OptionChangeContent = ({ goodsId, quantity, size, color, itemId }) => {
     },
     [option.quantity, dispatch]
   );
-
+  console.log('aaaa', option);
   const changeOption = useMutation(changeItemOption, {
     onSuccess: () => {
       alert('변경되었습니다.');
@@ -129,8 +129,10 @@ const OptionChangeContent = ({ goodsId, quantity, size, color, itemId }) => {
   });
 
   //cart item 옵션 변경
-  const handleItemOption = (itemId, quantity) => {
-    changeOption.mutate({ itemId, quantity });
+  const handleItemOption = (goodsId, quantity, size, colorId) => {
+    console.log('g', colorId);
+
+    changeOption.mutate({ goodsId, quantity, size, colorId });
   };
 
   useEffect(() => {
@@ -158,7 +160,9 @@ const OptionChangeContent = ({ goodsId, quantity, size, color, itemId }) => {
           size="lg"
           round
           border
-          onClick={() => handleItemOption(itemId, option.quantity)}
+          onClick={() =>
+            handleItemOption(itemId, option.quantity, option.size, Number(option.color))
+          }
         >
           옵션변경하기
         </SubmitButton>

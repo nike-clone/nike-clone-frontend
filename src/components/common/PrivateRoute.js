@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 const PrivateRoute = ({ page }) => {
-  const token = localStorage.getItem('tokenId');
+  const token = sessionStorage.getItem('tokenId');
   return <>{token ? page : <Navigate replace to="/" />}</>;
 };
 

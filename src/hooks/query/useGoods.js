@@ -7,7 +7,6 @@ export const useGoodsItems = (gender, color, size, filterData) => {
     refetchOnWindowFocus: false,
     retry: false,
     select: (data) => {
-      console.log(data);
       data.data.sort((a, b) => {
         if (filterData === 'new') {
           return b.createdAt - a.createdAt;
