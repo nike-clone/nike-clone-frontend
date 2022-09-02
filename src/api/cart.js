@@ -26,9 +26,13 @@ export const deleteCart = async (id) => {
   return res.data;
 };
 
-export const changeItemOption = async ({ itemId, quantity }) => {
-  console.log(quantity);
-  const res = await request.patch(`/cart-items/${itemId}`, { quantity: quantity });
+export const changeItemOption = async ({ goodsId, quantity, size, colorId }) => {
+  console.log(goodsId, quantity, size, colorId);
+  const res = await request.patch(`/cart-items/${goodsId}`, {
+    quantity: quantity,
+    size: size,
+    colorId: colorId,
+  });
 
   return res.data;
 };
