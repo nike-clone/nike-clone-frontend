@@ -102,9 +102,10 @@ const OptionChangeContent = ({ goodsId, quantity, size, color, itemId }) => {
   const { data: goodsDetail } = useGoodsDetail(goodsId);
   const dispatch = useDispatch();
   const option = useSelector((state) => state.option);
-  console.log(option);
+
   const [detailGoodsItem, setDetailGoodsItem] = useState([]);
   const handleGoodsOption = (e, colorId) => {
+    console.log('ss', colorId);
     dispatch(setGoodsOption({ ...option, [e.target.name]: e.target.value }));
     if (e.target.name === 'color') {
       let goodsItem = goodsDetail?.goodsItems.filter((item) => item.color.id === colorId);
@@ -120,7 +121,6 @@ const OptionChangeContent = ({ goodsId, quantity, size, color, itemId }) => {
     }
   };
 
-  console.log('aaaa', option);
   const changeOption = useMutation(changeItemOption, {
     onSuccess: () => {
       alert('변경되었습니다.');
@@ -133,11 +133,9 @@ const OptionChangeContent = ({ goodsId, quantity, size, color, itemId }) => {
 
   //cart item 옵션 변경
   const handleItemOption = (goodsId, quantity, size, colorId) => {
-    console.log('g', colorId, size, colorId);
-
     changeOption.mutate({ goodsId, quantity, size, colorId });
   };
-
+  console.log('mama', option);
   useEffect(() => {
     dispatch(setGoodsOption({ size: size, color: String(color), quantity: quantity }));
   }, []);
@@ -149,12 +147,12 @@ const OptionChangeContent = ({ goodsId, quantity, size, color, itemId }) => {
         <ColorChip
           colors={goodsDetail?.colors}
           handleGoodsOption={handleGoodsOption}
-          selectedColor={color}
+          selectedColor={Number(option.color)}
         />
         <DetailGoodsSizeFilter
           handleGoodsOption={handleGoodsOption}
           sizeInfo={detailGoodsItem}
-          selectedSize={size}
+          selectedSize={Number(option.size)}
         />
         <GoodsDetailQuantity handleQuantity={handleQuantity} quantity={option.quantity} />
         <SubmitButton
