@@ -97,7 +97,8 @@ const OptionContainer = styled.div`
 const DetailInfoWrapper = styled.div`
   padding-left: 60px;
 `;
-const OptionChangeContent = ({ goodsId, quantity, size, color, itemId }) => {
+//코드 스플리팅 적용 필요
+const OptionChangeContent = ({ goodsId, quantity, size, color, itemId, setIsModalOpen }) => {
   const queryClient = useQueryClient();
   const { data: goodsDetail } = useGoodsDetail(goodsId);
   const dispatch = useDispatch();
@@ -105,7 +106,6 @@ const OptionChangeContent = ({ goodsId, quantity, size, color, itemId }) => {
 
   const [detailGoodsItem, setDetailGoodsItem] = useState([]);
   const handleGoodsOption = (e, colorId) => {
-    console.log('ss', colorId);
     dispatch(setGoodsOption({ ...option, [e.target.name]: e.target.value }));
     if (e.target.name === 'color') {
       let goodsItem = goodsDetail?.goodsItems.filter((item) => item.color.id === colorId);
@@ -125,6 +125,7 @@ const OptionChangeContent = ({ goodsId, quantity, size, color, itemId }) => {
     onSuccess: () => {
       alert('변경되었습니다.');
       queryClient.invalidateQueries('cart');
+      setIsModalOpen(false);
     },
     onError: (e) => {
       console.log(e);
@@ -175,7 +176,7 @@ const OptionChangeContent = ({ goodsId, quantity, size, color, itemId }) => {
 const CartItem = ({ color, goods, size, quantity, id }) => {
   const queryClient = useQueryClient();
 
-  const [isModalOpen, modalOpenHandler] = useModal(false);
+  const [isModalOpen, modalOpenHandler, setIsModalOpen] = useModal(false);
   const deleteCartItem = useMutation(() => deleteCart(id), {
     onSuccess: (data) => {
       queryClient.invalidateQueries('cart'); //refetch cart
@@ -224,6 +225,7 @@ const CartItem = ({ color, goods, size, quantity, id }) => {
               size={size}
               color={color.id}
               quantity={quantity}
+              setIsModalOpen={setIsModalOpen}
             />
           }
         </Modal>

@@ -30,6 +30,8 @@ export const useLogin = () => {
       const decodedData = jwtDecode(data.data);
       dispatch(setAuthenticatedUser(decodedData));
       sessionStorage.setItem('user', JSON.stringify(decodedData));
+      //임시 guset id를 삭제
+      localStorage.removeItem('NC_GUEST_ID');
     },
     onError: (error) => {
       alert(error.response.data.message);

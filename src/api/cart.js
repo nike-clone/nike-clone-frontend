@@ -1,21 +1,27 @@
 import request from './requestMethods';
-
-export const addCart = async ({ quantity, goodsId, size, colorId }) => {
+let params = { anonymous_id: localStorage.getItem('NC_GUEST_ID') };
+export const addCart = async ({ quantity, goodsId, size, colorId, anonoymous_id }) => {
   goodsId = Number(goodsId);
   size = Number(size);
   colorId = Number(colorId);
-  const res = await request.post('/cart-items', {
-    quantity: quantity,
-    goodsId: goodsId,
-    size: size,
-    colorId: colorId,
-  });
+  const res = await request.post(
+    '/cart-items',
+    {
+      quantity: quantity,
+      goodsId: goodsId,
+      size: size,
+      colorId: colorId,
+    },
+    { params }
+  );
 
   return res;
 };
 
 export const getCart = async () => {
-  const res = await request.get('/cart-items');
+  const res = await request.get('/cart-items', {
+    params: params,
+  });
 
   return res.data;
 };
@@ -28,11 +34,15 @@ export const deleteCart = async (id) => {
 
 export const changeItemOption = async ({ goodsId, quantity, size, colorId }) => {
   console.log(goodsId, quantity, size, colorId);
-  const res = await request.patch(`/cart-items/${goodsId}`, {
-    quantity: quantity,
-    size: size,
-    colorId: colorId,
-  });
+  const res = await request.patch(
+    `/cart-items/${goodsId}`,
+    {
+      quantity: quantity,
+      size: size,
+      colorId: colorId,
+    },
+    { params }
+  );
 
   return res.data;
 };
