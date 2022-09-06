@@ -1,4 +1,5 @@
 import { NoneStyleButton, SubmitButton } from 'components/common/button/Button';
+import OrderForm from 'components/order/OrderForm';
 import PALETTE from 'constants/palette';
 import styled from 'styled-components';
 import CartCheckout from './checkout/CartCheckout';
@@ -14,7 +15,11 @@ const CartItemContainer = styled.div`
   flex-direction: column;
   flex: 3;
 `;
-
+const OrderItemContainer = styled.form`
+  display: flex;
+  flex-direction: column;
+  flex: 3;
+`;
 const CheckoutWrapper = styled.div`
   flex: 1;
   border: 1px solid ${PALETTE.GRAY[1]};
@@ -26,14 +31,21 @@ const CheckoutHeader = styled.div`
   font-size: 18px;
 `;
 
-const Cart = ({ info, totalPrice }) => {
+const Cart = ({ info, totalPrice, type }) => {
   return (
     <CartContainer>
-      <CartItemContainer>
-        {info?.map((x) => (
-          <CartItem {...x.goodsItem} id={x.id} quantity={x.quantity} key={x.id} />
-        ))}
-      </CartItemContainer>
+      {type === 'cart' ? (
+        <CartItemContainer>
+          {info?.map((x) => (
+            <CartItem {...x.goodsItem} id={x.id} quantity={x.quantity} key={x.id} />
+          ))}
+        </CartItemContainer>
+      ) : (
+        <OrderItemContainer>
+          <OrderForm />
+        </OrderItemContainer>
+      )}
+
       <CheckoutWrapper>
         <CheckoutHeader>주문예정금액</CheckoutHeader>
         <CartCheckout totalPrice={totalPrice} />

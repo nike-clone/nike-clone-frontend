@@ -30,11 +30,11 @@ const FormInputContainer = styled.div`
   width: 100%;
 `;
 const FormInput = styled.input`
-  width: 100%;
   height: 40px;
   padding: 5px 10px;
   gap: 10px;
   border: 1px solid ${PALETTE.GRAY[1]};
+  width: ${(props) => props.width || '100%'};
   ::placeholder {
     color: ${PALETTE.GRAY[2]};
   }
@@ -66,7 +66,7 @@ export const StyledInput = ({ placeholder, icon }: Props) => {
   );
 };
 
-export const StyledFormInput = ({ placeholder, name, type, value, onChange }: FormProps) => {
+export const StyledFormInput = ({ placeholder, name, type, value, width, onChange }: FormProps) => {
   return (
     <FormInput
       placeholder={placeholder}
@@ -74,6 +74,7 @@ export const StyledFormInput = ({ placeholder, name, type, value, onChange }: Fo
       type={type}
       value={value}
       onChange={onChange}
+      width={width}
     />
   );
 };
