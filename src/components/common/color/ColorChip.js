@@ -48,7 +48,7 @@ const ColorChipUnit = styled.div`
 `;
 const ColorChip = ({ colors, handleGoodsOption, selectedColor }) => {
   const colorInput = useRef([]);
-  console.log(selectedColor, colors);
+  console.log('ㄴㄴ', selectedColor, colors);
   useEffect(() => {
     //초기 옵션 세팅
     colorInput?.current.forEach((x, i) => {

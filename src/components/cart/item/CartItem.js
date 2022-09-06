@@ -97,12 +97,13 @@ const OptionContainer = styled.div`
 const DetailInfoWrapper = styled.div`
   padding-left: 60px;
 `;
-const OptionChangeContent = ({ goodsId, quantity, size, color, itemId }) => {
+//코드 스플리팅 적용 필요
+const OptionChangeContent = ({ goodsId, quantity, size, color, itemId, setIsModalOpen }) => {
   const queryClient = useQueryClient();
   const { data: goodsDetail } = useGoodsDetail(goodsId);
   const dispatch = useDispatch();
   const option = useSelector((state) => state.option);
-  console.log(option);
+
   const [detailGoodsItem, setDetailGoodsItem] = useState([]);
   const handleGoodsOption = (e, colorId) => {
     dispatch(setGoodsOption({ ...option, [e.target.name]: e.target.value }));
@@ -120,11 +121,11 @@ const OptionChangeContent = ({ goodsId, quantity, size, color, itemId }) => {
     }
   };
 
-  console.log('aaaa', option);
   const changeOption = useMutation(changeItemOption, {
     onSuccess: () => {
       alert('변경되었습니다.');
       queryClient.invalidateQueries('cart');
+      setIsModalOpen(false);
     },
     onError: (e) => {
       console.log(e);
@@ -133,11 +134,9 @@ const OptionChangeContent = ({ goodsId, quantity, size, color, itemId }) => {
 
   //cart item 옵션 변경
   const handleItemOption = (goodsId, quantity, size, colorId) => {
-    console.log('g', colorId, size, colorId);
-
     changeOption.mutate({ goodsId, quantity, size, colorId });
   };
-
+  console.log('mama', option);
   useEffect(() => {
     dispatch(setGoodsOption({ size: size, color: String(color), quantity: quantity }));
   }, []);
@@ -149,12 +148,12 @@ const OptionChangeContent = ({ goodsId, quantity, size, color, itemId }) => {
         <ColorChip
           colors={goodsDetail?.colors}
           handleGoodsOption={handleGoodsOption}
-          selectedColor={color}
+          selectedColor={Number(option.color)}
         />
         <DetailGoodsSizeFilter
           handleGoodsOption={handleGoodsOption}
           sizeInfo={detailGoodsItem}
-          selectedSize={size}
+          selectedSize={Number(option.size)}
         />
         <GoodsDetailQuantity handleQuantity={handleQuantity} quantity={option.quantity} />
         <SubmitButton
@@ -177,7 +176,7 @@ const OptionChangeContent = ({ goodsId, quantity, size, color, itemId }) => {
 const CartItem = ({ color, goods, size, quantity, id }) => {
   const queryClient = useQueryClient();
 
-  const [isModalOpen, modalOpenHandler] = useModal(false);
+  const [isModalOpen, modalOpenHandler, setIsModalOpen] = useModal(false);
   const deleteCartItem = useMutation(() => deleteCart(id), {
     onSuccess: (data) => {
       queryClient.invalidateQueries('cart'); //refetch cart
@@ -226,6 +225,7 @@ const CartItem = ({ color, goods, size, quantity, id }) => {
               size={size}
               color={color.id}
               quantity={quantity}
+              setIsModalOpen={setIsModalOpen}
             />
           }
         </Modal>

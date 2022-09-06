@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 const FilterLable = styled.label``;
 const FilterUnit = styled.div`
@@ -64,14 +65,14 @@ const DetailGoodsSizeFilter = ({ handleGoodsOption, sizeInfo, selectedSize }) =>
     <FilterUnit>
       <FilterLable></FilterLable>
       <SizeFilterWrapper>
-        {sizeInfo.map((size) => (
+        {sizeInfo.map((size, index) => (
           <SizeContainer stock={size.stock} key={size.id}>
             <input
               type="radio"
               name="size"
               value={size.size}
-              onClick={handleGoodsOption}
-              defaultChecked={selectedSize === size.size}
+              onChange={handleGoodsOption}
+              checked={size.size === selectedSize}
             />
             <span className="sizeChecked"></span>
             {size.size}

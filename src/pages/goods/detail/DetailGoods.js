@@ -90,8 +90,12 @@ const DetailGoods = () => {
       setDetailGoodsItem(goodsItem);
     }
   };
-  const handleQuantity = (e) => {
-    dispatch(setGoodsOption({ ...option, type: e.target.dataset.option }));
+  const handleQuantity = (type) => {
+    if (type === 'm') {
+      dispatch(setGoodsOption({ ...option, type: 'm' }));
+    } else {
+      dispatch(setGoodsOption({ ...option, type: 'p' }));
+    }
   };
 
   const addToCart = useMutation(addCart, {
@@ -115,8 +119,8 @@ const DetailGoods = () => {
       alert('사이즈를 선택해 주세요!');
       return;
     }
-
-    addToCart.mutate({ quantity, goodsId, size, colorId });
+    const anonoymous_id = localStorage.getItem('NC_GUEST_ID');
+    addToCart.mutate({ quantity, goodsId, size, colorId, anonoymous_id });
   };
   return (
     <Page>
@@ -125,7 +129,11 @@ const DetailGoods = () => {
         <DetailInfoWrapper>
           <GoodsDetailInfo goodsDetail={goodsDetail} />
           <ColorChip colors={goodsDetail?.colors} handleGoodsOption={handleGoodsOption} />
-          <DetailGoodsSizeFilter handleGoodsOption={handleGoodsOption} sizeInfo={detailGoodsItem} />
+          <DetailGoodsSizeFilter
+            handleGoodsOption={handleGoodsOption}
+            sizeInfo={detailGoodsItem}
+            selectedSize={Number(option.size)}
+          />
           <GoodsDetailQuantity handleQuantity={handleQuantity} quantity={option.quantity} />
           <SubmitButton backcolor="black" color="white" size="lg" round>
             바로구매
