@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { modalStateChange } from 'features/modal/modalSlice';
 import useInput from 'hooks/useInput';
 import { useLogin } from 'hooks/useJoin';
+import useCart from 'hooks/query/useCart';
 
 const LoginContainer = styled.div`
   position: relative;
@@ -73,38 +74,38 @@ const Login = ({ modalClose }) => {
   const rememberdEmail = localStorage.getItem('NIKE_USERNAME');
   const checkboxRef = useRef();
   const data = useLogin();
-  const [rememberId,setRemeberId] = useState(false);
-  let [{email,password},onChange,setValue] = useInput({
-    email:'',
-    password:'',
-  })
+  const [rememberId, setRemeberId] = useState(false);
+  let [{ email, password }, onChange, setValue] = useInput({
+    email: '',
+    password: '',
+  });
 
   const dispatch = useDispatch();
   const remeberIdCheckHandler = (e) => {
-    setRemeberId(e.target.checked)
-  }
+    setRemeberId(e.target.checked);
+  };
   const linkToJoin = () => {
     dispatch(modalStateChange());
   };
-const onSubmitLogin = (e) => {
-e.preventDefault();
-data.mutate({email,password,rememberId})
-}
-useEffect(()=> {
- setValue({
-  password:'',
-  email: rememberdEmail
-})
-if(rememberdEmail) {
-  checkboxRef.current.checked = true;
-  setRemeberId(true)
-}
-},[rememberdEmail])
-useEffect(()=> {
-  if(data.isSuccess) {
-    dispatch(modalStateChange())
-  }
-},[data,dispatch])
+  const onSubmitLogin = (e) => {
+    e.preventDefault();
+    data.mutate({ email, password, rememberId });
+  };
+  useEffect(() => {
+    setValue({
+      password: '',
+      email: rememberdEmail,
+    });
+    if (rememberdEmail) {
+      checkboxRef.current.checked = true;
+      setRemeberId(true);
+    }
+  }, [rememberdEmail]);
+  useEffect(() => {
+    if (data.isSuccess) {
+      dispatch(modalStateChange());
+    }
+  }, [data, dispatch]);
   return (
     <LoginContainer>
       <div className="closeIcon" onClick={modalClose}>
@@ -116,11 +117,30 @@ useEffect(()=> {
         <h2>나이키 로그인</h2>
       </LoginHeader>
       <LoginForm onSubmit={onSubmitLogin}>
-        <StyledFormInput placeholder="아이디" name="email" type="email" value={email} onChange={onChange} required />
-        <StyledFormInput placeholder="비밀번호" name="password" type="password" value={password} onChange={onChange} required />
+        <StyledFormInput
+          placeholder="아이디"
+          name="email"
+          type="email"
+          value={email}
+          onChange={onChange}
+          required
+        />
+        <StyledFormInput
+          placeholder="비밀번호"
+          name="password"
+          type="password"
+          value={password}
+          onChange={onChange}
+          required
+        />
         <FormBottomWrapper>
           <CheckboxWrapper>
-            <input type="checkbox" name="rememberId" onChange={remeberIdCheckHandler} ref={checkboxRef}/>
+            <input
+              type="checkbox"
+              name="rememberId"
+              onChange={remeberIdCheckHandler}
+              ref={checkboxRef}
+            />
             <span>로그인 유지하기</span>
           </CheckboxWrapper>
 

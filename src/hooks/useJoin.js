@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 import { useDispatch } from 'react-redux';
 import { setAuthenticatedUser } from 'features/user/userSlice';
+import useCart from './query/useCart';
+
 export const useJoin = () => {
   const navigate = useNavigate();
   return useMutation(userJoin, {
@@ -18,6 +20,7 @@ export const useJoin = () => {
 };
 
 export const useLogin = () => {
+  const { refetch } = useCart();
   const dispatch = useDispatch();
   return useMutation(userLogin, {
     onSuccess: (data, varaiables) => {
@@ -32,6 +35,7 @@ export const useLogin = () => {
       sessionStorage.setItem('user', JSON.stringify(decodedData));
       //임시 guset id를 삭제
       localStorage.removeItem('NC_GUEST_ID');
+      refetch();
     },
     onError: (error) => {
       alert(error.response.data.message);

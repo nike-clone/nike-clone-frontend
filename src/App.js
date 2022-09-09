@@ -6,40 +6,37 @@ import Home from 'pages/Home';
 import Join from 'pages/join/Join';
 import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { QueryClientProvider, QueryClient, useQuery } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
+
 import Cart from 'pages/cart/CartPage';
 import PrivateRoute from 'components/common/PrivateRoute';
 import MainGoods from 'pages/goods/MainGoods';
 import DetailGoods from 'pages/goods/detail/DetailGoods';
 import { v4 as uuid } from 'uuid';
-export const queryClient = new QueryClient();
+import useCart from 'hooks/query/useCart';
+
 const App = () => {
   useEffect(() => {
     if (!localStorage.getItem('NC_GUEST_ID') && !sessionStorage.getItem('user'))
       localStorage.setItem('NC_GUEST_ID', `user-${uuid()}`);
   }, []);
-
+  const { refetch } = useCart();
   return (
-    <QueryClientProvider client={queryClient}>
-      <div className="App">
-        <GlobalStyle />
-        <SubHeader />
-        <MainHeader />
-        <SlidingTextBanner />
-        <BaseLayout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/join" element={<Join />} />
-            <Route path="/cart" element={<Cart type={'cart'} />} />
-            <Route path="/checkout" element={<Cart type={'buy'} />} />
-            <Route path="/category" element={<MainGoods />} />
-            <Route path="/goods/:goodsId" element={<DetailGoods />} />
-          </Routes>
-        </BaseLayout>
-      </div>
-      <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
-    </QueryClientProvider>
+    <div className="App">
+      <GlobalStyle />
+      <SubHeader refetch={refetch} />
+      <MainHeader />
+      <SlidingTextBanner />
+      <BaseLayout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/join" element={<Join />} />
+          <Route path="/cart" element={<Cart type={'cart'} />} />
+          <Route path="/checkout" element={<Cart type={'buy'} />} />
+          <Route path="/category" element={<MainGoods />} />
+          <Route path="/goods/:goodsId" element={<DetailGoods />} />
+        </Routes>
+      </BaseLayout>
+    </div>
   );
 };
 

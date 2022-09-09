@@ -1,7 +1,8 @@
 import { SubmitButton } from 'components/common/button/Button';
 import { StyledFormInput } from 'components/common/Input/Input';
 import PALETTE from 'constants/palette';
-import React, { useState } from 'react';
+import useInput from 'hooks/useInput';
+import React, { useEffect, useMemo, useState } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 const fadeUp = keyframes`
 from {
@@ -53,12 +54,57 @@ const Wrapper = styled.div`
 const PayWrapper = styled.div`
   display: ${(props) => (props.isFormOpen ? 'none' : 'hidden')};
 `;
-const OrderForm = () => {
+const OrderForm = ({ totalPrice, info }) => {
+  const [{ name, phone, address }, onChange] = useInput({
+    name: '',
+    phone: '',
+    address: '',
+  });
+  const productName = useMemo(
+    () =>
+      info.map((info) => info.goodsItem.goods.name)[0] +
+      (info.length > 1 ? ` 외 ${info.length - 1}건` : ''),
+    [info]
+  );
+
   const [isFormOpen, setIsFormOpen] = useState(true);
   const onClickNextStep = (e) => {
     e.preventDefault();
     setIsFormOpen(false);
   };
+
+  function callback(response) {
+    console.log(response);
+    const { success, merchant_uid, error_msg } = response;
+
+    if (success) {
+      alert('결제 성공');
+    } else {
+      alert(`결제 실패: ${error_msg}`);
+    }
+  }
+  function onClickPayment() {
+    /* 1. 가맹점 식별하기 */
+    const { IMP } = window;
+    IMP.init('imp45286492');
+
+    /* 2. 결제 데이터 정의하기 */
+    const data = {
+      pg: 'html5_inicis', // PG사
+      pay_method: 'card', // 결제수단
+      merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
+      amount: totalPrice, // 결제금액
+      name: productName, // 주문명
+      buyer_name: sessionStorage.getItem('user').name || '비회원구매', // 구매자 이름
+      buyer_tel: phone, // 구매자 전화번호
+      buyer_addr: address, // 구매자 주소
+      buyer_postcode: '06018', // 구매자 우편번호
+    };
+
+    /* 4. 결제 창 호출하기 */
+    IMP.request_pay(data, callback);
+  }
+
   return (
     <>
       <StyledForm>
@@ -67,10 +113,30 @@ const OrderForm = () => {
         <Wrapper isFormOpen={isFormOpen}>
           <InputName>받으시는 분</InputName>
           <NameAndPhone>
-            <StyledFormInput placeholder="이름" name="name" type="text" width="50%" />
-            <StyledFormInput placeholder="-없이 입력" name="name" type="text" width="50%" />
+            <StyledFormInput
+              placeholder="이름"
+              name="name"
+              type="text"
+              value={name}
+              width="50%"
+              onChange={onChange}
+            />
+            <StyledFormInput
+              placeholder="-없이 입력"
+              name="phone"
+              type="text"
+              value={phone}
+              width="50%"
+              onChange={onChange}
+            />
           </NameAndPhone>
-          <StyledFormInput placeholder="받으시는 분" name="name" type="text" />
+          <StyledFormInput
+            placeholder="주소"
+            name="address"
+            type="text"
+            value={address}
+            onChange={onChange}
+          />
           <SubmitButton size="lg" backcolor="black" color="white" onClick={onClickNextStep}>
             다음 단계
           </SubmitButton>
@@ -78,7 +144,9 @@ const OrderForm = () => {
         <GrayBorderOutlineTop isFormOpen={isFormOpen}></GrayBorderOutlineTop>
         결제 수단
         <GrayBorderOutline></GrayBorderOutline>
-        <PayWrapper isFormOpen={isFormOpen}>ss</PayWrapper>
+        <PayWrapper isFormOpen={isFormOpen}>
+          <span onClick={onClickPayment}>ss</span>
+        </PayWrapper>
       </StyledForm>
     </>
   );

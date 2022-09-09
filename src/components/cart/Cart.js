@@ -1,6 +1,7 @@
 import { NoneStyleButton, SubmitButton } from 'components/common/button/Button';
 import OrderForm from 'components/order/OrderForm';
 import PALETTE from 'constants/palette';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CartCheckout from './checkout/CartCheckout';
 import CartItem from './item/CartItem';
@@ -42,7 +43,7 @@ const Cart = ({ info, totalPrice, type }) => {
         </CartItemContainer>
       ) : (
         <OrderItemContainer>
-          <OrderForm />
+          <OrderForm totalPrice={totalPrice} info={info} />
         </OrderItemContainer>
       )}
 

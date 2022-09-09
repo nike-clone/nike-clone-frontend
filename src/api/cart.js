@@ -1,6 +1,7 @@
 import request from './requestMethods';
 let params = { anonymous_id: localStorage.getItem('NC_GUEST_ID') };
-export const addCart = async ({ quantity, goodsId, size, colorId, anonoymous_id }) => {
+
+export const addCart = async ({ quantity, goodsId, size, colorId }) => {
   goodsId = Number(goodsId);
   size = Number(size);
   colorId = Number(colorId);
@@ -20,7 +21,7 @@ export const addCart = async ({ quantity, goodsId, size, colorId, anonoymous_id 
 
 export const getCart = async () => {
   const res = await request.get('/cart-items', {
-    params: params,
+    params: { anonymous_id: localStorage.getItem('NC_GUEST_ID') },
   });
 
   return res.data;
