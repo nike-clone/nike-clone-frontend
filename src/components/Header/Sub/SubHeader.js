@@ -6,7 +6,9 @@ import Modal from 'components/common/modal/Modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { modalStateChange } from 'features/modal/modalSlice';
 import { logoutUser } from 'features/user/userSlice';
-const SubHeader = () => {
+import { v4 as uuid } from 'uuid';
+import { useQuery } from 'react-query';
+const SubHeader = ({ refetch }) => {
   const user = JSON.parse(sessionStorage.getItem('user'));
 
   const dispatch = useDispatch();
@@ -20,10 +22,12 @@ const SubHeader = () => {
     e.preventDefault();
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('tokenId');
+    localStorage.setItem('NC_GUEST_ID', `user-${uuid()}`);
     dispatch(logoutUser());
     if (!isSucess) {
       navigate('/');
     }
+    refetch();
   };
   return (
     <>

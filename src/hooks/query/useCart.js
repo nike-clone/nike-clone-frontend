@@ -5,7 +5,6 @@ const useCart = () => {
   return useQuery(['cart'], getCart, {
     retry: false,
     enabled: true,
-    refetchOnWindowFocus: false,
   });
 };
 
