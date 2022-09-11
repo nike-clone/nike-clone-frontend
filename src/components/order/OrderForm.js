@@ -68,6 +68,7 @@ const PayWrapper = styled.div`
     }
   }
 `;
+
 const OrderForm = ({ totalPrice, info }) => {
   const navigate = useNavigate();
   const [{ name, phone, address }, onChange] = useInput({
@@ -85,6 +86,11 @@ const OrderForm = ({ totalPrice, info }) => {
   const [isFormOpen, setIsFormOpen] = useState(true);
   const onClickNextStep = (e) => {
     e.preventDefault();
+    if (!name || !phone || !address) {
+      alert('내용을 채워주세요!');
+      return;
+    }
+
     setIsFormOpen((prev) => !prev);
   };
 
