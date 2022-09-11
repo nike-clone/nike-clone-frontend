@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PALETTE from 'constants/palette';
-import JoinForm from 'components/form/Join/JoinForm';
+import JoinForm from 'components/form/join/JoinForm';
 import { useJoin } from 'hooks/useJoin';
 const JoinContainer = styled.div`
   margin: 0 auto;
