@@ -1,4 +1,4 @@
-import { NoneStyleButton } from 'components/common/button/Button';
+import { NoneStyleButton } from 'components/common/Button/Button';
 import React from 'react';
 import styled from 'styled-components';
 import plus from 'assets/icons/plus.svg';

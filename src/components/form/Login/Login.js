@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from 'assets/images/logo.png';
-import { SubmitButton } from 'components/common/button/Button';
+import { SubmitButton } from 'components/common/Button/Button';
 import PALETTE from 'constants/palette';
 import closeIcon from 'assets/icons/closeX.svg';
 import { useDispatch } from 'react-redux';

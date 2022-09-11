@@ -1,4 +1,4 @@
-import { NoneStyleButton, SubmitButton } from 'components/common/button/Button';
+import { NoneStyleButton, SubmitButton } from 'components/common/Button/Button';
 import OrderForm from 'components/order/OrderForm';
 import PALETTE from 'constants/palette';
 import { useEffect, useState } from 'react';
@@ -49,7 +49,7 @@ const Cart = ({ info, totalPrice, type }) => {
 
       <CheckoutWrapper>
         <CheckoutHeader>주문예정금액</CheckoutHeader>
-        <CartCheckout totalPrice={totalPrice} />
+        <CartCheckout totalPrice={totalPrice} type={type} />
       </CheckoutWrapper>
     </CartContainer>
   );
