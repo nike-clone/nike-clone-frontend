@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import PALETTE from 'constants/palette';
-import { SubmitButton } from 'components/common/button/Button';
+import { SubmitButton } from 'components/common/Button/Button';
 import { formatPrice } from 'util/format';
+import { useNavigate } from 'react-router-dom';
 const ItemInfoContainer = styled.div`
   padding: 0px 15px 10px 15px;
 `;
@@ -24,7 +25,11 @@ const TotalPrice = styled.div`
   }
 `;
 
-const CartCheckout = ({ totalPrice }) => {
+const CartCheckout = ({ totalPrice, type }) => {
+  const navigate = useNavigate();
+  const onClickRouteToCheckout = () => {
+    navigate('/checkout');
+  };
   return (
     <ItemInfoContainer>
       <CheckoutInfo>
@@ -41,9 +46,16 @@ const CartCheckout = ({ totalPrice }) => {
           {totalPrice > 30000 ? formatPrice(totalPrice) : formatPrice(totalPrice + 3000)}
         </span>
       </TotalPrice>
-      <SubmitButton color="white" backcolor={PALETTE.ORANGE[0]} size="lg">
-        주문하기
-      </SubmitButton>
+      {type === 'cart' && (
+        <SubmitButton
+          color="white"
+          backcolor={PALETTE.ORANGE[0]}
+          size="lg"
+          onClick={onClickRouteToCheckout}
+        >
+          주문하기
+        </SubmitButton>
+      )}
     </ItemInfoContainer>
   );
 };

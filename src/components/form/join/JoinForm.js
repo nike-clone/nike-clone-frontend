@@ -3,7 +3,7 @@ import PALETTE from 'constants/palette';
 import useInput from 'hooks/useInput';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { SubmitButton } from 'components/common/button/Button';
+import { SubmitButton } from 'components/common/Button/Button';
 import {
   validateBithDate,
   validateEmail,

@@ -7,7 +7,7 @@ import bagIcon from 'assets/icons/cart.svg';
 import { Link } from 'react-router-dom';
 import { StyledInput } from 'components/common/Input/Input';
 import { useScroll } from 'hooks/useScroll';
-import Modal, { SideModal } from 'components/common/modal/Modal';
+import Modal, { SideModal } from 'components/common/Modal/Modal';
 import SideMenu from './Side/SideMenu';
 import useModal from 'hooks/useModal';
 import PALETTE from 'constants/palette';

@@ -1,12 +1,13 @@
-import { SubmitButton } from 'components/common/button/Button';
+import { SubmitButton } from 'components/common/Button/Button';
 import { StyledFormInput } from 'components/common/Input/Input';
 import PALETTE from 'constants/palette';
 import useInput from 'hooks/useInput';
 import React, { useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled, { keyframes, css } from 'styled-components';
 const fadeUp = keyframes`
 from {
-  height: 100%;
+  height: 30%;
 }
 to {
   height: 0px;
@@ -39,13 +40,14 @@ const Wrapper = styled.div`
   ${(props) => {
     if (!props.isFormOpen) {
       return css`
-        animation: ${fadeUp} 1s ease forwards;
+        animation: ${fadeUp} 0.4s cubic-bezier(0.445, 0.05, 0.55, 0.95) forwards;
       `;
     }
   }}
   //animation: ${fadeUp} 1s ease forwards;
   display: flex;
   flex-direction: column;
+
   gap: 15px;
   margin: 15px 0;
   overflow: hidden;
@@ -53,8 +55,21 @@ const Wrapper = styled.div`
 
 const PayWrapper = styled.div`
   display: ${(props) => (props.isFormOpen ? 'none' : 'hidden')};
+  margin-top: 40px;
+  padding-bottom: 30px;
+  span {
+    background-color: ${PALETTE.ORANGE[0]};
+    padding: 15px 25px;
+    color: white;
+    margin-bottom: 30px;
+    display: inline-block;
+    &:hover {
+      cursor: pointer;
+    }
+  }
 `;
 const OrderForm = ({ totalPrice, info }) => {
+  const navigate = useNavigate();
   const [{ name, phone, address }, onChange] = useInput({
     name: '',
     phone: '',
@@ -66,11 +81,11 @@ const OrderForm = ({ totalPrice, info }) => {
       (info.length > 1 ? ` 외 ${info.length - 1}건` : ''),
     [info]
   );
-
+  console.log(productName);
   const [isFormOpen, setIsFormOpen] = useState(true);
   const onClickNextStep = (e) => {
     e.preventDefault();
-    setIsFormOpen(false);
+    setIsFormOpen((prev) => !prev);
   };
 
   function callback(response) {
@@ -79,6 +94,7 @@ const OrderForm = ({ totalPrice, info }) => {
 
     if (success) {
       alert('결제 성공');
+      navigate('/');
     } else {
       alert(`결제 실패: ${error_msg}`);
     }
@@ -93,9 +109,9 @@ const OrderForm = ({ totalPrice, info }) => {
       pg: 'html5_inicis', // PG사
       pay_method: 'card', // 결제수단
       merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
-      amount: totalPrice, // 결제금액
+      amount: 1000, // 결제금액
       name: productName, // 주문명
-      buyer_name: sessionStorage.getItem('user').name || '비회원구매', // 구매자 이름
+      buyer_name: sessionStorage.getItem('user')?.name || '비회원구매', // 구매자 이름
       buyer_tel: phone, // 구매자 전화번호
       buyer_addr: address, // 구매자 주소
       buyer_postcode: '06018', // 구매자 우편번호
@@ -122,7 +138,7 @@ const OrderForm = ({ totalPrice, info }) => {
               onChange={onChange}
             />
             <StyledFormInput
-              placeholder="-없이 입력"
+              placeholder="전화번호 -없이 입력"
               name="phone"
               type="text"
               value={phone}
@@ -145,7 +161,10 @@ const OrderForm = ({ totalPrice, info }) => {
         결제 수단
         <GrayBorderOutline></GrayBorderOutline>
         <PayWrapper isFormOpen={isFormOpen}>
-          <span onClick={onClickPayment}>ss</span>
+          <span onClick={onClickPayment}>결제하기</span>
+          <SubmitButton size="lg" backcolor="black" color="white" onClick={onClickNextStep}>
+            이전 단계
+          </SubmitButton>
         </PayWrapper>
       </StyledForm>
     </>

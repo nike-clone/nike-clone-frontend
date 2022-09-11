@@ -2,7 +2,7 @@ import jorden from 'assets/icons/jorden.png';
 import { Link, useNavigate } from 'react-router-dom';
 import * as Styled from './SubHeader.style';
 import Login from 'components/form/Login/Login';
-import Modal from 'components/common/modal/Modal';
+import Modal from 'components/common/Modal/Modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { modalStateChange } from 'features/modal/modalSlice';
 import { logoutUser } from 'features/user/userSlice';

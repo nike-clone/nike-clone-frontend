@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import GoodsSizeFilter from 'components/goods/filter/size/GoodsSizeFilter';
 import { useGoodsDetail } from 'hooks/query/useGoods';
-import { SubmitButton } from 'components/common/button/Button';
+import { SubmitButton } from 'components/common/Button/Button';
 import Parser from 'html-react-parser';
 import { useParams } from 'react-router-dom';
 import GoodsDetailImgList from 'components/goods/detail/GoodsDetailImgList';
 import GoodsDetailInfo from 'components/goods/detail/info/GoodsDetailInfo';
 import GoodsDetailQuantity from 'components/goods/detail/quantity/GoodsDetailQuantity';
 import { createRef, useEffect, useRef, useState } from 'react';
-import ColorChip from 'components/common/color/ColorChip';
+import ColorChip from 'components/common/ColorChip/ColorChip';
 import Loading from 'components/Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { setGoodsOption } from 'features/goods/optionSlice';
