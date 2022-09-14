@@ -18,6 +18,7 @@ import { setGoodsOption } from 'features/goods/optionSlice';
 import DetailGoodsSizeFilter from 'components/goods/detail/size/DetailGoodsSizeFilter';
 import GoodsDetailQuantity from 'components/goods/detail/quantity/GoodsDetailQuantity';
 import { SubmitButton } from 'components/common/Button/Button';
+
 const OptionContainer = styled.div`
   display: flex;
   width: 100%;
@@ -27,11 +28,26 @@ const OptionContainer = styled.div`
   }
   @media screen and (max-width: 479px) {
     flex-direction: column;
+    padding: 0px 5px;
+    margin-top: 5px;
+    padding-top: 5px;
   }
   padding: 20px 30px;
+  span {
+    text-align: right;
+    padding-bottom: 10px;
+    margin-right: 5px;
+  }
 `;
 const DetailInfoWrapper = styled.div`
   padding-left: 60px;
+  width: 100%;
+  @media screen and (max-width: 479px) {
+    padding: 10px 5px;
+  }
+  @media screen and (min-width: 480px) and (max-width: 767px) {
+    padding: 10px 5px;
+  }
 `;
 const OptionChangeItem = ({ goodsId, quantity, size, color, itemId, setIsModalOpen }) => {
   const queryClient = useQueryClient();
@@ -71,12 +87,15 @@ const OptionChangeItem = ({ goodsId, quantity, size, color, itemId, setIsModalOp
   const handleItemOption = (goodsId, quantity, size, colorId) => {
     changeOption.mutate({ goodsId, quantity, size, colorId });
   };
-  console.log('mama', option);
+
   useEffect(() => {
     dispatch(setGoodsOption({ size: size, color: String(color), quantity: quantity }));
   }, []);
   return (
     <OptionContainer>
+      <span onClick={() => setIsModalOpen(false)}>
+        <img src={closeIcon} alt="close" />
+      </span>
       <GoodsDetailImgList detailImgList={goodsDetail?.goodsItems[0].goodsItemImages} />
       <DetailInfoWrapper>
         <GoodsDetailInfo goodsDetail={goodsDetail} />

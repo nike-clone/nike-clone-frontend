@@ -28,6 +28,12 @@ const ItemWrapper = styled.div`
 const ItemDetail = styled.div`
   width: 100%;
   display: flex;
+  @media screen and (max-width: 479px) {
+    flex-direction: column;
+  }
+  @media screen and (min-width: 480px) and (max-width: 767px) {
+    flex-direction: column;
+  }
 `;
 const ItemImg = styled.div`
   display: flex;
@@ -39,15 +45,23 @@ const ItemImg = styled.div`
   }
 `;
 const ItemInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
   padding: 0px 40px;
+  flex: 1;
   h2 {
     padding-bottom: 10px;
     font-weight: 600;
   }
   span {
-    padding: 5px 0;
     display: block;
     color: gray;
+  }
+  @media screen and (max-width: 479px) {
+    flex-direction: column;
+  }
+  @media screen and (min-width: 480px) and (max-width: 767px) {
+    flex-direction: column;
   }
 `;
 const ButtonWrapper = styled.div`
@@ -58,20 +72,27 @@ const GrayTextBtn = styled.span`
   font-size: 14px;
 `;
 const ItemOptionChange = styled.div`
-  flex: 1;
   padding-right: 20px;
   text-align: center;
+  @media screen and (max-width: 479px) {
+    text-align: left;
+    padding-top: 10px;
+  }
+  @media screen and (min-width: 480px) and (max-width: 767px) {
+    text-align: left;
+    padding-top: 10px;
+  }
   &:hover {
     cursor: pointer;
   }
 `;
 const ItemPriceDetail = styled.div`
-  flex: 1;
-  padding: 0px 30px;
-  color: ${PALETTE.ORANGE[0]};
+  span {
+    color: ${PALETTE.ORANGE[0]};
+  }
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
   del {
     color: #000;
   }
@@ -83,6 +104,22 @@ const CloseIcon = styled.div`
   padding: 25px 10px;
   &:hover {
     cursor: pointer;
+  }
+`;
+const OptionPriceWrapper = styled.div`
+  display: flex;
+  @media screen and (max-width: 479px) {
+    flex-direction: column;
+    gap: 10px;
+  }
+  @media screen and (min-width: 480px) and (max-width: 767px) {
+    flex-direction: column;
+    gap: 10px;
+  }
+`;
+const ItemCartDetail = styled.div`
+  span {
+    color: black;
   }
 `;
 // 카트 아이템 모달 컨텐트
@@ -110,24 +147,33 @@ const CartItem = ({ color, goods, size, quantity, id }) => {
         <ItemDetail>
           <ItemImg>
             <img src={goods?.productImagePrimary} alt="sd" />
+
             <ItemInfo>
-              <h2>{goods?.name}</h2>
-              <span>색상: {color.name}</span>
-              <span>사이즈: {size}</span>
-              <span className="quantity">수량: {quantity}</span>
+              <ItemCartDetail>
+                <h2>{goods?.name}</h2>
+                <span>색상: {color.name}</span>
+                <span>사이즈: {size}</span>
+                <span className="quantity">수량: {quantity}</span>
+              </ItemCartDetail>
+              <OptionPriceWrapper>
+                <ItemOptionChange>
+                  <GrayTextBtn onClick={modalOpenHandler}>옵션 변경</GrayTextBtn>
+                </ItemOptionChange>
+                <ItemPriceDetail>
+                  {goods?.price ? (
+                    <del>{formatPrice(goods?.salePrice)}</del>
+                  ) : (
+                    <h4>{formatPrice(goods.salePrice)}</h4>
+                  )}
+                  <span>{formatPrice(goods?.price)}</span>
+                </ItemPriceDetail>
+              </OptionPriceWrapper>
             </ItemInfo>
           </ItemImg>
-          <ItemOptionChange>
-            <GrayTextBtn onClick={modalOpenHandler}>옵션 변경</GrayTextBtn>
-          </ItemOptionChange>
-          <ItemPriceDetail>
-            <del>{formatPrice(goods?.price)}</del>
-            <span>{formatPrice(goods?.salePrice)}</span>
-          </ItemPriceDetail>
         </ItemDetail>
-        <ButtonWrapper>
+        {/* <ButtonWrapper>
           <GrayTextBtn>위시리스트에 추가</GrayTextBtn>
-        </ButtonWrapper>
+        </ButtonWrapper> */}
         <CloseIcon onClick={() => onClickDeleteItem()}>
           <img src={closeIcon} alt="close" />
         </CloseIcon>

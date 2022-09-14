@@ -10,6 +10,9 @@ const CartContainer = styled.div`
   display: flex;
   gap: 10px;
   width: 100%;
+  @media screen and (max-width: 479px) {
+    flex-direction: column;
+  }
 `;
 const CartItemContainer = styled.div`
   display: flex;

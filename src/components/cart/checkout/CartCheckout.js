@@ -37,7 +37,7 @@ const CartCheckout = ({ totalPrice, type }) => {
         <span>{formatPrice(totalPrice)}</span>
       </CheckoutInfo>
       <CheckoutInfo>
-        <span>예상 배송비 (30,000원 이상 무료)</span>
+        <span>예상 배송비 </span>
         <span>{totalPrice > 30000 ? 0 : 3000} 원</span>
       </CheckoutInfo>
       <TotalPrice>

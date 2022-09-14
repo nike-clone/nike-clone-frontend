@@ -82,6 +82,7 @@ export const SizeContainer = styled.label`
     width: 51.5px;
     height: 32px;
     border: 1px solid black;
+
     ${(props) => {
       if (props.detail) {
         return css`

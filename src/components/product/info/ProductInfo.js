@@ -11,6 +11,9 @@ const GoodsInfoWrapper = styled.div`
   @media screen and (max-width: 479px) {
     display: block;
   }
+  @media screen and (min-width: 480px) and (max-width: 767px) {
+    display: block;
+  }
 `;
 const ProductName = styled.h2`
   font-size: 16px;
@@ -37,6 +40,10 @@ const DetailInfo = styled.div`
 const PriceInfo = styled.div`
   display: flex;
   @media screen and (max-width: 479px) {
+    justify-content: space-between;
+    padding-top: 10px;
+  }
+  @media screen and (min-width: 480px) and (max-width: 767px) {
     justify-content: space-between;
     padding-top: 10px;
   }
