@@ -16,6 +16,9 @@ export const StyledButton = styled.button`
         @media screen and (max-width: 479px) {
           width: 100%;
         }
+        @media screen and (min-width: 480px) and (max-width: 767px) {
+          width: 100%;
+        }
       `;
     } else if (props.size === 'md') {
       return css`

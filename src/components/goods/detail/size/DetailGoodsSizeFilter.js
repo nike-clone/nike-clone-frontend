@@ -27,6 +27,9 @@ const SizeContainer = styled.label`
   @media screen and (max-width: 479px) {
     width: 100%;
   }
+  @media screen and (min-width: 480px) and (max-width: 767px) {
+    width: 100%;
+  }
   ${(props) => {
     if (props.stock < 1) {
       return css`
@@ -63,6 +66,12 @@ const SizeContainer = styled.label`
     width: 72px;
     height: 40px;
     border: 1px solid black;
+    @media screen and (max-width: 479px) {
+      width: 100%;
+    }
+    @media screen and (min-width: 480px) and (max-width: 767px) {
+      width: 100%;
+    }
   }
 `;
 

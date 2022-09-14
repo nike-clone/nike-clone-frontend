@@ -17,7 +17,20 @@ const ModalOverlay = styled.div`
   top: 20vh;
   left: 50%;
   width: ${(props) => props.width};
-
+  @media screen and (max-width: 479px) {
+    width: 100%;
+    padding: 0px;
+    top: 0px;
+    overflow-y: scroll;
+    height: 100%;
+  }
+  @media screen and (min-width: 480px) and (max-width: 767px) {
+    width: 100%;
+    padding: 0px;
+    top: 0px;
+    overflow-y: scroll;
+    height: 100%;
+  }
   background-color: white;
   padding: 30px;
 
