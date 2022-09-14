@@ -13,6 +13,9 @@ export const StyledButton = styled.button`
         width: 100%;
         height: 48px;
         border-radius: ${(props) => (props.round ? '48px' : '0px')};
+        @media screen and (max-width: 479px) {
+          width: 100%;
+        }
       `;
     } else if (props.size === 'md') {
       return css`

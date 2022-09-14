@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import GoodsSizeFilter from 'components/goods/filter/size/GoodsSizeFilter';
 import { useGoodsDetail } from 'hooks/query/useGoods';
 import { SubmitButton } from 'components/common/Button/Button';
 import Parser from 'html-react-parser';
@@ -7,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import GoodsDetailImgList from 'components/goods/detail/GoodsDetailImgList';
 import GoodsDetailInfo from 'components/goods/detail/info/GoodsDetailInfo';
 import GoodsDetailQuantity from 'components/goods/detail/quantity/GoodsDetailQuantity';
-import { createRef, useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import ColorChip from 'components/common/ColorChip/ColorChip';
 import Loading from 'components/Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,6 +26,9 @@ const DetailContainer = styled.div`
   @media screen and (min-width: 480px) and (max-width: 767px) {
     flex-direction: column;
   }
+  @media screen and (max-width: 479px) {
+    flex-direction: column;
+  }
 `;
 
 const DetailInfoWrapper = styled.div`
@@ -34,13 +36,15 @@ const DetailInfoWrapper = styled.div`
   padding-left: 60px;
   @media screen and (min-width: 480px) and (max-width: 767px) {
     padding-left: 0px;
-    margin: auto;
+    width: 100%;
     margin-top: 30px;
   }
-`;
-
-const SizeLabel = styled.span`
-  display: block;
+  @media screen and (max-width: 479px) {
+    padding-left: 0px;
+    margin: auto;
+    margin-top: 30px;
+    width: 100%;
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -125,7 +129,10 @@ const DetailGoods = () => {
   return (
     <Page>
       <DetailContainer>
-        <GoodsDetailImgList detailImgList={detailGoodsItem[0]?.goodsItemImages} />
+        <GoodsDetailImgList
+          detailImgList={detailGoodsItem[0]?.goodsItemImages}
+          defaultImgs={goodsDetail?.goodsItems[0].goodsItemImages}
+        />
         <DetailInfoWrapper>
           <GoodsDetailInfo goodsDetail={goodsDetail} />
           <ColorChip colors={goodsDetail?.colors} handleGoodsOption={handleGoodsOption} />

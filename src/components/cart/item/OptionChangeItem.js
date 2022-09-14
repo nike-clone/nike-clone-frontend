@@ -25,6 +25,9 @@ const OptionContainer = styled.div`
   @media screen and (min-width: 480px) and (max-width: 767px) {
     flex-direction: column;
   }
+  @media screen and (max-width: 479px) {
+    flex-direction: column;
+  }
   padding: 20px 30px;
 `;
 const DetailInfoWrapper = styled.div`

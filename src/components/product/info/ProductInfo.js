@@ -8,6 +8,9 @@ const GoodsInfoWrapper = styled.div`
   padding: 15px 5px;
   gap: 8px;
   justify-content: space-between;
+  @media screen and (max-width: 479px) {
+    display: block;
+  }
 `;
 const ProductName = styled.h2`
   font-size: 16px;
@@ -33,6 +36,10 @@ const DetailInfo = styled.div`
 `;
 const PriceInfo = styled.div`
   display: flex;
+  @media screen and (max-width: 479px) {
+    justify-content: space-between;
+    padding-top: 10px;
+  }
 `;
 const SalePrice = styled.del`
   color: ${PALETTE.GRAY[0]};

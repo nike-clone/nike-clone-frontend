@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import shoe1 from 'assets/images/shoe1.jpg';
 const GoodsImgListWrapper = styled.div`
   width: calc(100% - 449px);
   @media screen and (min-width: 480px) and (max-width: 767px) {
+    width: 100%;
+  }
+  @media screen and (max-width: 479px) {
     width: 100%;
   }
 `;
@@ -19,12 +21,12 @@ const DetailImgList = styled.ul`
     width: 100%;
   }
 `;
-const GoodsDetailImgList = ({ detailImgList }) => {
+const GoodsDetailImgList = ({ detailImgList, defaultImgs }) => {
   return (
     <GoodsImgListWrapper>
       <DetailImgList>
-        {detailImgList?.goodsItemImages.map((img) => (
-          <li>
+        {(detailImgList || defaultImgs)?.goodsItemImages.map((img) => (
+          <li key={img.id}>
             <img src={img} alt="list" />
           </li>
         ))}

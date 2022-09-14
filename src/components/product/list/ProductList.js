@@ -14,6 +14,9 @@ const GoodsContainer = styled.div`
   @media screen and (min-width: 768px) and (max-width: 1023px) {
     margin: 0px;
   }
+  @media screen and (max-width: 479px) {
+    margin: 0px;
+  }
   transition: 0.2s all ease;
 `;
 const GoodsItemWrapper = styled.div`
@@ -23,6 +26,12 @@ const GoodsItemWrapper = styled.div`
 
   img {
     width: 100%;
+  }
+  @media screen and (max-width: 479px) {
+    width: calc(50% - 5px);
+    &:nth-child(2n) {
+      margin-right: 0px;
+    }
   }
   @media screen and (min-width: 480px) and (max-width: 767px) {
     width: calc(50% - 5px);

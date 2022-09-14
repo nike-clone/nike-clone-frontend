@@ -34,7 +34,6 @@ export const deleteCart = async (id) => {
 };
 
 export const changeItemOption = async ({ goodsId, quantity, size, colorId }) => {
-  console.log(goodsId, quantity, size, colorId);
   const res = await request.patch(
     `/cart-items/${goodsId}`,
     {
