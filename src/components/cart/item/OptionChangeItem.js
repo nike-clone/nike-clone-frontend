@@ -89,6 +89,8 @@ const OptionChangeItem = ({ goodsId, quantity, size, color, itemId, setIsModalOp
           handleGoodsOption={handleGoodsOption}
           sizeInfo={detailGoodsItem}
           selectedSize={Number(option.size)}
+          quantity={option.quantity}
+          handleQuantity={handleQuantity}
         />
         <GoodsDetailQuantity handleQuantity={handleQuantity} quantity={option.quantity} />
         <SubmitButton
