@@ -140,6 +140,8 @@ const DetailGoods = () => {
             handleGoodsOption={handleGoodsOption}
             sizeInfo={detailGoodsItem}
             selectedSize={Number(option.size)}
+            quantity={option.quantity}
+            handleQuantity={handleQuantity}
           />
           <GoodsDetailQuantity handleQuantity={handleQuantity} quantity={option.quantity} />
           <SubmitButton backcolor="black" color="white" size="lg" round>

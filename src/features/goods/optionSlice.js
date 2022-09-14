@@ -12,6 +12,7 @@ const optionSlice = createSlice({
   initialState,
   reducers: {
     setGoodsOption: (state, action) => {
+      if (action.payload.type === 'm' && state.quantity === 1) return;
       state.size = action.payload.size;
       state.color = action.payload.color;
       if (action.payload.type === 'm') state.quantity = state.quantity - 1;

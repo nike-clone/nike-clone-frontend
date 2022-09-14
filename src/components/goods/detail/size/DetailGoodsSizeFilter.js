@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 const FilterLable = styled.label``;
@@ -66,7 +66,26 @@ const SizeContainer = styled.label`
   }
 `;
 
-const DetailGoodsSizeFilter = ({ handleGoodsOption, sizeInfo, selectedSize }) => {
+const DetailGoodsSizeFilter = ({
+  handleGoodsOption,
+  sizeInfo,
+  selectedSize,
+  quantity,
+  handleQuantity,
+}) => {
+  const [selectedIndex, setSelectedIndex] = useState(null);
+
+  useEffect(() => {
+    if (sizeInfo[selectedIndex]?.stock < quantity) {
+      alert('재고가 부족합니다.');
+      handleQuantity('m');
+    }
+  }, [quantity]);
+
+  const identifySizeIndex = (index) => {
+    setSelectedIndex(index);
+  };
+
   return (
     <FilterUnit>
       <FilterLable></FilterLable>
@@ -79,6 +98,7 @@ const DetailGoodsSizeFilter = ({ handleGoodsOption, sizeInfo, selectedSize }) =>
               value={size.size}
               onChange={handleGoodsOption}
               checked={size.size === selectedSize}
+              onClick={() => identifySizeIndex(index)}
             />
             <span className="sizeChecked"></span>
             {size.size}
