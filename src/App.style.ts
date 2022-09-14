@@ -110,7 +110,6 @@ const resetCSS = css`
   body {
     line-height: 1;
     width: 100%;
-    overflow-x: hidden;
   }
   ol,
   ul {
@@ -165,15 +164,15 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 export const BaseLayout = styled.main`
-  padding: 0px 50px 50px 50px;
+  padding: 0px 50px 200px 50px;
   margin: 0 auto;
   @media screen and (max-width: 479px) {
-    padding: 0px 10px 10px 10px;
+    padding: 0px 10px 100px 10px;
   }
   @media screen and (min-width: 480px) and (max-width: 767px) {
-    padding: 0px 10px 10px 10px;
+    padding: 0px 10px 150px 10px;
   }
   @media screen and (min-width: 768px) and (max-width: 1023px) {
-    padding: 0px 20px 20px 20px;
+    padding: 0px 20px 200px 20px;
   }
 `;

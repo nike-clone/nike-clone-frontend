@@ -51,11 +51,11 @@ const MainGoods = () => {
     size: [],
     color: [],
   });
-  console.log(size, color);
+
   const [isModalOpen, modalOpenHandler] = useModal(true);
 
   const { data, isLoading, refetch } = useGoodsItems(gender, color, size, optionFilter.filterData);
-  console.log('d', data);
+
   const { data: colors } = useGoodsColors();
 
   return (

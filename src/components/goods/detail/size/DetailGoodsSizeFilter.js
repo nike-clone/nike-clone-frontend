@@ -12,6 +12,9 @@ const SizeFilterWrapper = styled.div`
   grid-template-columns: repeat(5, 1fr);
   grid-column-gap: 2px;
   grid-row-gap: 5px;
+  @media screen and (max-width: 479px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
 `;
 const SizeContainer = styled.label`
   border-radius: 5px;
@@ -21,6 +24,9 @@ const SizeContainer = styled.label`
   font-size: 12px;
   position: relative;
   width: 74px;
+  @media screen and (max-width: 479px) {
+    width: 100%;
+  }
   ${(props) => {
     if (props.stock < 1) {
       return css`

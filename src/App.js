@@ -7,6 +7,7 @@ import { Route, Routes } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import useCart from 'hooks/query/useCart';
 import Header from 'components/Header/Header';
+import Footer from 'components/common/Footer/Footer';
 const Join = lazy(() => import('pages/join/Join'));
 const Home = lazy(() => import('pages/Home'));
 const Cart = lazy(() => import('pages/cart/CartPage'));
@@ -34,6 +35,7 @@ const App = () => {
           </Routes>
         </Suspense>
       </BaseLayout>
+      <Footer />
     </div>
   );
 };
