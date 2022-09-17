@@ -28,7 +28,7 @@ export const getCart = async () => {
 };
 
 export const deleteCart = async (id) => {
-  const res = await request.delete(`/cart-items/${id}`);
+  const res = await request.delete(`/cart-items/${id}`, { params });
 
   return res.data;
 };

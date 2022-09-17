@@ -121,6 +121,7 @@ const OrderForm = ({ totalPrice, info }) => {
       buyer_tel: phone, // 구매자 전화번호
       buyer_addr: address, // 구매자 주소
       buyer_postcode: '06018', // 구매자 우편번호
+      custom_data: { goodsId: 1 },
     };
 
     /* 4. 결제 창 호출하기 */

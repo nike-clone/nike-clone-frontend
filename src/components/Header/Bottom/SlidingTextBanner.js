@@ -41,7 +41,7 @@ const SlidingTextBanner = () => {
   };
 
   const [isModalOpen, modalOpenHandler] = useModal(true);
-  const exTxt = ['슬라이딩 배너 텍스트 입니다.', 'adasd', 'dfdfd', 's'];
+  const exTxt = ['방문을 환영합니다.', '나이키 이벤트 안내'];
   return (
     <>
       {isModalOpen && (

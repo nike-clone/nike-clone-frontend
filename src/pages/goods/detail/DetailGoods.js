@@ -6,11 +6,11 @@ import { useParams } from 'react-router-dom';
 import GoodsDetailImgList from 'components/goods/detail/GoodsDetailImgList';
 import GoodsDetailInfo from 'components/goods/detail/info/GoodsDetailInfo';
 import GoodsDetailQuantity from 'components/goods/detail/quantity/GoodsDetailQuantity';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ColorChip from 'components/common/ColorChip/ColorChip';
 import Loading from 'components/Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
-import { setGoodsOption } from 'features/goods/optionSlice';
+import { resetGoodsOption, setGoodsOption } from 'features/goods/optionSlice';
 import DetailGoodsSizeFilter from 'components/goods/detail/size/DetailGoodsSizeFilter';
 import { useMutation } from 'react-query';
 import { addCart } from 'api/cart';
@@ -71,21 +71,27 @@ const RefundTxt = styled.div`
 `;
 const exampleTxt =
   '<p><b>편안함의 전설이 재탄생하다.</b></p><br><p>나이키 빅토리 원은 해변에서 경기장 관람석까지 장소를 불문한 머스트해브 클래식 아이템입니다. 가볍고 편안하여 착용하기 쉬우며 더 부드럽고 반응성이 좋은 폼으로 업그레이드되었습니다. 입체적인 그립 패턴은 발을 감싸고 고정해주며 새롭게 패딩 처리된 스트랩은 멋진 룩과 착화감을 선사합니다.</p>';
-const filterStock = (size, goodsItems) => {
-  goodsItems.find();
-};
+
 const DetailGoods = () => {
   const { goodsId } = useParams();
+  const dispatch = useDispatch();
   const { data: goodsDetail, isLoading, isSuccess } = useGoodsDetail(goodsId);
   const option = useSelector((state) => state.option);
   const { data: cartItems, refetch } = useCart();
-  const dispatch = useDispatch();
+
   // const [{ size }, onChange] = useInput({
   //   size: '',
   // });
 
   //const [selectedOption, setSelectedOption] = useState({ selectedSize: '', selectedColor: '' });
   const [detailGoodsItem, setDetailGoodsItem] = useState([]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetGoodsOption()); //페이지 벗어나면 초기화
+    };
+  }, [dispatch]);
+
   const handleGoodsOption = (e, colorId) => {
     dispatch(setGoodsOption({ ...option, [e.target.name]: e.target.value }));
     if (e.target.name === 'color') {

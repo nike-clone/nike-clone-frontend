@@ -2,7 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 const FooterWrapper = styled.footer`
-  height: 300px;
+  @media screen and (min-width: 480px) {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+  }
+  height: 250px;
   width: 100%;
   background: black;
   display: flex;

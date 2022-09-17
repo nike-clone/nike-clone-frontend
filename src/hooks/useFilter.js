@@ -6,12 +6,13 @@ const useFilter = (initialValue = '') => {
 
   const onChange = useCallback(
     (e) => {
-      if (value.color.includes(e.target.value)) {
-        const index = value.color.indexOf(e.target.value);
+      const selectedColor = e.target.value.replace('#', '');
+      if (value.color.includes(selectedColor)) {
+        const index = value.color.indexOf(selectedColor);
         value.color.splice(index, 1);
         setValue(value);
       } else {
-        value[e.target.name].push(e.target.value.replace('#', ''));
+        value[e.target.name].push(selectedColor);
         const newValue = { ...value };
         setValue(newValue);
       }
