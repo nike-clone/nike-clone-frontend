@@ -166,6 +166,7 @@ export const GlobalStyle = createGlobalStyle`
 export const BaseLayout = styled.main`
   padding: 0px 50px 200px 50px;
   margin: 0 auto;
+  margin-bottom: 100px;
   @media screen and (max-width: 479px) {
     padding: 0px 10px 100px 10px;
   }

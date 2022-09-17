@@ -1,10 +1,12 @@
 import { SubmitButton } from 'components/common/Button/Button';
 import { StyledFormInput } from 'components/common/Input/Input';
 import PALETTE from 'constants/palette';
+import useOrder from 'hooks/query/useOrder';
 import useInput from 'hooks/useInput';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { keyframes, css } from 'styled-components';
+import { validatePhoneNumber } from 'util/validation';
 const fadeUp = keyframes`
 from {
   height: 30%;
@@ -70,7 +72,22 @@ const PayWrapper = styled.div`
 `;
 
 const OrderForm = ({ totalPrice, info }) => {
-  const navigate = useNavigate();
+  const anonymousId = localStorage.getItem('NC_GUEST_ID');
+  //payData에 들어갈 상품 정보 만들기
+  const items = useMemo(
+    () =>
+      info.reduce((result, item) => {
+        result.push({
+          goodsId: item.id,
+          size: item.goodsItem.size,
+          color: item.goodsItem.color.colorCode,
+          quantity: item.quantity,
+        });
+        return result;
+      }, []),
+    [info]
+  );
+
   const [{ name, phone, address }, onChange] = useInput({
     name: '',
     phone: '',
@@ -82,12 +99,18 @@ const OrderForm = ({ totalPrice, info }) => {
       (info.length > 1 ? ` 외 ${info.length - 1}건` : ''),
     [info]
   );
-  console.log(productName);
+  const data = useOrder();
   const [isFormOpen, setIsFormOpen] = useState(true);
   const onClickNextStep = (e) => {
     e.preventDefault();
+    const phoneMsg = validatePhoneNumber(phone);
     if (!name || !phone || !address) {
       alert('내용을 채워주세요!');
+      return;
+    }
+
+    if (phoneMsg) {
+      alert('핸드폰 형식을 확인해주세요!');
       return;
     }
 
@@ -96,13 +119,36 @@ const OrderForm = ({ totalPrice, info }) => {
 
   function callback(response) {
     console.log(response);
-    const { success, merchant_uid, error_msg } = response;
-
-    if (success) {
-      alert('결제 성공');
-      navigate('/');
+    const resp = response;
+    if (resp.success) {
+      const payData = {
+        success: resp.success,
+        impUid: resp.imp_uid,
+        merchantUid: resp.merchant_uid,
+        payMethod: resp.pay_method,
+        paidAmount: resp.paid_amount,
+        status: resp.status,
+        name: resp.name,
+        pgProvider: resp.pg_provider,
+        embPgProvider: 'test',
+        pgTid: 'test',
+        buyerName: resp.buyer_name,
+        buyerEmail: 'test@test.com',
+        buyerTel: resp.buyer_tel,
+        buyerAddr: resp.buyer_addr,
+        buyerPostcode: resp.buyer_postcode,
+        customData: {
+          items: items,
+          isLoggedIn: anonymousId ? false : true,
+          anonymousId: anonymousId,
+        },
+        paidAt: new Date().getTime(),
+        receiptUrl: 'test',
+        anonymousId: anonymousId || null,
+      };
+      data.mutate(payData);
     } else {
-      alert(`결제 실패: ${error_msg}`);
+      alert('error');
     }
   }
   function onClickPayment() {
@@ -121,6 +167,7 @@ const OrderForm = ({ totalPrice, info }) => {
       buyer_tel: phone, // 구매자 전화번호
       buyer_addr: address, // 구매자 주소
       buyer_postcode: '06018', // 구매자 우편번호
+      custom_data: { goodsId: 1 },
     };
 
     /* 4. 결제 창 호출하기 */

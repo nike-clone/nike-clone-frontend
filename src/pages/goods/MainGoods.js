@@ -1,18 +1,13 @@
 import GoodsHeader from 'components/goods/header/GoodsHeader';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import useInput from 'hooks/useInput';
-import GoodsFilter from 'components/goods/filter/color/GoodsColorFilter';
 import GoodsColorFilter from 'components/goods/filter/color/GoodsColorFilter';
 import GoodsSizeFilter from 'components/goods/filter/size/GoodsSizeFilter';
 import useModal from 'hooks/useModal';
-import ProductInfo from 'components/product/info/ProductInfo';
-import { Link } from 'react-router-dom';
 import { useGoodsColors, useGoodsItems } from 'hooks/query/useGoods';
 import ProductList from 'components/product/list/ProductList';
 import useQueryString from 'hooks/useQueryString';
 import { filterGender } from 'util/gender';
-import spinner from 'assets/icons/833.gif';
 import useFilter from 'hooks/useFilter';
 import Loading from 'components/Loading/Loading';
 

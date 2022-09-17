@@ -18,8 +18,14 @@ const optionSlice = createSlice({
       if (action.payload.type === 'm') state.quantity = state.quantity - 1;
       else if (action.payload.type === 'p') state.quantity = state.quantity + 1;
     },
+    resetGoodsOption: (state) => {
+      state.size = null;
+      state.color = null;
+      state.quantity = 1;
+      state.type = null;
+    },
   },
 });
 
-export const { setGoodsOption } = optionSlice.actions;
+export const { setGoodsOption, resetGoodsOption } = optionSlice.actions;
 export default optionSlice.reducer;
