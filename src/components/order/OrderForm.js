@@ -73,12 +73,13 @@ const PayWrapper = styled.div`
 
 const OrderForm = ({ totalPrice, info }) => {
   const anonymousId = localStorage.getItem('NC_GUEST_ID');
+
   //payData에 들어갈 상품 정보 만들기
   const items = useMemo(
     () =>
       info.reduce((result, item) => {
         result.push({
-          goodsId: item.id,
+          goodsId: item.goodsItem.goods.id,
           size: item.goodsItem.size,
           color: item.goodsItem.color.colorCode,
           quantity: item.quantity,
@@ -139,7 +140,7 @@ const OrderForm = ({ totalPrice, info }) => {
         buyerPostcode: resp.buyer_postcode,
         customData: {
           items: items,
-          isLoggedIn: anonymousId ? false : true,
+          isLogedIn: anonymousId ? false : true,
           anonymousId: anonymousId,
         },
         paidAt: new Date().getTime(),
