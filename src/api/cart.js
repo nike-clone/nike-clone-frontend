@@ -13,7 +13,7 @@ export const addCart = async ({ quantity, goodsId, size, colorId }) => {
       size: size,
       colorId: colorId,
     },
-    { params }
+    params ? { params } : ''
   );
 
   return res;
@@ -28,6 +28,7 @@ export const getCart = async () => {
 };
 
 export const deleteCart = async (id) => {
+  console.log(params);
   const res = await request.delete(`/cart-items/${id}`, { params });
 
   return res.data;
