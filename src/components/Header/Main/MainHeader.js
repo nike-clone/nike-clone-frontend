@@ -114,13 +114,11 @@ const MainHeader = () => {
   // });
   const { data: cartCount } = useCart();
 
-  const active = useScroll();
-
   const [isModalOpen, modalOpenHandler] = useModal(false);
 
   return (
     <>
-      <Container active={active}>
+      <Container>
         <Link to="/">
           <img className="main-logo" src={logo} alt="logo" />
         </Link>

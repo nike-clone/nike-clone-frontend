@@ -13,7 +13,7 @@ export const addCart = async ({ quantity, goodsId, size, colorId }) => {
       size: size,
       colorId: colorId,
     },
-    params ? { params } : ''
+    { params: { anonymous_id: localStorage.getItem('NC_GUEST_ID') } }
   );
 
   return res;

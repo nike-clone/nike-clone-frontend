@@ -7,9 +7,9 @@ const useFilter = (initialValue = '') => {
   const onChange = useCallback(
     (e) => {
       const selectedColor = e.target.value.replace('#', '');
-      if (value.color.includes(selectedColor)) {
-        const index = value.color.indexOf(selectedColor);
-        value.color.splice(index, 1);
+      const index = value.color.indexOf(selectedColor);
+      if (index >= 0) {
+        value.color.splice(index, 1); //컬러 해제시 필터링 제외
         setValue(value);
       } else {
         value[e.target.name].push(selectedColor);
