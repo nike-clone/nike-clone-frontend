@@ -103,7 +103,7 @@ const CartCounter = styled.div`
   font-size: 14px;
   color: #fff;
 `;
-const MainHeader = () => {
+const MainHeader = ({ refetch }) => {
   // const { data: categoryList } = useQuery('categories', getCategories, {
   //   enabled: true,
   //   refetchOnWindowFocus: false,
@@ -149,7 +149,7 @@ const MainHeader = () => {
       </Container>
       {isModalOpen && (
         <SideModal showModal={modalOpenHandler}>
-          {<SideMenu showModal={modalOpenHandler} />}
+          {<SideMenu showModal={modalOpenHandler} refetch={refetch} />}
         </SideModal>
       )}
     </>

@@ -27,7 +27,8 @@ const CartPage = ({ type }) => {
 
   const totalPrice = useMemo(() => {
     return cartInfo?.reduce((acc, cur) => {
-      return (acc += cur.goodsItem.goods.salePrice);
+      console.log(cartInfo);
+      return (acc += cur.goodsItem.goods.price * cur.quantity);
     }, 0);
   }, [cartInfo]);
 

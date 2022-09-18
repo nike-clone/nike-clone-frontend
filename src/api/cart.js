@@ -42,7 +42,7 @@ export const changeItemOption = async ({ goodsId, quantity, size, colorId }) => 
       size: size,
       colorId: colorId,
     },
-    { params }
+    { params: { anonymous_id: localStorage.getItem('NC_GUEST_ID') } }
   );
 
   return res.data;

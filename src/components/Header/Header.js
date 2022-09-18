@@ -6,7 +6,7 @@ const Header = ({ refetch }) => {
   return (
     <>
       <SubHeader refetch={refetch} />
-      <MainHeader />
+      <MainHeader refetch={refetch} />
       <SlidingTextBanner />
     </>
   );

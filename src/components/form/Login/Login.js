@@ -26,6 +26,10 @@ const LoginContainer = styled.div`
     &:hover {
       cursor: pointer;
     }
+    @media screen and (max-width: 479px) {
+      right: 0;
+      top: 0;
+    }
   }
 `;
 
