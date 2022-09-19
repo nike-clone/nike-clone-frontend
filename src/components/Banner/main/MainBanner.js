@@ -20,12 +20,8 @@ const LinkContainer = styled.div`
   justify-content: center;
   gap: 10px;
 `;
-export interface Props {
-  bnrText: string;
-  bannerImg: string;
-}
 
-const MainBanner = ({ bnrText, bannerImg }: Props) => {
+const MainBanner = ({ bnrText, bannerImg }) => {
   return (
     <>
       <MainBnrContainer>
