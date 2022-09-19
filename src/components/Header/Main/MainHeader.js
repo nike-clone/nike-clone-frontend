@@ -115,10 +115,10 @@ const MainHeader = ({ refetch }) => {
   const { data: cartCount } = useCart();
 
   const [isModalOpen, modalOpenHandler] = useModal(false);
-
+  const active = useScroll();
   return (
     <>
-      <Container>
+      <Container active={active}>
         <Link to="/">
           <img className="main-logo" src={logo} alt="logo" />
         </Link>

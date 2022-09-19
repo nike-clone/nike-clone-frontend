@@ -42,7 +42,7 @@ const SalePrice = styled.del`
 const Product = ({ goodsInfo }) => {
   return (
     <>
-      <Link to="/">
+      <Link to={`/goods/${goodsInfo.id}`}>
         <img src={goodsInfo.imgPath} alt="shoe" />
       </Link>
       <GoodsInfoWrapper>

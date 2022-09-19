@@ -22,16 +22,14 @@ const LinkContainer = styled.div`
 `;
 export interface Props {
   bnrText: string;
+  bannerImg: string;
 }
 
-const MainBanner = ({ bnrText }: Props) => {
+const MainBanner = ({ bnrText, bannerImg }: Props) => {
   return (
     <>
       <MainBnrContainer>
-        <img
-          src="https://static-breeze.nike.co.kr/kr/ko_kr//cmsstatic/structured-content/65250/220706_wlp_p1_bg.jpg"
-          alt="bnr"
-        />
+        <img src={bannerImg} alt="bnr" />
       </MainBnrContainer>
       <MainBnrTextWrapper>{Parser(bnrText)}</MainBnrTextWrapper>
       <LinkContainer>
