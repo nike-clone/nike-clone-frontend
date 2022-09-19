@@ -30,6 +30,9 @@ export const OptionFilter = styled.div`
     cursor: pointer;
     color: gray;
   }
+  @media screen and (max-width: 479px) {
+    display: none;
+  }
 `;
 export const SlidingFilter = styled.div`
   display: flex;
