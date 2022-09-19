@@ -35,10 +35,10 @@ const MainBanner = ({ bnrText }: Props) => {
       </MainBnrContainer>
       <MainBnrTextWrapper>{Parser(bnrText)}</MainBnrTextWrapper>
       <LinkContainer>
-        <StyledLink target={'/goods'} size="md">
+        <StyledLink target={'/category?gender=Men'} size="md">
           자세히 보기
         </StyledLink>
-        <StyledLink target={'/buy'} size="md">
+        <StyledLink target={'/category?gender=Men'} size="md">
           구매하기
         </StyledLink>
       </LinkContainer>
