@@ -12,6 +12,7 @@ import SideMenu from '../Side/SideMenu';
 import useModal from 'hooks/useModal';
 import PALETTE from 'constants/palette';
 import useCart from 'hooks/query/useCart';
+import { useEffect } from 'react';
 const Container = styled.header`
   position: static;
   height: 60px;
@@ -116,6 +117,7 @@ const MainHeader = ({ refetch }) => {
 
   const [isModalOpen, modalOpenHandler] = useModal(false);
   const active = useScroll();
+
   return (
     <>
       <Container active={active}>
