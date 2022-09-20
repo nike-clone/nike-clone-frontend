@@ -134,11 +134,11 @@ const resetCSS = css`
     text-decoration: none;
   }
   .App {
-    position: fixed;
+    /* position: fixed; */
     width: 100%;
     height: 100%;
     overflow-x: hidden;
-    -webkit-overflow-scrolling: touch; /* 추가 */
+    -webkit-overflow-scrolling: touch;
   }
 `;
 

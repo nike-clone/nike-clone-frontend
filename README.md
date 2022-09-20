@@ -99,3 +99,72 @@ const useFilter = (initialValue = '') => {
 
 </div>
 </details>
+
+### 5.3 ios 바운스 스크롤
+
+### 상황
+
+- 스크롤 방향에 따라 헤더 고정 노출/비노출이 필요
+- 그러나 ios 화면 바닥을 넘어 가면 의도치 않게 위아래로 고무줄 처럼 튕기는 현상 -> 위아래로 튕길때 헤더가 의도치 않게 노출/비노출이 됨
+  - 가장 상위태그에 position:fixed -> 튕기는 현상은 막아주지만 스크롤 함수를 감지를 못함
+
+### 해결
+
+- 화면 바닥 근처에서의 스크롤위치에서는 헤더를 노출로 고정
+<details>
+<summary><b>해결 코드</b></summary>
+<div markdown="1">
+
+```javascript
+//src/hooks/useScroll.js
+import { useEffect, useRef, useState } from 'react';
+
+export const useScroll = () => {
+  const [active, setActive] = useState(false);
+  // 과거의 scroll 값 저장 위해서
+  const scrollRef = useRef(0);
+  // 쓰로틀 함수
+  const throttle = (callback, delay) => {
+    let waiting = false;
+    return () => {
+      if (!waiting) {
+        waiting = true;
+        setTimeout(() => {
+          callback();
+          waiting = false;
+        }, delay);
+      }
+    };
+  };
+
+  const handleScroll = () => {
+    const prevScroll = scrollRef.current;
+    const currentScroll = window.scrollY;
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+    //화면 바닥에 근접할때 ios 스크롤 바운스에 대한 대응
+    if (scrollTop + clientHeight + 100 >= scrollHeight) {
+      setActive(() => true);
+    } else {
+      // 스크롤 방향에 따른 헤더 노출/비노출
+      prevScroll > currentScroll ? setActive(() => false) : setActive(() => true);
+    }
+    // 현재 값을 넣어서 다음 scroll handle에서 이전 값으로 쓰기
+    scrollRef.current = currentScroll;
+  };
+  const updateScroll = throttle(handleScroll, 50);
+
+  useEffect(() => {
+    window.addEventListener('scroll', updateScroll);
+    return () => {
+      window.removeEventListener('scroll', updateScroll);
+    };
+  }, [updateScroll]);
+
+  return active;
+};
+```
+
+</div>
+</details>

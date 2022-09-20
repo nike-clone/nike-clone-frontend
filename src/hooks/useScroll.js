@@ -6,29 +6,34 @@ export const useScroll = () => {
   const scrollRef = useRef(0);
 
   const throttle = (callback, delay) => {
-    let timer = null;
+    let waiting = false;
     return () => {
-      if (timer) return;
-      timer = setTimeout(() => {
-        callback();
-        timer = null;
-      }, delay);
+      if (!waiting) {
+        waiting = true;
+        setTimeout(() => {
+          callback();
+          waiting = false;
+        }, delay);
+      }
     };
   };
+
   const handleScroll = () => {
     const prevScroll = scrollRef.current;
     const currentScroll = window.scrollY;
-
-    if (prevScroll > currentScroll) {
-      setActive(() => false);
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+    if (scrollTop + clientHeight + 100 >= scrollHeight) {
+      setActive(() => true); //ios 스크롤 바운스 막기
     } else {
-      setActive(() => true);
+      prevScroll > currentScroll ? setActive(() => false) : setActive(() => true);
     }
-    // 현재 값을 넣어서 다음 scroll handle에서 이전 값으로 쓰게
+    // 현재 값을 넣어서 다음 scroll handle에서 이전 값으로 쓰기
     scrollRef.current = currentScroll;
   };
-  const updateScroll = throttle(handleScroll, 100);
-  // 현재 scrollTop 지정
+  const updateScroll = throttle(handleScroll, 50);
+
   useEffect(() => {
     window.addEventListener('scroll', updateScroll);
     return () => {
