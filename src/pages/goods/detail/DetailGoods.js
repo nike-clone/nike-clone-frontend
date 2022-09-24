@@ -110,7 +110,7 @@ const DetailGoods = () => {
 
   const addToCart = useMutation(addCart, {
     onSuccess: () => {
-      alert('성공');
+      alert('장바구니에 등록 되었습니다.');
       refetch();
     },
     onError: (e) => {

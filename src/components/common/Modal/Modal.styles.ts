@@ -1,8 +1,9 @@
-import React from 'react';
-import { createPortal } from 'react-dom';
 import styled from 'styled-components';
 
-const Backdrop = styled.div`
+interface Props {
+  width?: string;
+}
+export const Backdrop = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -12,7 +13,7 @@ const Backdrop = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
-const ModalOverlay = styled.div`
+export const ModalOverlay = styled.div<Props>`
   position: fixed;
   top: 20vh;
   left: 50%;
@@ -42,7 +43,7 @@ const ModalOverlay = styled.div`
   transform: translateX(-50%);
 `;
 
-const SideModalOverlay = styled.div`
+export const SideModalOverlay = styled.div`
   position: fixed;
   top: 0px;
   right: 0px;
@@ -55,24 +56,3 @@ const SideModalOverlay = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-const portalElement = document.getElementById('modal');
-
-const Modal = ({ children, showModal, width }) => {
-  return (
-    <>
-      {createPortal(<Backdrop onClick={showModal} />, portalElement)}
-      {createPortal(<ModalOverlay width={width}>{children}</ModalOverlay>, portalElement)}
-    </>
-  );
-};
-
-export const SideModal = ({ children, showModal }) => {
-  return (
-    <>
-      {createPortal(<Backdrop onClick={showModal} />, portalElement)}
-      {createPortal(<SideModalOverlay>{children}</SideModalOverlay>, portalElement)}
-    </>
-  );
-};
-
-export default Modal;

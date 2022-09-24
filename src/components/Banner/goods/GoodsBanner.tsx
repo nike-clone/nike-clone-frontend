@@ -1,20 +1,14 @@
 import ImgSlider from 'components/common/Slider/ImgSlider';
-import React from 'react';
-import styled from 'styled-components';
-import shoe1 from 'assets/images/shoe1.jpg';
-import shoe2 from 'assets/images/shoe2.jpg';
-import shoe3 from 'assets/images/shoe3.jpg';
-import shoe4 from 'assets/images/shoe4.jpg';
-import ProductInfo from 'components/product/info/ProductInfo';
 import Product from 'components/product/Product';
-const GoodsBannerContainer = styled.div``;
-const BannerLabel = styled.h2`
-  font-size: 24px;
-  font-weight: 500;
-  padding: 15px 5px;
-`;
-
-const GoodsInfo = [
+import * as Styled from './GoodsBanner.styles';
+interface GoodsInfoData {
+  id: number;
+  name: string;
+  classification: string;
+  price: number;
+  imgPath: string;
+}
+const GoodsInfo: GoodsInfoData[] = [
   {
     id: 84,
     name: '나이키 줌X 인빈서블 런 플라이니트2',
@@ -51,14 +45,14 @@ const GoodsInfo = [
 
 const GoodsBanner = (): JSX.Element => {
   return (
-    <GoodsBannerContainer>
-      <BannerLabel>Featured Shoes</BannerLabel>
+    <Styled.GoodsBannerContainer>
+      <Styled.BannerLabel>Featured Shoes</Styled.BannerLabel>
       <ImgSlider>
         {GoodsInfo.map((goods) => (
           <Product goodsInfo={goods} />
         ))}
       </ImgSlider>
-    </GoodsBannerContainer>
+    </Styled.GoodsBannerContainer>
   );
 };
 

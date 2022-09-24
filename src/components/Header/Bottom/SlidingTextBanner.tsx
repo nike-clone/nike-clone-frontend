@@ -30,8 +30,16 @@ const Carousel = styled(Slider)`
     right: 50px;
   }
 `;
-const SlidingTextBanner = () => {
-  const settings = {
+interface SlideSettings {
+  dots: boolean;
+  infinite: boolean;
+  speed: number;
+  slidesToShow: number;
+  slidesToScroll: number;
+  arrow: boolean;
+}
+const SlidingTextBanner = (): JSX.Element => {
+  const settings: SlideSettings = {
     dots: false,
     infinite: false,
     speed: 500,

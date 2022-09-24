@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PromotionBanner = () => {
+const PromotionBanner = (): JSX.Element => {
   return <div>PromotionBanner</div>;
 };
 

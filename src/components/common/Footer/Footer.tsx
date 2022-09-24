@@ -18,7 +18,7 @@ const FooterWrapper = styled.footer`
   }
 `;
 
-const Footer = () => {
+const Footer = (): JSX.Element => {
   return (
     <FooterWrapper>
       <h2>Nike-Custom-Clone</h2>

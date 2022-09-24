@@ -8,23 +8,47 @@ import { modalStateChange } from 'features/modal/modalSlice';
 import { logoutUser } from 'features/user/userSlice';
 import { v4 as uuid } from 'uuid';
 import { useQuery } from 'react-query';
-const SubHeader = ({ refetch }) => {
-  const user = JSON.parse(sessionStorage.getItem('user'));
+import React from 'react';
+interface Props {
+  refetch: () => void;
+}
+interface ModalState {
+  modal: {
+    isModalOpen: boolean;
+  };
+}
+interface UserState {
+  user: {
+    user: {
+      aud: string;
+      email: string;
+      exp: number;
+      iat: number;
+      id: string;
+      isAdmin: boolean;
+      iss: string;
+      name: string;
+    };
+    isLoggedIn: boolean;
+  };
+}
+const SubHeader = ({ refetch }: Props): JSX.Element => {
+  const user: string | null = JSON.parse(sessionStorage.getItem('user')!);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isModalOpen } = useSelector((state) => state.modal);
-  const { isSucess } = useSelector((state) => state.user);
+  const { isModalOpen } = useSelector((state: ModalState) => state.modal);
+  const { isLoggedIn } = useSelector((state: UserState) => state.user);
   const modalOpenHandler = () => {
     dispatch(modalStateChange());
   };
-  const logout = (e) => {
+  const logout = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('tokenId');
     localStorage.setItem('NC_GUEST_ID', `user-${uuid()}`);
     dispatch(logoutUser());
-    if (!isSucess) {
+    if (!isLoggedIn) {
       navigate('/');
     }
     refetch();
