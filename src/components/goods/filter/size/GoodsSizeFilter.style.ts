@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
+
 export const FilterLable = styled.label``;
-export const FilterUnit = styled.div`
+export const FilterUnit = styled.div<{ detail?: string }>`
   border-top: 1px solid #ccc;
   margin-bottom: 10px;
   ${(props) => {
@@ -11,7 +12,7 @@ export const FilterUnit = styled.div`
     }
   }}
 `;
-export const SizeFilterWrapper = styled.div`
+export const SizeFilterWrapper = styled.div<{ detail?: string }>`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-column-gap: 2px;
@@ -24,20 +25,14 @@ export const SizeFilterWrapper = styled.div`
     }
   }}
 `;
-export const SizeContainer = styled.label`
+export const SizeContainer = styled.label<{ detail?: string }>`
   border-radius: 5px;
   border: 1px solid #ccc;
   text-align: center;
   padding: 10px 11px;
   font-size: 12px;
   position: relative;
-  ${(props) => {
-    if (props.stock < 1) {
-      return css`
-        background-color: gray;
-      `;
-    }
-  }}
+
   ${(props) => {
     if (props.detail) {
       return css`

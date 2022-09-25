@@ -37,6 +37,11 @@ const OptionContainer = styled.div`
     text-align: right;
     padding-bottom: 10px;
     margin-right: 5px;
+    img {
+      @media screen and (min-width: 768px) {
+        display: none;
+      }
+    }
   }
 `;
 const DetailInfoWrapper = styled.div`

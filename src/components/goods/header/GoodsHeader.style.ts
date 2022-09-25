@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+interface Props {
+  isFilterOpen: 'block' | 'none';
+}
 export const SectionHeader = styled.div`
   display: flex;
   justify-content: space-between;
@@ -64,7 +67,7 @@ export const SlidingFilter = styled.div`
   }
 
   .select ul {
-    display: ${(props) => (props.isFilterOpen ? 'block' : 'none')};
+    display: ${(props: Props) => (props.isFilterOpen ? 'block' : 'none')};
     width: 100px;
     position: absolute;
     background: #fff;

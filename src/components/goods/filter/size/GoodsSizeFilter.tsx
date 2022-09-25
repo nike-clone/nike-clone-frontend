@@ -1,6 +1,12 @@
 import * as Styled from 'components/goods/filter/size/GoodsSizeFilter.style';
 import { MEN_SIZE } from 'constants/size';
-const GoodsSizeFilter = ({ detail, refetch, onChange }) => {
+
+interface Props {
+  onChange: () => void;
+  detail?: string;
+  refetch: () => void;
+}
+const GoodsSizeFilter = ({ detail, refetch, onChange }: Props) => {
   return (
     <Styled.FilterUnit detail={detail}>
       <Styled.FilterLable>
@@ -10,7 +16,7 @@ const GoodsSizeFilter = ({ detail, refetch, onChange }) => {
       <Styled.SizeFilterWrapper detail={detail}>
         {MEN_SIZE.map((size) => (
           <>
-            <Styled.SizeContainer detail={detail} stock={size.stock}>
+            <Styled.SizeContainer detail={detail}>
               <input
                 type="checkbox"
                 name="size"

@@ -65,7 +65,7 @@ const MainGoods = () => {
         />
         <Content>
           <Filter isModalOpen={isModalOpen}>
-            <GoodsColorFilter onChange={onChange} color={color} colors={colors} refetch={refetch} />
+            <GoodsColorFilter onChange={onChange} colors={colors} refetch={refetch} />
             <GoodsSizeFilter onChange={onChange} size={size} refetch={refetch} />
           </Filter>
           <ProductList isModalOpen={isModalOpen} data={data} />

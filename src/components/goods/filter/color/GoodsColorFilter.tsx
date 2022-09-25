@@ -1,7 +1,16 @@
 import React from 'react';
 import * as Styled from 'components/goods/filter/color/GoodsColorFilter.style';
-
-const GoodsColorFilter = ({ onChange, color, colors, refetch }) => {
+interface ColorType {
+  id: Number;
+  name: string;
+  colorCode: string;
+}
+interface Props {
+  onChange: () => void;
+  colors: ColorType[];
+  refetch: () => void;
+}
+const GoodsColorFilter = ({ onChange, colors, refetch }: Props) => {
   return (
     <Styled.FilterUnit>
       <Styled.FilterLable>

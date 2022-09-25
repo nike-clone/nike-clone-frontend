@@ -3,13 +3,29 @@ import * as Styled from 'components/goods/header/GoodsHeader.style';
 import filterIcon from 'assets/icons/filter.svg';
 import downIcon from 'assets/icons/down.svg';
 import useModal from 'hooks/useModal';
-
-const GoodsHeader = ({ modalOpenHandler, setOptionFilter, optionFilter, gender, refetch }) => {
-  const onClickfilter = (e) => {
+interface OptionType {
+  filterName: string;
+  filterData: string;
+}
+interface Props {
+  modalOpenHandler: () => void;
+  setOptionFilter: React.Dispatch<React.SetStateAction<{ filterName: string; filterData: string }>>;
+  optionFilter: OptionType;
+  gender: String;
+  refetch: () => void;
+}
+const GoodsHeader = ({
+  modalOpenHandler,
+  setOptionFilter,
+  optionFilter,
+  gender,
+  refetch,
+}: Props): JSX.Element => {
+  const onClickfilter = (e: React.MouseEvent<HTMLLIElement>) => {
     setOptionFilter({
       ...optionFilter,
-      filterName: e.target.textContent,
-      filterData: e.target.dataset.sort,
+      filterName: (e.target as HTMLElement).textContent!,
+      filterData: (e.target as HTMLElement).dataset.sort!,
     });
     refetch();
   };

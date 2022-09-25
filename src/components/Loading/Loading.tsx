@@ -15,7 +15,7 @@ export const Background = styled.div`
   justify-content: center;
 `;
 const LoadingContents = styled.div``;
-const Loading = () => {
+const Loading = (): JSX.Element => {
   return (
     <Background>
       <LoadingContents>
