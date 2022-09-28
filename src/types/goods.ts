@@ -30,3 +30,21 @@ export interface GoodsItemImages {
   color: string;
   goodsItemImages: string[];
 }
+export interface GoodsBasic {
+  id: number;
+  quantity: number;
+  stock: number;
+  size: number;
+  color: string;
+}
+export interface GoodsItem extends Omit<GoodsBasic, 'stock' | 'size' | 'color'> {
+  goodsItem: Items;
+}
+
+export interface Items {
+  color: Color;
+  goods: Goods;
+  id: number;
+  size: number;
+  stock: number;
+}

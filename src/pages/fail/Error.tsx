@@ -16,7 +16,7 @@ const ErrorWrapper = styled.div`
     margin-bottom: 100px;
   }
 `;
-const Error = () => {
+const Error = (): JSX.Element => {
   return (
     <ErrorWrapper>
       <h2>오류가 발생하였습니다.</h2>
