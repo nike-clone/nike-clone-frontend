@@ -1,7 +1,8 @@
 import useFilter from 'hooks/useFilter';
 import useInput from 'hooks/useInput';
-import { createRef, useEffect, useRef } from 'react';
+import React, { createRef, InputHTMLAttributes, useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import { Color } from 'types/goods';
 const ColorChipContainer = styled.div`
   display: flex;
 `;
@@ -46,13 +47,18 @@ const ColorChipUnit = styled.div`
   margin-bottom: 5px;
   margin-right: 5px;
 `;
-const ColorChip = ({ colors, handleGoodsOption, selectedColor }) => {
-  const colorInput = useRef([]);
-  console.log('ㄴㄴ', selectedColor, colors);
+interface Props {
+  colors: Color[];
+  handleGoodsOption: (e: React.MouseEvent<HTMLInputElement>, colorId: number) => void;
+  selectedColor: number;
+}
+const ColorChip = ({ colors, handleGoodsOption, selectedColor }: Props): JSX.Element => {
+  const colorInput = useRef<(HTMLInputElement | null)[]>([]);
+  console.log('ㄴㄴ', colorInput);
   useEffect(() => {
     //초기 옵션 세팅
     colorInput?.current.forEach((x, i) => {
-      if (x.checked) colorInput?.current[i].click();
+      if (x!.checked) colorInput?.current[i]!.click();
     });
   }, [colors]);
   return (

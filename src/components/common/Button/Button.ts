@@ -1,6 +1,15 @@
 import styled, { css } from 'styled-components';
-
-export const StyledButton = styled.button`
+interface StyledProp {
+  round?: boolean;
+}
+interface Props {
+  border?: boolean;
+  backcolor?: string;
+  color?: string;
+  size: 'lg' | 'md' | 'sm';
+  round?: boolean;
+}
+export const StyledButton = styled.button<Props>`
   border: ${(props) => (props.border ? '1px solid black' : 'none')};
   background-color: ${(props) => props.backcolor};
   color: ${(props) => props.color};
@@ -8,7 +17,7 @@ export const StyledButton = styled.button`
   //width를 다르게
   ${(props) => {
     if (props.size === 'lg') {
-      return css`
+      return css<StyledProp>`
         padding: 28px 50px;
         width: 100%;
         height: 48px;
@@ -21,7 +30,7 @@ export const StyledButton = styled.button`
         }
       `;
     } else if (props.size === 'md') {
-      return css`
+      return css<StyledProp>`
         padding: 28px 20px;
         width: 50%;
         height: 48px;

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { GoodsItemImages } from 'types/goods';
 const GoodsImgListWrapper = styled.div`
   width: calc(100% - 449px);
   @media screen and (min-width: 480px) and (max-width: 767px) {
@@ -21,12 +22,16 @@ const DetailImgList = styled.ul`
     width: 100%;
   }
 `;
-const GoodsDetailImgList = ({ detailImgList, defaultImgs }) => {
+interface Props {
+  detailImgList: GoodsItemImages;
+  defaultImgs?: string;
+}
+const GoodsDetailImgList = ({ detailImgList, defaultImgs }: Props): JSX.Element => {
   return (
     <GoodsImgListWrapper>
       <DetailImgList>
-        {(detailImgList || defaultImgs)?.goodsItemImages.map((img) => (
-          <li key={img.id}>
+        {(detailImgList || defaultImgs)?.goodsItemImages.map((img, index) => (
+          <li key={index}>
             <img src={img} alt="list" />
           </li>
         ))}

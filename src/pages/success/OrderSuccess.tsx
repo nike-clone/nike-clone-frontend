@@ -16,7 +16,7 @@ const OrderSuccessWrapper = styled.div`
     margin-bottom: 100px;
   }
 `;
-const OrderSuccess = () => {
+const OrderSuccess = (): JSX.Element => {
   return (
     <OrderSuccessWrapper>
       <h2>결제가 성공하였습니다.</h2>

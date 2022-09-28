@@ -24,8 +24,11 @@ const TotalPrice = styled.div`
     color: ${PALETTE.ORANGE[0]};
   }
 `;
-
-const CartCheckout = ({ totalPrice, type }) => {
+interface Props {
+  type: 'cart' | 'buy';
+  totalPrice: number;
+}
+const CartCheckout = ({ totalPrice, type }: Props): JSX.Element => {
   const navigate = useNavigate();
   const onClickRouteToCheckout = () => {
     navigate('/checkout');
