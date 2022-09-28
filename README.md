@@ -13,13 +13,13 @@
 
 ## 2. 사용 기술
 
-- Javascript
+- JavaScript
 - React.js 18
 - React-query 3
 - Redux-toolkit 1.8
 - styled-components 5
-
-<br/>
+- TypeScript로 migration 중
+  <br/>
 
 ## 3. 폴더 구조
 

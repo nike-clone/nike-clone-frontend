@@ -108,9 +108,10 @@ const DetailGoodsSizeFilter = ({
               onChange={handleGoodsOption}
               checked={size.size === selectedSize}
               onClick={() => identifySizeIndex(index)}
+              disabled={size.stock < 1}
             />
             <span className="sizeChecked"></span>
-            {size.size}
+            {size.stock > 0 ? size.size : '품절'}
           </SizeContainer>
         ))}
       </SizeFilterWrapper>
