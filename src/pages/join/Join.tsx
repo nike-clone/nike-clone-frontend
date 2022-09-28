@@ -23,7 +23,7 @@ const JoinHeader = styled.div`
   }
 `;
 
-const Join = () => {
+const Join = (): JSX.Element => {
   const data = useJoin();
   return (
     <JoinContainer>
