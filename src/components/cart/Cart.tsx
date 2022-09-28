@@ -1,11 +1,9 @@
-import { NoneStyleButton, SubmitButton } from 'components/common/Button/Button';
 import OrderForm from 'components/order/OrderForm';
 import PALETTE from 'constants/palette';
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CartCheckout from './checkout/CartCheckout';
 import CartItem from './item/CartItem';
-
+import { Color, Goods } from 'types/goods';
 const CartContainer = styled.div`
   display: flex;
   gap: 10px;
@@ -34,8 +32,23 @@ const CheckoutHeader = styled.div`
   padding: 20px;
   font-size: 18px;
 `;
-
-const Cart = ({ info, totalPrice, type }) => {
+interface Props {
+  info: Info[];
+  totalPrice: number;
+  type: 'cart' | 'buy';
+}
+interface Info {
+  goodsItem: {
+    color: Color;
+    goods: Goods;
+    id: number;
+    size: number;
+    stock: number;
+  };
+  id: number;
+  quantity: number;
+}
+const Cart = ({ info, totalPrice, type }: Props): JSX.Element => {
   return (
     <CartContainer>
       {type === 'cart' ? (

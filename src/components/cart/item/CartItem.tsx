@@ -5,20 +5,9 @@ import closeIcon from 'assets/icons/closeX.svg';
 import { formatPrice } from 'util/format';
 import { useMutation, useQueryClient } from 'react-query';
 import { changeItemOption, deleteCart } from 'api/cart';
-import { useDispatch, useSelector } from 'react-redux';
-import { modalStateChange } from 'features/modal/modalSlice';
 import Modal from 'components/common/Modal/Modal';
-import DetailGoods from 'pages/goods/detail/DetailGoods';
-import GoodsDetailImgList from 'components/goods/detail/GoodsDetailImgList';
-import { useGoodsDetail } from 'hooks/query/useGoods';
 import useModal from 'hooks/useModal';
-import GoodsDetailInfo from 'components/goods/detail/info/GoodsDetailInfo';
-import ColorChip from 'components/common/ColorChip/ColorChip';
-import { setGoodsOption } from 'features/goods/optionSlice';
-import DetailGoodsSizeFilter from 'components/goods/detail/size/DetailGoodsSizeFilter';
-import GoodsDetailQuantity from 'components/goods/detail/quantity/GoodsDetailQuantity';
-import { SubmitButton } from 'components/common/Button/Button';
-
+import { Color, Goods } from 'types/goods';
 const OptionChangeItem = React.lazy(() => import('./OptionChangeItem'));
 const ItemWrapper = styled.div`
   border-top: 2px solid ${PALETTE.GRAY[1]};
@@ -123,10 +112,14 @@ const ItemCartDetail = styled.div`
   }
 `;
 // 카트 아이템 모달 컨텐트
-
-//코드 스플리팅 적용 필요
-
-const CartItem = ({ color, goods, size, quantity, id }) => {
+interface Props {
+  color: Color;
+  goods: Goods;
+  size: number;
+  quantity: number;
+  id: number;
+}
+const CartItem = ({ color, goods, size, quantity, id }: Props) => {
   const queryClient = useQueryClient();
 
   const [isModalOpen, modalOpenHandler, setIsModalOpen] = useModal(false);

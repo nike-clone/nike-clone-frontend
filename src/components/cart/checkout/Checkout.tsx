@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Checkout = () => {
+const Checkout = (): JSX.Element => {
   return <div>Checkout</div>;
 };
 

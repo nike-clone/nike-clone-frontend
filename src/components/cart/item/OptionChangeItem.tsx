@@ -2,23 +2,18 @@ import PALETTE from 'constants/palette';
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import closeIcon from 'assets/icons/closeX.svg';
-import { formatPrice } from 'util/format';
 import { useMutation, useQueryClient } from 'react-query';
 import { changeItemOption, deleteCart } from 'api/cart';
 import { useDispatch, useSelector } from 'react-redux';
-import { modalStateChange } from 'features/modal/modalSlice';
-import Modal from 'components/common/Modal/Modal';
-import DetailGoods from 'pages/goods/detail/DetailGoods';
 import GoodsDetailImgList from 'components/goods/detail/GoodsDetailImgList';
 import { useGoodsDetail } from 'hooks/query/useGoods';
-import useModal from 'hooks/useModal';
 import GoodsDetailInfo from 'components/goods/detail/info/GoodsDetailInfo';
 import ColorChip from 'components/common/ColorChip/ColorChip';
 import { setGoodsOption } from 'features/goods/optionSlice';
 import DetailGoodsSizeFilter from 'components/goods/detail/size/DetailGoodsSizeFilter';
 import GoodsDetailQuantity from 'components/goods/detail/quantity/GoodsDetailQuantity';
 import { SubmitButton } from 'components/common/Button/Button';
-
+import { Options, Color, GoodsItemImages } from 'types/goods';
 const OptionContainer = styled.div`
   display: flex;
   width: 100%;
@@ -54,22 +49,49 @@ const DetailInfoWrapper = styled.div`
     padding: 10px 5px;
   }
 `;
-const OptionChangeItem = ({ goodsId, quantity, size, color, itemId, setIsModalOpen }) => {
+interface Props {
+  goodsId: number;
+  quantity: number;
+  size: number;
+  color: number;
+  itemId: number;
+  setIsModalOpen: (status: boolean) => void;
+}
+interface Item {
+  color: Color;
+  goodsItemImages: GoodsItemImages;
+  id: number;
+  size: number;
+  stock: number;
+}
+const OptionChangeItem = ({
+  goodsId,
+  quantity,
+  size,
+  color,
+  itemId,
+  setIsModalOpen,
+}: Props): JSX.Element => {
   const queryClient = useQueryClient();
   const { data: goodsDetail } = useGoodsDetail(goodsId);
   const dispatch = useDispatch();
-  const option = useSelector((state) => state.option);
+  const option = useSelector((state: Options) => state.option);
 
   const [detailGoodsItem, setDetailGoodsItem] = useState([]);
-  const handleGoodsOption = (e, colorId) => {
-    dispatch(setGoodsOption({ ...option, [e.target.name]: e.target.value }));
-    if (e.target.name === 'color') {
-      let goodsItem = goodsDetail?.goodsItems.filter((item) => item.color.id === colorId);
+  const handleGoodsOption = (e: React.MouseEvent<HTMLInputElement>, colorId: number) => {
+    dispatch(
+      setGoodsOption({
+        ...option,
+        [(e.target as HTMLInputElement).name]: (e.target as HTMLInputElement).value,
+      })
+    );
+    if ((e.target as HTMLInputElement).name === 'color') {
+      let goodsItem = goodsDetail?.goodsItems.filter((item: Item) => item.color.id === colorId);
 
       setDetailGoodsItem(goodsItem);
     }
   };
-  const handleQuantity = (type) => {
+  const handleQuantity = (type: 'm' | 'p') => {
     if (type === 'm') {
       dispatch(setGoodsOption({ ...option, type: 'm' }));
     } else {
@@ -89,7 +111,7 @@ const OptionChangeItem = ({ goodsId, quantity, size, color, itemId, setIsModalOp
   });
 
   //cart item 옵션 변경
-  const handleItemOption = (goodsId, quantity, size, colorId) => {
+  const handleItemOption = (goodsId: number, quantity: number, size: number, colorId: number) => {
     changeOption.mutate({ goodsId, quantity, size, colorId });
   };
 
