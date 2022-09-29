@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 interface Props {
-  isFilterOpen: 'block' | 'none';
+  isFilterOpen: boolean;
 }
 export const SectionHeader = styled.div`
   display: flex;

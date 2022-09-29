@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { modalStateChange } from 'features/modal/modalSlice';
+import { UserState } from 'types/user';
+import React from 'react';
+import { AppDispatch } from 'features/store';
 
 const Container = styled.div`
   padding: 80px 10px;
@@ -12,23 +15,27 @@ const SideMenuLink = styled.div`
   margin-bottom: 20px;
   font-size: 24px;
 `;
-const SideMenu = ({ showModal, refetch }) => {
-  const user = JSON.parse(sessionStorage.getItem('user'));
-  const dispatch = useDispatch();
+interface Props {
+  showModal: (e: React.MouseEvent<HTMLElement>) => void;
+  refetch: () => void;
+}
+const SideMenu = ({ showModal, refetch }: Props): JSX.Element => {
+  const user = JSON.parse(sessionStorage.getItem('user')!);
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const { isSucess } = useSelector((state) => state.user);
-  const logout = (e) => {
+  const { isLoggedIn } = useSelector((state: UserState) => state.user);
+  const logout = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('tokenId');
     localStorage.setItem('NC_GUEST_ID', `user-${uuid()}`);
     dispatch(logoutUser());
-    if (!isSucess) {
+    if (!isLoggedIn) {
       navigate('/');
     }
     refetch();
   };
-  const modalOpenHandler = () => {
+  const modalOpenHandler = (): void => {
     dispatch(modalStateChange());
   };
   return (

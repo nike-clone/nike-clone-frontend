@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as Styled from 'components/goods/header/GoodsHeader.style';
 import filterIcon from 'assets/icons/filter.svg';
 import downIcon from 'assets/icons/down.svg';
@@ -8,10 +8,10 @@ interface OptionType {
   filterData: string;
 }
 interface Props {
-  modalOpenHandler: () => void;
+  modalOpenHandler: (e: React.MouseEvent<HTMLElement>) => void;
   setOptionFilter: React.Dispatch<React.SetStateAction<{ filterName: string; filterData: string }>>;
   optionFilter: OptionType;
-  gender: String;
+  gender: string;
   refetch: () => void;
 }
 const GoodsHeader = ({
