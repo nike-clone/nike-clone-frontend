@@ -1,8 +1,9 @@
 import * as Styled from 'components/goods/filter/size/GoodsSizeFilter.style';
 import { MEN_SIZE } from 'constants/size';
+import React from 'react';
 
 interface Props {
-  onChange: () => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   detail?: string;
   refetch: () => void;
 }

@@ -6,7 +6,7 @@ interface ColorType {
   colorCode: string;
 }
 interface Props {
-  onChange: () => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   colors: ColorType[];
   refetch: () => void;
 }

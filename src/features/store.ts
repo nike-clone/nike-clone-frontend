@@ -1,8 +1,8 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import modalReducer from '../features/modal/modalSlice';
+import modalReducer from './modal/modalSlice';
 import userReducer from 'features/user/userSlice';
 import optionReducer from 'features/goods/optionSlice';
-export default configureStore({
+const store = configureStore({
   reducer: {
     modal: modalReducer,
     user: userReducer,
@@ -12,3 +12,6 @@ export default configureStore({
     serializableCheck: false,
   }),
 });
+
+export type AppDispatch = typeof store.dispatch;
+export default store;

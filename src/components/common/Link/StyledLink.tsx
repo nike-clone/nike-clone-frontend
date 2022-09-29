@@ -30,7 +30,7 @@ interface styleProp {
 }
 
 interface Props {
-  children: string;
+  children: React.ReactNode;
   target: string;
   size: 'sm' | 'md' | 'lg';
 }

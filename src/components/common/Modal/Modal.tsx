@@ -1,10 +1,11 @@
+import React from 'react';
 import { createPortal } from 'react-dom';
 import * as Styled from './Modal.styles';
 
 const portalElement = document.getElementById('modal')!;
 interface Props {
   children: JSX.Element;
-  showModal: () => void;
+  showModal: (e: React.MouseEvent<HTMLElement>) => void;
   width?: string;
 }
 const Modal = ({ children, showModal, width }: Props) => {

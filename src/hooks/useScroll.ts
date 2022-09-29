@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 
-export const useScroll = () => {
-  const [active, setActive] = useState(false);
+export const useScroll = (): boolean => {
+  const [active, setActive] = useState<boolean>(false);
   // 과거의 scroll 값 저장 위해서
-  const scrollRef = useRef(0);
+  const scrollRef = useRef<number>(0);
 
-  const throttle = (callback, delay) => {
+  const throttle = (callback: () => void, delay: number): (() => void) => {
     let waiting = false;
     return () => {
       if (!waiting) {
@@ -18,7 +18,7 @@ export const useScroll = () => {
     };
   };
 
-  const handleScroll = () => {
+  const handleScroll = (): void => {
     const prevScroll = scrollRef.current;
     const currentScroll = window.scrollY;
     const scrollHeight = document.documentElement.scrollHeight;
