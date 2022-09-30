@@ -38,6 +38,10 @@ const SideMenu = ({ showModal, refetch }: Props): JSX.Element => {
   const modalOpenHandler = (): void => {
     dispatch(modalStateChange());
   };
+  const handleSideModal = (e: React.MouseEvent<HTMLElement>): void => {
+    showModal(e);
+    navigate('/join');
+  };
   return (
     <Container>
       <SideMenuLink>
@@ -47,7 +51,7 @@ const SideMenu = ({ showModal, refetch }: Props): JSX.Element => {
           </Link>
         ) : (
           <>
-            <Link to="/join" onClick={showModal}>
+            <Link to="/join" onClick={handleSideModal}>
               멤버 가입
             </Link>
             <br />

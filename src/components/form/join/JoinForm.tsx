@@ -56,9 +56,22 @@ const ErrMsg = styled.div`
   display: flex;
   justify-content: flex-start;
 `;
-const JoinForm = ({ data }) => {
-  const [{ email, password, passwordCheck, name, phone, birthOfDate, gender }, onChange] = useInput(
-    {
+interface Props {
+  mutate: (arg: Form) => void;
+}
+interface Form {
+  email: string;
+  password: string;
+  passwordCheck: string;
+  name: string;
+  phone: string;
+  birthOfDate: string;
+  gender: string;
+}
+const JoinForm = ({ mutate }: Props) => {
+  console.log('d', mutate);
+  const [{ email, password, passwordCheck, name, phone, birthOfDate, gender }, onChange] =
+    useInput<Form>({
       email: '',
       password: '',
       passwordCheck: '',
@@ -66,14 +79,13 @@ const JoinForm = ({ data }) => {
       phone: '',
       birthOfDate: '',
       gender: '',
-    }
-  );
-  const [emailErrMsg, setEmailErrMsg] = useState('');
-  const [birthErrMsg, setBirthErrMsg] = useState('');
-  const [passwordErrMsg, setPasswordErrMsg] = useState('');
-  const [passwordCheckErrMsg, setPasswordCheckErrMsg] = useState('');
-  const [nameErrMsg, setNameErrMsg] = useState('');
-  const [phoneErrMsg, setPhoneErrMsg] = useState('');
+    });
+  const [emailErrMsg, setEmailErrMsg] = useState<string>('');
+  const [birthErrMsg, setBirthErrMsg] = useState<string>('');
+  const [passwordErrMsg, setPasswordErrMsg] = useState<string>('');
+  const [passwordCheckErrMsg, setPasswordCheckErrMsg] = useState<string>('');
+  const [nameErrMsg, setNameErrMsg] = useState<string>('');
+  const [phoneErrMsg, setPhoneErrMsg] = useState<string>('');
   useEffect(() => {
     const emailMsg = validateEmail(email);
     const birthMsg = validateBithDate(birthOfDate);
@@ -89,16 +101,16 @@ const JoinForm = ({ data }) => {
     birthMsg ? setBirthErrMsg(birthMsg) : setBirthErrMsg('');
     nameMsg ? setNameErrMsg(nameMsg) : setNameErrMsg('');
     passwordMsg ? setPasswordErrMsg(passwordMsg) : setPasswordErrMsg('');
-    passwordCheckMsg ? setPasswordCheckErrMsg(passwordCheckMsg) : setPasswordCheckErrMsg();
+    passwordCheckMsg ? setPasswordCheckErrMsg(passwordCheckMsg) : setPasswordCheckErrMsg('');
     phoneMsg ? setPhoneErrMsg(phoneMsg) : setPhoneErrMsg('');
   }, [email, birthOfDate, password, passwordCheck, name, phone]);
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password !== passwordCheck) {
       return;
     }
-    data.mutate({ email, password, passwordCheck, name, phone, birthOfDate, gender });
+    mutate({ email, password, passwordCheck, name, phone, birthOfDate, gender });
   };
   return (
     <StyledForm onSubmit={onSubmit}>

@@ -44,6 +44,7 @@ const IconImg = styled.img`
   width: 25px;
   margin-left: 0px;
 `;
+//extends InputHTMLAttributes<HTMLInputElement> : 이후에 받을 prop 따로 선언 안해주어도 된다.
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   placeholder: string;
   icon?: string;
@@ -54,7 +55,7 @@ interface FormProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   type: string;
   value?: string;
-  onChange?: () => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const StyledInput = ({ placeholder, icon }: Props) => {

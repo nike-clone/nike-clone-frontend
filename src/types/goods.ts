@@ -48,3 +48,19 @@ export interface Items {
   size: number;
   stock: number;
 }
+
+type ProductItems = Omit<Items, 'goods'>;
+
+export interface Product extends Goods {
+  classification: {
+    id: number;
+    type: string;
+    alias: string;
+  };
+  gender: {
+    id: number;
+    gender: string;
+    name: string;
+  };
+  goodsItem: ProductItems[];
+}
