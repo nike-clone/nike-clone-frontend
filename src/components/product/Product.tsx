@@ -38,8 +38,17 @@ const SalePrice = styled.del`
   color: ${PALETTE.GRAY[0]};
   font-size: 14px;
 `;
-
-const Product = ({ goodsInfo }) => {
+interface GoodsInfoData {
+  id: number;
+  name: string;
+  classification: string;
+  price: number;
+  imgPath: string;
+}
+interface Props {
+  goodsInfo: GoodsInfoData;
+}
+const Product = ({ goodsInfo }: Props): JSX.Element => {
   return (
     <>
       <Link to={`/goods/${goodsInfo.id}`}>
@@ -48,12 +57,12 @@ const Product = ({ goodsInfo }) => {
       <GoodsInfoWrapper>
         <DetailInfo>
           <ProductName>{goodsInfo.name}</ProductName>
-          <Classification>{goodsInfo.classification?.type}</Classification>
+          <Classification>{goodsInfo.classification}</Classification>
         </DetailInfo>
         <PriceInfo>
           <PriceWrapper>
             <Price>{formatPrice(goodsInfo.price)}</Price>
-            <SalePrice>{goodsInfo.salePrice ? formatPrice(goodsInfo.salePrice) : ''}</SalePrice>
+            {/* <SalePrice>{goodsInfo.salePrice ? formatPrice(goodsInfo.salePrice) : ''}</SalePrice> */}
           </PriceWrapper>
         </PriceInfo>
       </GoodsInfoWrapper>

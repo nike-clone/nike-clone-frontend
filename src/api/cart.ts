@@ -1,11 +1,17 @@
+import { AddCartResp, DeleteCartResp, GetCartResp, PatchCartResp } from 'types/resp';
 import request from './requestMethods';
 let params = { anonymous_id: localStorage.getItem('NC_GUEST_ID') };
-
-export const addCart = async ({ quantity, goodsId, size, colorId }) => {
+interface Cart {
+  quantity: number;
+  goodsId: number;
+  size: number;
+  colorId: number;
+}
+export const addCart = async ({ quantity, goodsId, size, colorId }: Cart) => {
   goodsId = Number(goodsId);
   size = Number(size);
   colorId = Number(colorId);
-  const res = await request.post(
+  const res = await request.post<AddCartResp>(
     '/cart-items',
     {
       quantity: quantity,
@@ -20,22 +26,22 @@ export const addCart = async ({ quantity, goodsId, size, colorId }) => {
 };
 
 export const getCart = async () => {
-  const res = await request.get('/cart-items', {
+  const res = await request.get<GetCartResp[]>('/cart-items', {
     params: { anonymous_id: localStorage.getItem('NC_GUEST_ID') },
   });
 
   return res.data;
 };
 
-export const deleteCart = async (id) => {
-  console.log(params);
-  const res = await request.delete(`/cart-items/${id}`, { params });
+export const deleteCart = async (id: number) => {
+  // console.log(params);
+  const res = await request.delete<DeleteCartResp>(`/cart-items/${id}`, { params });
 
   return res.data;
 };
 
-export const changeItemOption = async ({ goodsId, quantity, size, colorId }) => {
-  const res = await request.patch(
+export const changeItemOption = async ({ goodsId, quantity, size, colorId }: Cart) => {
+  const res = await request.patch<PatchCartResp>(
     `/cart-items/${goodsId}`,
     {
       quantity: quantity,

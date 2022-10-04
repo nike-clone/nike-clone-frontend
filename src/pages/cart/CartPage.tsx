@@ -5,6 +5,7 @@ import useCart from 'hooks/query/useCart';
 import Loading from 'components/Loading/Loading';
 import { useMemo } from 'react';
 import { GoodsItem } from 'types/goods';
+import { useLocation } from 'react-router-dom';
 const CartHeader = styled.h2`
   font-weight: 600;
   font-size: 30px;
@@ -38,7 +39,7 @@ const CartPage = ({ type }: Props): JSX.Element => {
     <Page>
       <CartHeader>{type === 'cart' ? '장바구니' : '구매하기'}</CartHeader>
       <CartCountWrapper>{cartInfo?.length}개 상품</CartCountWrapper>
-      {cartInfo?.length > 0 ? (
+      {cartInfo?.length! > 0 ? (
         <Cart info={cartInfo} totalPrice={totalPrice} type={type} />
       ) : (
         <EmptyCart />

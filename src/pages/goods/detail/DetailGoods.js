@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useGoodsDetail } from 'hooks/query/useGoods';
 import { SubmitButton } from 'components/common/Button/Button';
 import Parser from 'html-react-parser';
-import { useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import GoodsDetailImgList from 'components/goods/detail/GoodsDetailImgList';
 import GoodsDetailInfo from 'components/goods/detail/info/GoodsDetailInfo';
 import GoodsDetailQuantity from 'components/goods/detail/quantity/GoodsDetailQuantity';
@@ -75,6 +75,7 @@ const exampleTxt =
 const DetailGoods = () => {
   const { goodsId } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { data: goodsDetail, isLoading, isSuccess } = useGoodsDetail(goodsId);
   const option = useSelector((state) => state.option);
   const { data: cartItems, refetch } = useCart();
@@ -132,6 +133,7 @@ const DetailGoods = () => {
     const anonoymous_id = localStorage.getItem('NC_GUEST_ID');
     addToCart.mutate({ quantity, goodsId, size, colorId, anonoymous_id });
   };
+
   return (
     <Page>
       <DetailContainer>
@@ -150,9 +152,9 @@ const DetailGoods = () => {
             handleQuantity={handleQuantity}
           />
           <GoodsDetailQuantity handleQuantity={handleQuantity} quantity={option.quantity} />
-          <SubmitButton backcolor="black" color="white" size="lg" round>
+          {/* <SubmitButton backcolor="black" color="white" size="lg" round>
             바로구매
-          </SubmitButton>
+          </SubmitButton> */}
           <ButtonWrapper>
             <SubmitButton
               backcolor="white"

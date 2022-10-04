@@ -34,7 +34,7 @@ const Join = (): JSX.Element => {
           최고의 제품과 혜택을 만나보세요.
         </p>
       </JoinHeader>
-      <JoinForm data={data} />
+      <JoinForm mutate={data.mutate} />
     </JoinContainer>
   );
 };

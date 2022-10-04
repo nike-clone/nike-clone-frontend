@@ -1,9 +1,8 @@
-import React, { createRef, useCallback, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import ProductInfo from '../info/ProductInfo';
-import shoe1 from 'assets/images/shoe1.jpg';
-const GoodsContainer = styled.div`
+interface Props {
+  isModalOpen?: boolean;
+}
+export const GoodsContainer = styled.div<Props>`
   margin-left: ${(props) => (props.isModalOpen ? '318px' : '0px')};
   display: flex;
   flex-wrap: wrap;
@@ -19,7 +18,7 @@ const GoodsContainer = styled.div`
   }
   transition: 0.2s all ease;
 `;
-const GoodsItemWrapper = styled.div`
+export const GoodsItemWrapper = styled.div`
   width: 33%;
   margin-bottom: 10px;
   margin-right: 10px;
@@ -52,17 +51,3 @@ const GoodsItemWrapper = styled.div`
     }
   }
 `;
-
-const ProductList = ({ isModalOpen, data }) => {
-  return (
-    <GoodsContainer isModalOpen={isModalOpen}>
-      {data?.map((product, index) => (
-        <GoodsItemWrapper key={product.id}>
-          <ProductInfo info={product} />
-        </GoodsItemWrapper>
-      ))}
-    </GoodsContainer>
-  );
-};
-
-export default ProductList;

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PALETTE from 'constants/palette';
 import { formatPrice } from 'util/format';
 import { Link } from 'react-router-dom';
+import { Product } from 'types/goods';
 const GoodsInfoWrapper = styled.div`
   display: flex;
   padding: 15px 5px;
@@ -72,8 +73,11 @@ const MiniImageLists = styled.div`
     height: 100%;
   }
 `;
-const ProductInfo = ({ info }) => {
-  const [isShowColorExtra, setIsShowColorExtra] = useState(false);
+interface Props {
+  info: Product;
+}
+const ProductInfo = ({ info }: Props): JSX.Element => {
+  const [isShowColorExtra, setIsShowColorExtra] = useState<boolean>(false);
   const showExtra = useCallback(() => {
     setIsShowColorExtra((prev) => !prev);
   }, []);
@@ -104,7 +108,7 @@ const ProductInfo = ({ info }) => {
         </DetailInfo>
         <PriceInfo>
           <SalePercentage>
-            {info.salePercentage > 0 ? `${info.salePercentage} %` : ''}
+            {info.salePercentage! > 0 ? `${info.salePercentage} %` : ''}
           </SalePercentage>
           <PriceWrapper>
             <Price>{formatPrice(info.price)}</Price>
