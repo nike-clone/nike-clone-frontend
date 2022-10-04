@@ -5,6 +5,7 @@ import useCart from 'hooks/query/useCart';
 import Loading from 'components/Loading/Loading';
 import { useMemo } from 'react';
 import { GoodsItem } from 'types/goods';
+import { useLocation } from 'react-router-dom';
 const CartHeader = styled.h2`
   font-weight: 600;
   font-size: 30px;

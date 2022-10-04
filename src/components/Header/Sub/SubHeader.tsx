@@ -75,7 +75,9 @@ const SubHeader = ({ refetch }: Props): JSX.Element => {
         </Styled.UserNav>
       </Styled.Container>
       {isModalOpen && (
-        <Modal showModal={modalOpenHandler}>{<Login modalClose={modalOpenHandler} />}</Modal>
+        <Modal showModal={modalOpenHandler} width="30%">
+          {<Login modalClose={modalOpenHandler} />}
+        </Modal>
       )}
     </>
   );
