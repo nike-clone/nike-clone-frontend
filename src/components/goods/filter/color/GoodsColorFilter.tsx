@@ -1,13 +1,10 @@
 import React from 'react';
 import * as Styled from 'components/goods/filter/color/GoodsColorFilter.style';
-interface ColorType {
-  id: Number;
-  name: string;
-  colorCode: string;
-}
+import { Color } from 'types/goods';
+
 interface Props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  colors: ColorType[];
+  colors: Color[];
   refetch: () => void;
 }
 const GoodsColorFilter = ({ onChange, colors, refetch }: Props) => {

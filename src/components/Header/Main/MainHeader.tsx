@@ -52,7 +52,7 @@ const MainHeader = ({ refetch }: Props): JSX.Element => {
             <Styled.CartBag>
               <Link to="/cart">
                 <img src={bagIcon} alt="bag" />
-                {cartCount?.length > 0 && (
+                {cartCount?.length! > 0 && (
                   <Styled.CartCounter>{cartCount?.length}</Styled.CartCounter>
                 )}
               </Link>

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import CartCheckout from './checkout/CartCheckout';
 import CartItem from './item/CartItem';
 import { Color, Goods } from 'types/goods';
+import { GetCartResp } from 'types/resp';
 const CartContainer = styled.div`
   display: flex;
   gap: 10px;
@@ -33,21 +34,11 @@ const CheckoutHeader = styled.div`
   font-size: 18px;
 `;
 interface Props {
-  info: Info[];
-  totalPrice: number;
+  info: GetCartResp[] | undefined;
+  totalPrice?: number;
   type: 'cart' | 'buy';
 }
-interface Info {
-  goodsItem: {
-    color: Color;
-    goods: Goods;
-    id: number;
-    size: number;
-    stock: number;
-  };
-  id: number;
-  quantity: number;
-}
+
 const Cart = ({ info, totalPrice, type }: Props): JSX.Element => {
   return (
     <CartContainer>
@@ -65,7 +56,7 @@ const Cart = ({ info, totalPrice, type }: Props): JSX.Element => {
 
       <CheckoutWrapper>
         <CheckoutHeader>주문예정금액</CheckoutHeader>
-        <CartCheckout totalPrice={totalPrice} type={type} />
+        <CartCheckout totalPrice={totalPrice as number} type={type} />
       </CheckoutWrapper>
     </CartContainer>
   );

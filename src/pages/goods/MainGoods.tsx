@@ -10,6 +10,7 @@ import { filterGender } from 'util/gender';
 import useFilter from 'hooks/useFilter';
 import Loading from 'components/Loading/Loading';
 import * as Styled from './MainGoods.styles';
+import { Color, Product } from 'types/goods';
 interface FilterOption {
   size: string[];
   color: string[];
@@ -50,10 +51,10 @@ const MainGoods = () => {
         />
         <Styled.Content>
           <Styled.Filter isModalOpen={isModalOpen}>
-            <GoodsColorFilter onChange={onChange} colors={colors} refetch={refetch} />
+            <GoodsColorFilter onChange={onChange} colors={colors as Color[]} refetch={refetch} />
             <GoodsSizeFilter onChange={onChange} refetch={refetch} />
           </Styled.Filter>
-          <ProductList isModalOpen={isModalOpen} data={data} />
+          <ProductList isModalOpen={isModalOpen} data={data as Product[]} />
         </Styled.Content>
       </Styled.Page>
       {isLoading && (

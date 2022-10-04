@@ -38,7 +38,7 @@ const CartPage = ({ type }: Props): JSX.Element => {
     <Page>
       <CartHeader>{type === 'cart' ? '장바구니' : '구매하기'}</CartHeader>
       <CartCountWrapper>{cartInfo?.length}개 상품</CartCountWrapper>
-      {cartInfo?.length > 0 ? (
+      {cartInfo?.length! > 0 ? (
         <Cart info={cartInfo} totalPrice={totalPrice} type={type} />
       ) : (
         <EmptyCart />
