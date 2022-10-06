@@ -11,6 +11,9 @@ import useFilter from 'hooks/useFilter';
 import Loading from 'components/Loading/Loading';
 import * as Styled from './MainGoods.styles';
 import { Color, Product } from 'types/goods';
+import Modal, { GoodsModal } from 'components/common/Modal/Modal';
+import Login from 'pages/Login/Login';
+
 interface FilterOption {
   size: string[];
   color: string[];
@@ -61,6 +64,18 @@ const MainGoods = () => {
         <>
           <Loading />
         </>
+      )}
+      {!isModalOpen && (
+        <GoodsModal showModal={modalOpenHandler} width="80%">
+          {
+            <Login
+              isModalOpen={isModalOpen}
+              onChange={onChange}
+              colors={colors}
+              refetch={refetch}
+            />
+          }
+        </GoodsModal>
       )}
     </>
   );

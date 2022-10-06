@@ -29,4 +29,17 @@ export const SideModal = ({ children, showModal }: Props) => {
   );
 };
 
+export const GoodsModal = ({ children, showModal, width }: Props) => {
+  return (
+    <>
+      {createPortal(<Styled.Backdrop onClick={showModal} goods />, portalElement)}
+      {createPortal(
+        <Styled.GoodsModalOverlay width={width} goods>
+          {children}
+        </Styled.GoodsModalOverlay>,
+        portalElement
+      )}
+    </>
+  );
+};
 export default Modal;

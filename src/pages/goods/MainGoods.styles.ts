@@ -23,7 +23,10 @@ export const Filter = styled.div<Props>`
     display: ${(props) => (props.isModalOpen ? 'block' : 'none')};
   }
 
-  @media screen and (max-width: 1023px) {
+  @media screen and (min-width: 480px) and (max-width: 1023px) {
     display: none;
+  }
+  @media screen and (max-width: 479px) {
+    width: 100%;
   }
 `;
